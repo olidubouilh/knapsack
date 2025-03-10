@@ -1,0 +1,27 @@
+header{
+    background-color: #961d1dee;
+    color: #731919a3;
+    padding: 10px;
+    text-align: center;
+    padding-top: 20px;
+}
+body{
+    background-image: url(background.jpg);
+    background-size: cover; 
+        
+}
+nav{
+    
+    text-align: left;
+    
+    
+}
+main {
+    display: center;
+    background-color:  #961d1db5;
+    color: white;
+    margin: 5em;
+    margin-left: 30em;
+    margin-right: 30em;
+    padding-bottom: 40em;
+}

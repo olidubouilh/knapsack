@@ -1,0 +1,120 @@
+header{
+    background-color: #961d1dee;
+    color: #731919a3;
+    padding: 10px;
+    text-align: center;
+    padding-top: 20px;
+    
+}
+body{
+    background-image: url(background.jpg);
+    background-size: cover; 
+        
+}
+nav{
+    
+    text-align: left;
+    
+    
+    
+}
+main {
+    display: flex; /* Affichage horizontal */
+    justify-content: space-between; /* Répartit les items à gauche et la confirmation à droite */
+    align-items: flex-start; /* Aligne la confirmation en haut */
+    background-color: rgba(150, 29, 29, 0.7);
+    color: white;
+    margin: 5em auto;
+    padding: 2em;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 1300px;
+}
+
+/* Section contenant les items du panier */
+.panier {
+    display: flex; /* Affiche les items en ligne */
+    flex-wrap: wrap; /* Permet aux items de passer à la ligne si nécessaire */
+    gap: 20px; /* Espacement uniforme */
+    width: 75%; /* Laisse de la place pour la confirmation à droite */
+    justify-content: flex-start; /* Aligner les items à gauche */
+}
+
+/* Style des items */
+section.item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 250px; /* Largeur fixe */
+    flex: 0 0 250px; /* Empêche l'étirement */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Section confirmation achat (placée à droite) */
+.confirmation {
+    background-color: rgba(76, 175, 80, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px; /* Taille fixe pour éviter qu'elle ne bouge */
+    height: fit-content; /* Ajuste la hauteur au contenu */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    align-self: flex-start; /* Place la confirmation en haut */
+}
+
+/* Conteneur des boutons */
+.boutons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Style des boutons */
+.bouton {
+    background-color: #d32f2f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 120px; /* Taille uniforme */
+}
+
+/* Effet au survol */
+.bouton:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+}
+
+/* Effet au clic */
+.bouton:active {
+    background-color: #9a0007;
+    transform: scale(0.95);
+}
+.boutonquanti {
+    background-color: #d32f2f;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 120px; /* Taille uniforme */
+}
