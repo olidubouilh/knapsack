@@ -5,11 +5,11 @@ class Database
 
     private static $instance;
     private $conn;
-    private function __construct(array $dbConfig, array $dbParams) {
+    private function __construct() {
         
         try {
 
-            $this->conn = new PDO("mysql:host=".$dbConfig["hostname"].";dbname=".$dbConfig["database"], $dbConfig["username"], $dbConfig["password"], $dbParams);
+            $this->conn = new PDO("mysql:host=" . CONFIGURATIONS["servername"] . ";dbname=" . CONFIGURATIONS["dbname"], CONFIGURATIONS["username"], CONFIGURATIONS["password"], DB_PARAMS);
           
         } catch(PDOException $e) {
             
@@ -19,11 +19,11 @@ class Database
       
     }
 
-    public static function getInstance(array $dbConfig, array $dbParams) : Database {
+    public static function getInstance() : Database {
 
         if( is_null(self::$instance) ) {
 
-            self::$instance = new Database($dbConfig, $dbParams);
+            self::$instance = new Database();
 
         }
 
@@ -34,6 +34,12 @@ class Database
 
         return $this->conn;
 
+    }
+
+    public function closeConnection(): void
+    {
+        $this->conn = null;
+        self::$instance = null;
     }
 
 

@@ -5,14 +5,7 @@ const ROUTES = [
     '/' => 'index.php',
     '/connexion' => 'connexion.php',  
     '/inscription' => 'inscription.php',
-    '/inactif' => 'inactif.php', 
-    '/logout' => 'logout.php', 
-    '/page-not-found' => 'page-not-found.php',
-    '/ajouter-pub' => 'ajouter-pub.php',
-    '/gerer-pub' => 'gerer-pub.php',    
-    '/modifier-pub' => 'modifier-pub.php',  
-    '/supprimer-pub' => 'supprimer-pub.php', 
-    '/gerer-client' => 'gerer-client.php'   
+      
 
 ];
 const DB_PARAMS = [
