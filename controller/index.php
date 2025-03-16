@@ -11,8 +11,7 @@ $estConnecter = isAuthenticated();
 
 $db = Database::getInstance(CONFIGURATIONS['database'], DB_PARAMS);
 $pdo = $db->getPDO();
-$adModel = new AdModel($pdo);
-$ads = $adModel->selectCarousel();
+
 
 
 
@@ -21,9 +20,7 @@ $ads = $adModel->selectCarousel();
 
 
 view('index.php',[
-    'ads' => $ads,
-    'estConnecter' => $estConnecter,
-    'estAdmin' => $estAdmin,    
+      
 ]);
 
 ?>
