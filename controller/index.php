@@ -2,6 +2,7 @@
 
 require_once 'src/functions.php';
 require 'src/class/Database.php';
+require 'src/conffiguration.php';
 
 
 
