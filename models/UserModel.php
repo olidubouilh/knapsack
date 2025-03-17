@@ -1,8 +1,7 @@
 <?php
 //IMPORTANT: C"EST UN EXEMPLE DE CODE
-require_once 'src/class/ModelInterface.php';
 require_once 'src/class/User.php';
-require_once 'models/AdModel.php';
+
 
 class UserModel
 {
@@ -94,12 +93,12 @@ class UserModel
 
     }
 
-    public function selectByEmail(string $email) : null|User {
+    public function selectByAlias(string $alias, string $password) : null|User {
 
         try{
-            $stm = $this->pdo->prepare('SELECT id, name, role, password, active FROM user WHERE email=:email');
+            $stm = $this->pdo->prepare('CALL ValiderIdentite(alias=:alias, mPasse=:password)');
     
-            $stm->bindValue(":email", $email, PDO::PARAM_STR);
+            $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
             
             $stm->execute();
     

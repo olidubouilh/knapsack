@@ -2,8 +2,8 @@
 
 require_once 'src/functions.php';
 require 'src/class/Database.php';
-require 'src/conffiguration.php';
-
+require_once 'src/configuration.php';
+$style = 'index.css';
 
 
 sessionStart();
@@ -21,6 +21,7 @@ $pdo = $db->getPDO();
 
 
 view('index.php',[
+    'style'=>$style ?? '',
       
 ]);
 
