@@ -99,6 +99,7 @@ class UserModel
             $stm = $this->pdo->prepare('CALL Connexion(alias=:alias, mPasse=:password)');
     
             $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
+            $stm->bindValue(":password", $password, PDO::PARAM_STR);
             
             $stm->execute();
     
