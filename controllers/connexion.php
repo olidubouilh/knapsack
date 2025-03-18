@@ -22,41 +22,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alias = $_POST['alias'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    if (! $alias) {
+    if (empty($alias)) {
     $errors = "Alias ou mot de passse invalide";
-    }
-    elseif(!$userModel->verifyAlias($alias)) {
-        $errors = "Alias ou mot de passse invalide";
     }
     if (empty($password)) {
         $errors = "Alias ou mot de passse invalide";
     }
-    elseif(!$userModel->verifyPassword($password, $Alias) ) {
-        $errors = "Courriel ou mot de passse invalide";
+    elseif(!$userModel->selectByAlias($alias, $password)) {
+        $errors = "Alias ou mot de passse invalide";
     }
-
     if (empty($errors)) {
 
-        $user = $userModel->selectByEmail($email);
-        if($user->getActive() == false){
-            redirect('/inactif');
-            exit;
-        }
-        else{
+        $user = $userModel->selectByAlias($alias, $password);
+        //FUTURE POUR SAVOIR SI EST ADMIN OU NON
+        // if($user->getActive() == false){
+        //     redirect('/inactif');
+        //     exit;
+        // }
+        //else{
             $_SESSION['user'] = [
                 'id' => $user->getId(),
-                'role' => $user->getRole(),
-                'active' =>$user->getActive()
+                'alias'=> $user->getAlias(),
+                'montant'=> $user->getMontant(),
+                'dexterite'=> $user->getDexterite(),
+                'pvJoueur'=> $user->getPvJoueur(),
+                'poidsMaximal'=> $user->getPoidsMaximal(),
             ];
             redirect('/');
             exit;
-        }
+        //}
        
     }  
 }
 
 view("connexion.php", [
-    'email' => $email ?? '',
+    'alias' => $alias ?? '',
     'password' => $password ?? '',
     'errors' => $errors ?? '',
     'popUp' => $popUp ?? '',
