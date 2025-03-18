@@ -96,9 +96,10 @@ class UserModel
     public function selectByAlias(string $alias, string $password) : null|User {
 
         try{
-            $stm = $this->pdo->prepare('CALL ValiderIdentite(alias=:alias, mPasse=:password)');
+            $stm = $this->pdo->prepare('CALL Connexion(alias=:alias, mPasse=:password)');
     
             $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
+            $stm->bindValue(":password", $password, PDO::PARAM_STR);
             
             $stm->execute();
     
@@ -108,11 +109,14 @@ class UserModel
 
                 return new User(
                     $data['id'], 
-                    $data['name'], 
-                    $email, 
-                    $data['password'], 
-                    $data['role'],
-                    $data['active']
+                    $data['nomJoueur'],
+                    $data['prenomJoueur'],
+                    $data['alias'],
+                    $data['mPasse'],
+                    $data['montant'],
+                    $data['dexterite'],
+                    $data['pvJoueur'],
+                    $data['PoidsMaximal'] 
                     );
 
             }
@@ -125,48 +129,6 @@ class UserModel
             
         }  
 
-    }
-    public function verifyEmail(string $email)  {
-
-        try{
-            $stm = $this->pdo->prepare('SELECT * FROM user WHERE email=:email');
-    
-            $stm->bindValue(":email", $email, PDO::PARAM_STR);
-            
-            $stm->execute();
-    
-            $data = $stm->fetch(PDO::FETCH_ASSOC);
-
-            if(! empty($data)) {
-
-                return true;
-
-            }
-            
-            return false;
-            
-        } catch (PDOException $e) {
-    
-            throw new PDOException($e->getMessage(), $e->getCode());
-            
-        }  
-
-    }
-    public function verifyPassword(string $password, string $email) : bool {
-        if ($this->verifyEmail($email)) {
-            try {
-                
-        
-                $data = $this->selectByEmail($email);
-        
-                return password_verify($password, $data->getPassword());
-            } catch (PDOException $e) {
-                throw new PDOException($e->getMessage(), $e->getCode());
-            }
-        }
-        else {
-            return false;
-        }
     }
 
     function insertOne(array $data) : int|false

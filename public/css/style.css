@@ -15,6 +15,8 @@ nav{
     text-align: left;
     
     
+    
+    
 }
 main {
     display: center;
@@ -23,9 +25,26 @@ main {
     margin: 5em;
     margin-left: 30em;
     margin-right: 30em;
-    padding-bottom: 40em;
+    padding-bottom: 2em;
+    padding-top: 2em;
 }
 
-a{
+nav a img {
+    transition: transform 0.3s ease, filter 0.3s ease; 
+}
+nav a:hover img {
+    transform: scale(1.2); 
+    filter: brightness(1.1); 
+}
+nav a{
     text-decoration: none;
 }
+
+.funnel-sans-body {
+    font-family: "Funnel Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 395;
+    font-style: normal;
+  }
+
+
