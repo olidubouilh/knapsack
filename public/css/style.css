@@ -42,4 +42,17 @@ nav a{
     font-style: normal;
   }
 
-
+.popupNotification{
+    display: none;
+    position: fixed;
+    top: 8em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #961d1db5;
+    color: rgb(255, 255, 25);
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    z-index: 9999;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

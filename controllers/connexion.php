@@ -7,11 +7,11 @@ $style = 'connexion.css';
 sessionStart();
 
 //A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
-// $popUp = false;
-// if (isset($_SESSION['success'])) {
-//     $popUp = true;
-//     unset($_SESSION['success']);
-// }
+$popUp = false;
+if (isset($_SESSION['success'])) {
+    $popUp = true;
+    unset($_SESSION['success']);
+}
 $db = Database::getInstance(CONFIGURATIONS['database'], DB_PARAMS);
 $pdo = $db->getPDO();
 $userModel = new UserModel($pdo);
@@ -47,7 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'dexterite'=> $user->getDexterite(),
                 'pvJoueur'=> $user->getPvJoueur(),
                 'poidsMaximal'=> $user->getPoidsMaximal(),
+                
+                
             ];
+            $_SESSION['connecter'] = 1;
             redirect('/');
             exit;
         //}
@@ -60,6 +63,7 @@ view("connexion.php", [
     'password' => $password ?? '',
     'errors' => $errors ?? '',
     'popUp' => $popUp ?? '',
-    'style' => $style ?? '',    
+    'style' => $style ?? '',   
+     
     
 ]);
