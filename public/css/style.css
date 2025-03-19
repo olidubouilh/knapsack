@@ -8,7 +8,6 @@ header{
 body{
     background-image: url("../img/background.jpg");
     background-size: cover;
-        
 }
 nav{
     text-align: left;
@@ -18,10 +17,14 @@ main {
     background-color:  #961d1db5;
     color: rgb(255, 255, 25);
     margin: 5em;
-    margin-left: 30em;
-    margin-right: 30em;
+    margin-left: 10%;
+    margin-right: 10%;
     padding-bottom: 2em;
     padding-top: 2em;
+}
+div{
+    font-family: 'falloutFont';
+    font-size: 25px;
 }
 
 nav a img {
@@ -55,4 +58,19 @@ nav a{
     font-family: Arial, sans-serif;
     z-index: 9999;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+@font-face {
+    font-family: 'falloutFont';
+    src: url('../fonts/OverseerItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'falloutFont';
+    src: url('../fonts/OverseerBoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
 }

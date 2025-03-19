@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="public/css/<?= $style ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="../css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@395&display=swap" rel="stylesheet">
-
-
 </head>

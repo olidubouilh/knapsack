@@ -12,36 +12,37 @@ body{
         
 }
 nav{
-    
     text-align: left;
-    
-    
-    
 }
-main {
+h1{
+    text-align:center;
+    color: rgb(255, 255, 25);
+    font-family: 'falloutFont';
+    font-size: 60px;
+}
+.panier-core {
     display: flex; /* Affichage horizontal */
     justify-content: space-between; /* Répartit les items à gauche et la confirmation à droite */
     align-items: flex-start; /* Aligne la confirmation en haut */
     background-color: rgba(150, 29, 29, 0.7);
-    color: white;
-    margin: 5em auto;
+    color: rgb(255, 255, 25);
     padding: 2em;
     border-radius: 10px;
-    width: 95%;
+    width: 80%;
     max-width: 1300px;
 }
 
 /* Section contenant les items du panier */
-.panier {
+.panier-items {
     display: flex; /* Affiche les items en ligne */
     flex-wrap: wrap; /* Permet aux items de passer à la ligne si nécessaire */
     gap: 20px; /* Espacement uniforme */
-    width: 75%; /* Laisse de la place pour la confirmation à droite */
+    width: 80%; /* Laisse de la place pour la confirmation à droite */
     justify-content: flex-start; /* Aligner les items à gauche */
 }
 
 /* Style des items */
-section.item {
+.item-slot {
     background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 8px;
@@ -117,4 +118,8 @@ section.item {
     transition: background 0.3s ease-in-out, transform 0.2s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     width: 120px; /* Taille uniforme */
+}
+body{
+    background-image: url("../img/background.jpg");
+    background-size: cover;
 }
