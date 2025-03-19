@@ -1,8 +1,10 @@
 <?php
-require_once '../src/database.php';
+require_once '../src/class/Database.php';
+
 
 function getItemById($id) {
-    $pdo = connect();
+    $pdo = new Database();
+    $pdo = getPDO();
 
     try {
 
@@ -21,7 +23,7 @@ function getItemById($id) {
         echo "Erreur: " . $erreur->getMessage();
         return null;
     } finally {
-        disconnect($pdo);
+        closeConnection();
     }
 }
 ?>
