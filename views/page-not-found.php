@@ -20,8 +20,6 @@ require 'partials/header.php';
             La ressource demandée semble non disponible
             </p>
 
-            
-
           </div>
         </div>
 
