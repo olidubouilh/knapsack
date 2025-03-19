@@ -23,8 +23,6 @@ require 'views/partials/header.php';
                 echo "<div>Type d'item : Nourriture<br></div>";
              if($item['typeItem'] == 'B')
                 echo "<div>Type d'item : Munitions<br></div>";?>
-
-           <div>Type d'item : <?= htmlspecialchars($item['typeItem']) ?><br></div>
            <div>Utilite : <?= htmlspecialchars($item['utilite']) ?><br></div>
            <div>Quantite dans le sac : <?= htmlspecialchars($item['quantite']) ?></div>
            
