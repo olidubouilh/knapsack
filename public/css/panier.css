@@ -19,6 +19,7 @@ h1{
     color: rgb(255, 255, 25);
     font-family: 'falloutFont';
     font-size: 60px;
+    -webkit-text-stroke: 2.5px #961d1db5;
 }
 .panier-core {
     display: flex; /* Affichage horizontal */
@@ -26,10 +27,11 @@ h1{
     align-items: flex-start; /* Aligne la confirmation en haut */
     background-color: rgba(150, 29, 29, 0.7);
     color: rgb(255, 255, 25);
-    padding: 2em;
+    padding-left: 2%;
+    margin-left: 10%;
     border-radius: 10px;
-    width: 80%;
-    max-width: 1300px;
+    width: 1400px;
+    max-width: 100%;
 }
 
 /* Section contenant les items du panier */
@@ -37,35 +39,38 @@ h1{
     display: flex; /* Affiche les items en ligne */
     flex-wrap: wrap; /* Permet aux items de passer à la ligne si nécessaire */
     gap: 20px; /* Espacement uniforme */
-    width: 80%; /* Laisse de la place pour la confirmation à droite */
     justify-content: flex-start; /* Aligner les items à gauche */
 }
 
 /* Style des items */
 .item-slot {
     background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    text-align: center;
+    text-align:center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 250px; /* Largeur fixe */
-    flex: 0 0 250px; /* Empêche l'étirement */
+    width: 900px; /* Largeur fixe */
+    /*flex: 0 0 250px; /* Empêche l'étirement */
     height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display:grid;
+    grid-template-columns: 150px 280px 150px 150px 100px; /* Custom sizes for each column */
+    gap: 15px; /* Space between items */
+    grid-row-start: auto;
+    /*justify-content:space-between;*/
 }
 
 /* Section confirmation achat (placée à droite) */
 .confirmation {
-    background-color: rgba(76, 175, 80, 0.9);
+    background-color: rgba(248, 252, 0, 0.9);
     padding: 20px;
+    margin-left: 7%;
     border-radius: 8px;
     text-align: center;
     width: 300px; /* Taille fixe pour éviter qu'elle ne bouge */
     height: fit-content; /* Ajuste la hauteur au contenu */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     align-self: flex-start; /* Place la confirmation en haut */
+    margin-top: -550px;
 }
 
 /* Conteneur des boutons */
@@ -83,7 +88,7 @@ h1{
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
-    font-size: 16px;
+    font-size: 23px;
     font-weight: bold;
     cursor: pointer;
     text-align: center;
@@ -105,19 +110,22 @@ h1{
     transform: scale(0.95);
 }
 .boutonquanti {
-    background-color: #d32f2f;
+    background-color: #b32a2a;
     color: white;
-    padding: 5px;
+    padding-right: 10px;
+    padding-left: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border: none;
     border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: normal;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     transition: background 0.3s ease-in-out, transform 0.2s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 120px; /* Taille uniforme */
+
 }
 body{
     background-image: url("../img/background.jpg");

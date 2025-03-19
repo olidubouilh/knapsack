@@ -5,7 +5,7 @@
 <h1>Panier</h1>
     <main class="panier-core">
         <table>
-            <th>
+            <th style="width: 950px">
        <body>
         <div class="panier-items">
         <?php foreach ($panier as $item) { ?>
@@ -17,17 +17,23 @@
 
            <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
 
-           <div>Prix : <?= htmlspecialchars($item['prix']) ?> $Caps<br></div>
-
-           <div>Quantite dans le panier : <?= htmlspecialchars($item['quantiteItem']) ?></div>
-
+           <div>Prix : <?= htmlspecialchars($item['prix']) ?> Caps<br></div>
+        <div>
+           
+           <div style="display: inline-block;">Quantité  <br>
+           <a href="#" class="boutonquanti">-</a>
+           <?= htmlspecialchars($item['quantiteItem']) ?>
+           <a href="#" class="boutonquanti">+</a>
+        </div>
+        </div>
+                 
         </div>
         <?php } ?>
         </div>
 </th>
 <th>
         <div class="confirmation">
-            <h1>Prix total: $$$</h1>
+            <h1>Prix total: Caps</h1>
             <div class="boutons-container">
                 <a href="#" class="bouton">Acheter</a>
                 <a href="#" class="bouton">Annuler</a>
