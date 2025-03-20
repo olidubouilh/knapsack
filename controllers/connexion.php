@@ -12,8 +12,7 @@ if (isset($_SESSION['success'])) {
     $popUp = true;
     unset($_SESSION['success']);
 }
-$db = Database::getInstance(CONFIGURATIONS['database'], DB_PARAMS);
-$pdo = $db->getPDO();
+$pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
 
 
