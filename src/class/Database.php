@@ -8,9 +8,7 @@ class Database
     private function __construct() {
         
         try {
-            $this->conn = new PDO('mysql:host=158.69.48.109;dbname=dbknapsak6;charset=utf8','joueur6', 'hx843s4s');
-
-            // $this->conn = new PDO("mysql:host=" . CONFIGURATIONS["servername"] . ";dbname=" . CONFIGURATIONS["dbname"], CONFIGURATIONS["username"], CONFIGURATIONS["password"], DB_PARAMS);
+            $this->conn = new PDO('mysql:host=158.69.48.109; dbname=dbknapsak6; charset=utf8', 'joueur6', 'hx843s4s', DB_PARAMS);
           
         } catch(PDOException $e) {
             
@@ -20,7 +18,7 @@ class Database
       
     }
 
-    public static function getInstance() : Database {
+    public static function getInstance(){
 
         if( is_null(self::$instance) ) {
 
@@ -28,19 +26,7 @@ class Database
 
         }
 
-        return self::$instance;
-    }
-
-    public function getPDO() : PDO {
-
-        return $this->conn;
-
-    }
-
-    public function closeConnection(): void
-    {
-        $this->conn = null;
-        self::$instance = null;
+        return self::$instance->conn;
     }
 
 
