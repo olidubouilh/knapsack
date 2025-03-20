@@ -7,8 +7,9 @@ const ROUTES = [
     '/inscription' => 'inscription.php',
     '/inventaire' => 'inventaire.php',
     '/panier' => 'panier.php',
-    '/detail' => 'detailsItems.php'
-      
+    '/magasin' => 'magasin.php',
+    '/detailsItems' => 'detailsItems.php'
+
 
 ];
 const DB_PARAMS = [

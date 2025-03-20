@@ -92,6 +92,23 @@ class UserModel
         }  
 
     }
+    public function verifierAlias(string $alias) : bool {
+        try{
+            $stm = $this->pdo->prepare('call verifierAlias(alias =:alias)');
+            $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
+            $stm->execute();
+
+            $data = $stm->fetch(PDO::FETCH_ASSOC);
+
+            if (!empty($data)) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
+    }
 
     public function selectByAlias(string $alias, string $password) : null|User {
 
@@ -162,21 +179,6 @@ class UserModel
 
 
     }
-    public function updateActive(int $id, $active) : bool {
-        try {
-            $adModel = new AdModel($this->pdo);
-            $adModel->updateUserActiveAd($id, $active);
-            $stm = $this->pdo->prepare('UPDATE user SET active=:active WHERE id=:id');
-
-            $stm->bindValue(":id", $id, PDO::PARAM_INT);
-            $stm->bindValue(":active", $active, PDO::PARAM_STR);
-
-            $stm->execute();
-            return true;
-        }
-        catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), $e->getCode());
-        }
-    }
+   
 }
 
