@@ -3,10 +3,11 @@
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>   
+<h1>Inventaire</h1>
 <main class="inventaire">    
 <body>
     
-<h1>Inventaire</h1>
+
 <div class="inventaire-container">
    <?php foreach ($inventaire as $item) { ?>
        <div class="item-container">
