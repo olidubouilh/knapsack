@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/../models/ItemsModel.php';
 function showDetailsItem(){
     $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
-    $item = getItemById(1);
+    $item = getItemById($id);
 
     if($item == null){
         redirect(dirname(__FILE__) . '/../views/page-not-found.php');

@@ -40,7 +40,7 @@ require 'partials/header.php';
         <?php endif; ?>
           
         <div class="boutons-container">
-            <a href="/" class="bouton">Retour</a>
+            <a href="/magasin" class="bouton">Retour</a>
             <a href="#" class="bouton">Acheter</a>
         </div>
     </main>

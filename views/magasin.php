@@ -27,7 +27,7 @@ require 'views/partials/header.php';
            <div>Utilite : <?= htmlspecialchars($item['utilite']) ?><br></div>
            <div>Quantite dans le sac : <?= htmlspecialchars($item['quantiteItem']) ?></div>
 
-           <div><a type="submit" class="btn btn-primary" href="/detailsItems" value="$item['idItem']"name="details" id="details">Details</a></div>
+           <div><a type="submit" class="btn btn-primary" href="/detailsItems?id=<?php echo $item['idItems']; ?>" value="$item['idItem']"name="details" id="details">Details</a></div>
            
        </div>
    <?php } ?>
