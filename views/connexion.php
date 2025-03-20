@@ -3,7 +3,10 @@
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>   
+<script src="/public/javascript/alert.js"></script>
 <main class="funnel-sans-body">
+<div id="popupNotification" class="popupNotification">
+            Compte créé! Veuillez vous connecter</div>
     <h1>Connexion</h1>
     
     <form method="POST">
@@ -28,6 +31,10 @@ require 'views/partials/header.php';
         <a class="btn btn-secondary" href="/inscription">Inscription</a>
     </form>
 </main>
-    
+<?php if ($popUp): ?>
+    <script>
+        alertShow();
+    </script>
+<?php endif; ?>
 <?php require 'partials/footer.php'; ?> 
 

@@ -29,11 +29,5 @@ class Database
         return self::$instance->conn;
     }
 
-    // public function getPDO() : PDO {
-
-    //     return $this->conn;
-
-    // }
-
 
 }

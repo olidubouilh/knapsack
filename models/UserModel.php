@@ -96,34 +96,38 @@ class UserModel
     public function selectByAlias(string $alias, string $password) : null|User {
 
         try{
-            $stm = $this->pdo->prepare('CALL Connexion(alias=:alias, mPasse=:password)');
-    
+           
+            $stm = $this->pdo->prepare('select * from Joueurs where alias = :alias');
             $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
-            $stm->bindValue(":password", $password, PDO::PARAM_STR);
-            
             $stm->execute();
-    
+            
             $data = $stm->fetch(PDO::FETCH_ASSOC);
-
-            if(! empty($data)) {
-
-                return new User(
-                    $data['id'], 
-                    $data['nomJoueur'],
-                    $data['prenomJoueur'],
-                    $data['alias'],
-                    $data['mPasse'],
-                    $data['montant'],
-                    $data['dexterite'],
-                    $data['pvJoueur'],
-                    $data['PoidsMaximal'] 
+    
+            if (!empty($data)) {
+                
+                $hashedPassword = hash('sha512', $password);
+                
+                if ($hashedPassword === $data['mPasse']) {
+                    return new User(
+                        $data['idJoueurs'], 
+                        $data['nomJoueur'],
+                        $data['prenomJoueur'],
+                        $data['alias'],
+                        $data['mPasse'], 
+                        $data['montant'],
+                        $data['dexterite'],
+                        $data['pvJoueur'],
+                        $data['PoidsMaximal'] 
                     );
-
+                }
+                return null;
+            }
+            else {
+                return null;
             }
             
-            return null;
-            
         } catch (PDOException $e) {
+            var_dump($e->getMessage());
     
             throw new PDOException($e->getMessage(), $e->getCode());
             

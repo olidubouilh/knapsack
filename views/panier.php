@@ -1,73 +1,46 @@
 <?php 
     require 'partials/head.php';
+    require 'views/partials/header.php' 
 ?>
-<body>
-    
-    <main>
-        <?php require 'views/partials/header.php' ?>
-        <!-- Section contenant tous les items du panier -->
-        <section class="panier">
-            <section class="item">
-                <h1>Nom item</h1>
-                <img src="item.png" alt="Image Item">
-                <h5>Prix : $$$</h5>
-                <h5>Poids : 111</h5>
-                <h5>Type: null</h5>
-                <div>
-                    <h5 style="display: inline-block;">Quantité: 1</h5>
-                    <a href="#" class="boutonquanti">+</a>
-                    <a href="#" class="boutonquanti">-</a>
-                </div>
-                <div class="boutons-container">
-                    <a href="#" class="bouton">Supprimer</a>
-                </div>
-            </section>
-            <section class="item">
-                <h1>Nom item</h1>
-                <img src="item.png" alt="Image Item">
-                <h5>Prix : $$$</h5>
-                <h5>Poids : 111</h5>
-                <h5>Type: null</h5>
-                <div>
-                    <h5 style="display: inline-block;">Quantité: 1</h5>
-                    <a href="#" class="boutonquanti">+</a>
-                    <a href="#" class="boutonquanti">-</a>
-                </div>
-                <div class="boutons-container">
-                    <a href="#" class="bouton">Supprimer</a>
-                </div>
-            </section>
-            <section class="item">
-                <h1>Nom item</h1>
-                <img src="item.png" alt="Image Item">
-                <h5>Prix : $$$</h5>
-                <h5>Poids : 111</h5>
-                <h5>Type: null</h5>
-                <div>
-                    <h5 style="display: inline-block;">Quantité: 1</h5>
-                    <a href="#" class="boutonquanti">+</a>
-                    <a href="#" class="boutonquanti">-</a>
-                </div>
-                <div class="boutons-container">
-                    <a href="#" class="bouton">Supprimer</a>
-                </div>
-            </section>
-            
-            
-        </section>
-    
-        
-        <section class="confirmation">
-            <h1>Prix total: $$$</h1>
+<h1>Panier</h1>
+    <main class="panier-core">
+        <table>
+            <th style="width: 950px">
+       <body>
+        <div class="panier-items">
+        <?php foreach ($panier as $item) { ?>
+        <div class="item-slot">
+
+           <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
+
+           <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="100"><br></div>
+
+           <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
+
+           <div>Prix : <?= htmlspecialchars($item['prix']) ?> Caps<br></div>
+        <div>
+           
+           <div style="display: inline-block;">Quantité  <br>
+           <a href="#" class="boutonquanti">-</a>
+           <?= htmlspecialchars($item['quantiteItem']) ?>
+           <a href="#" class="boutonquanti">+</a>
+        </div>
+        </div>
+                 
+        </div>
+        <?php } ?>
+        </div>
+</th>
+<th>
+        <div class="confirmation">
+            <h1>Prix total: Caps</h1>
             <div class="boutons-container">
                 <a href="#" class="bouton">Acheter</a>
                 <a href="#" class="bouton">Annuler</a>
             </div>  
-        </section>
+        </div>
+    </th>
+    </table>
     </main>
-    
-    
-    
-    
 </body>
 </html>

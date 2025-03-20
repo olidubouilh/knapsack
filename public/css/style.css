@@ -8,25 +8,23 @@ header{
 body{
     background-image: url("../img/background.jpg");
     background-size: cover;
-        
 }
 nav{
-    
     text-align: left;
-    
-    
-    
-    
 }
 main {
     display: center;
     background-color:  #961d1db5;
     color: rgb(255, 255, 25);
-    margin: 5em;
-    margin-left: 30em;
-    margin-right: 30em;
+    margin-left: 2%;
+    margin-right: 2%;
     padding-bottom: 2em;
     padding-top: 2em;
+}
+div{
+    font-family: 'falloutFont';
+    font-size: 25px;
+    -webkit-text-stroke: 1.5px #961d1db5;
 }
 
 nav a img {
@@ -47,4 +45,37 @@ nav a{
     font-style: normal;
   }
 
+.popupNotification{
+    display: none;
+    position: fixed;
+    top: 8em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #961d1db5;
+    color: rgb(255, 255, 25);
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    z-index: 9999;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+
+
+@font-face {
+    font-family: 'falloutFont';
+    src: url('../fonts/OverseerItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'falloutFont';
+    src: url('../fonts/OverseerBoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+header {
+    position: sticky;
+    top: 10px; 
+    z-index: 1000; 
+}
