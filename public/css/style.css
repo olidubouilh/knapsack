@@ -16,10 +16,12 @@ main {
     display: center;
     background-color:  #961d1db5;
     color: rgb(255, 255, 25);
-    margin-left: 2%;
-    margin-right: 2%;
+    margin: 5em;
+    margin-left: 10%;
+    margin-right: 10%;
     padding-bottom: 2em;
     padding-top: 2em;
+    border-radius: 10px;
 }
 div{
     font-family: 'falloutFont';
