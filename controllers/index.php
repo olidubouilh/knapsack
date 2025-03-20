@@ -10,8 +10,7 @@ $estConnecter = isAuthenticated();
 //$estAdmin = isAdministrator(); pour plus tard
 //FAIRE UN IF POUR AFFICHER LES INFOS DU JOUEURS SI IL EST CONNECTER VA ETRE COMME CA DANS TOUTE LES PAGES A FAIRE DANS LE FUTURE
 
-$db = Database::getInstance(CONFIGURATIONS['database'], DB_PARAMS);
-$pdo = $db->getPDO();
+$pdo = Database::getInstance();
 
 $popUp = false;
 if (isset($_SESSION['connecter'])) {
