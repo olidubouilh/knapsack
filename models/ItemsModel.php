@@ -2,28 +2,26 @@
 require_once '../src/class/Database.php';
 
 
-function getItemById($id) {
-    $pdo = new Database();
-    $pdo = getPDO();
+function getItemById($id)
+{
 
     try {
+        $pdo = Database::getInstance();
 
-        $stmt = $pdo->prepare("CALL #############(#)");
-        
+        $stmt = $pdo->prepare("CALL #############(". $id . ")");
+
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
-        
+
         $stmt->execute();
-        
+
         $item = $stmt->fetch();
-        
+
         $stmt->closeCursor();
-        
+
         return $item ?: null;
     } catch (PDOException $erreur) {
-        echo "Erreur: " . $erreur->getMessage();
+        echo "Erreur dans getItemById: " . $erreur->getMessage();
         return null;
-    } finally {
-        closeConnection();
     }
 }
 ?>
