@@ -1,5 +1,5 @@
 <?php
-require_once '../src/class/Database.php';
+require_once dirname(__FILE__) . '/../src/class/Database.php';
 
 
 function getItemById($id)
@@ -8,7 +8,7 @@ function getItemById($id)
     try {
         $pdo = Database::getInstance();
 
-        $stmt = $pdo->prepare("CALL #############(". $id . ")");
+        $stmt = $pdo->prepare("CALL getItemById(?)");
 
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
 
