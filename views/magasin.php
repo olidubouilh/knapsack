@@ -1,95 +1,40 @@
-<?php 
-    require 'partials/head.php';
-?>
-<body>
-    <?php require 'views/partials/header.php' ?>
+<?php
+
+require 'partials/head.php';
+require 'views/partials/header.php';
+?>   
+<main class="inventaire">    
+<body><form method="POST"></form>
     
-    <div style="color:  rgb(255, 255, 25);">
-        <h3>Caps: 450</h3>
-    </div>
-    <div class="filtre">
-        
-        <form action="recherche.php" method="post" >
-            <span>Filtrer par :</span>
-            <input type="checkbox" name="categorie" value="categorie1"> Armes</input>
-            <input type="checkbox" name="categorie" value="categorie2"> Armures</input>
-            <input type="checkbox" name="categorie" value="categorie3"> Medicaments</input>
-            <input type="checkbox" name="categorie" value="categorie4"> Nourritures</input>
-            <input type="checkbox" name="categorie" value="categorie5"> Ressources</input>
-            <input type="checkbox" name="categorie" value="categorie6"> Munitions</input>
-        </form>
-    </div>
-    <main>
-        
-        <section>
-            <h1>Stimpack</h1>
-            <img src="stimpack.png" alt="lol">
-            <h5>Prix : 20 Caps</h5>
-            <h5>Quantite disponible: 20</h5>
-            <h5>Poid : 1 lbs</h5>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Acheter</a>
-                <a href="#" class="bouton">Détails</a>
-            </div>
-        </section>
-        <section>
-            <h1>Pistol</h1>
-            <img src="pistol.png" alt="lol">
-            <h5>Prix : 100 Caps</h5>
-            <h5>Quantite disponible: 3</h5>
-            <h5>Poid : 7 lbs</h5>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Acheter</a>
-                <a href="#" class="bouton">Détails</a>
-            </div>
-        </section>
-        <section>
-            <h1>Triple-barrel shotgun</h1>
-            <img src="shotgun.png" alt="lol">
-            <h5>Prix : 250 Caps</h5>
-            <h5>Quantite: 1</h5>
-            <h5>Poid : 15 lbs</h5>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Acheter</a>
-                <a href="#" class="bouton">Détails</a>
-            </div>
-        </section>
-        <section>
-            <h1>T-51 Armor</h1>
-            <img src="armure.png" alt="lol">
-            <h5>Prix : 600 Caps</h5>
-            <h5>Quantite: 1</h5>
-            <h5>Poid : 1</h5>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Acheter</a>
-                <a href="#" class="bouton">Détails</a>
-            </div>
-        </section>
-        <section>
-            <h1>Plasma Pistol</h1>
-            <img src="plasmapistol.png" alt="lol">
-            <h5>Prix : 1200 Caps</h5>
-            <h5>Quantite Disponible: 1</h5>
-            <h5>Poid : 10 lbs</h5>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Acheter</a>
-                <a href="#" class="bouton">Détails</a>
-            </div>
-        </section>
-        <section>
-            <h1>Carrot</h1>
-            <img src="Carrot.png" alt="lol">
-            <h5>Prix : 5 Caps</h5>
-            <h5>Quantite Disponible: 53</h5>
-            <h5>Poid : 1</h5>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Acheter</a>
-                <a href="#" class="bouton">Détails</a>
-            </div>
-        </section>
-        
-      
-    </main>
-    
+<h1>Magasin</h1>
+<div class="inventaire-container">
+
+   <?php foreach ($magasin as $item) { ?>
+       <div class="item-container">
+           <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
+           <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="140"><br></div>
+           <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
+            <?php if($item['typeItem'] == 'A')
+                echo "<div>Type d'item : Armure<br></div>";
+             if($item['typeItem'] == 'W')
+                echo "<div>Type d'item : Arme<br></div>";
+             if($item['typeItem'] == 'M')
+                echo "<div>Type d'item : Médicament<br></div>";
+            if($item['typeItem'] == 'N')
+                echo "<div>Type d'item : Nourriture<br></div>";
+             if($item['typeItem'] == 'B')
+                echo "<div>Type d'item : Munitions<br></div>";?>
+           <div>Utilite : <?= htmlspecialchars($item['utilite']) ?><br></div>
+           <div>Quantite dans le sac : <?= htmlspecialchars($item['quantiteItem']) ?></div>
+
+           <div><a type="submit" class="btn btn-primary" href="/detailsItems" value="$item['idItem']"name="details" id="details">Details</a></div>
+           
+       </div>
+   <?php } ?>
+   </form>
+</div>
+
 </body>
-</html>
+</main>
+<?php require 'partials/footer.php'; ?>
+

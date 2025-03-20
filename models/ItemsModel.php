@@ -1,5 +1,5 @@
 <?php
-require_once '../src/class/Database.php';
+require_once '../../src/class/Database.php';
 
 
 function getItemById($id)
