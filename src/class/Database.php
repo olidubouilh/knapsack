@@ -8,7 +8,7 @@ class Database
     private function __construct() {
         
         try {
-            $this->conn = new PDO('mysql:host=158.69.48.109; dbname = dbknapsak6; charset=utf8', 'joueur6', 'hx843s4s', DB_PARAMS);
+            $this->conn = new PDO('mysql:host=158.69.48.109; dbname=dbknapsak6; charset=utf8', 'joueur6', 'hx843s4s', DB_PARAMS);
           
         } catch(PDOException $e) {
             
