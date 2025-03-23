@@ -54,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }  
 }
 #############################Câlicement temporaire################
-#############################Câlicement temporaire################
-$idJoueur = 2; // Hardcoded for testing
 
-// Fetching inventory data from VInventaire view
-$stmt = $pdo->prepare("SELECT * FROM VInventaire WHERE idJoueurs = :idJoueur");
-$stmt->execute(['idJoueur' => $idJoueur]);
-$inventaire = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if (isset($_SESSION['user']['id'])) {
+    $idJoueur = $_SESSION['user']['id']; 
+
+    $stmt = $pdo->prepare("SELECT * FROM VInventaire WHERE idJoueurs = :idJoueur");
+    $stmt->execute(['idJoueur' => $idJoueur]);
+    $inventaire = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 view("inventaire.php", [
     'id' => $idJoueur,
@@ -70,3 +70,4 @@ view("inventaire.php", [
     'style' => $style ?? '',    
 ]);
 
+}
