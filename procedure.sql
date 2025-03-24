@@ -33,7 +33,7 @@ END $$
 DELIMITER ;
 
 
--- Ajouter un item au panier(n'est pas entièrement fini)
+-- Ajouter un item au panier(À partir du magasin)
 DELIMITER $$
 CREATE PROCEDURE AjouterItemPanier(S_idItem INT, S_idJoueurs INT)
 BEGIN	
@@ -47,12 +47,14 @@ BEGIN
     SELECT quantiteItem INTO qtyItemMagasin FROM Items WHERE idItems = S_idItem;
     SELECT quantiteItem INTO qtyItemPanier FROM Panier WHERE idItems = S_idItem AND idJoueurs = S_idJoueurs;
     
-    IF(qtyItemMagasin < qtyItemPanier)
-		THEN CALL log("Erreur, il n\'a pas assez de cet item dans le magasin pour le nombre que vous voulez.");
-	END IF;
     IF NOT EXISTS(SELECT alias FROM Joueurs WHERE idJoueurs = S_idJoueurs)
 		THEN CALL log("Erreur, le joueur n\'existe pas");
+    ELSEIF(qtyItemMagasin = 0)
+		THEN CALL log("Erreur, il n\'a pas assez de cet item dans le magasin pour le nombre que vous voulez.");
+	ELSEIF(qtyItemPanier = qtyItemMagasin)
+		THEN CALL log("Erreur, le nombre maximal de l\'objet pouvant être mis dans le panier est atteint");
 	END IF;
+    
     IF(qtyItemPanier = 0)
 		THEN 
 			BEGIN
