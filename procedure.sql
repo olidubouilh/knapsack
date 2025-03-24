@@ -81,3 +81,19 @@ BEGIN
         END IF;
 END $$
 DELIMITER ;
+-- View Panier
+Create View VPanier As Select
+Items.nomItem, Items.photo, Items.poids, 
+Items.prix, Panier.idJoueurs, Panier.quantiteItem
+from Items inner join Panier on
+Items.idItems = Panier.idItems;
+
+Select * from VPanier;
+--View VInventaire
+Create View VInventaire As Select
+Items.nomItem, Items.photo, Items.poids, 
+Items.typeItem, Items.utilite, SacADos.idJoueurs,
+SacADos.quantite
+from Items inner join SacADos on
+Items.idItems = SacADos.idItems;
+Select * from VInventaire;

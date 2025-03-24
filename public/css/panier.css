@@ -70,7 +70,6 @@ h1{
     height: fit-content; /* Ajuste la hauteur au contenu */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     align-self: flex-start; /* Place la confirmation en haut */
-    margin-top: -550px;
 }
 
 /* Conteneur des boutons */

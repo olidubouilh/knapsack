@@ -10,7 +10,7 @@ function showDetailsItem(){
         redirect(dirname(__FILE__) . '/../views/page-not-found.php');
     }
 
-    require dirname(__FILE__) . '/../views/detailsItem.php';
+    require dirname(__FILE__) . '/../views/detailsItems.php';
 }
 
 showDetailsItem();

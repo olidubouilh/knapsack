@@ -5,8 +5,6 @@ require 'views/partials/header.php'
 <script src="/public/javascript/buttons.js"></script>
  <h1 style="text-align: center;">Panier</h1>
 <main class="panier-core">
-   
-
     <table>
         <th style="width: 950px">
 
@@ -14,24 +12,24 @@ require 'views/partials/header.php'
                 <?php foreach ($panier as $item) {?>
                     <div class="item-slot">
 
-                        <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
+                            <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
 
-                        <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="100"><br></div>
+                            <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="100"><br></div>
 
-                        <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
+                            <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
 
-                        <div>Prix : <?= htmlspecialchars($item['prix']) ?> Caps<br></div>
-                        <div>
+                            <div>Prix : <?= htmlspecialchars($item['prix']) ?> Caps<br></div>
+                            <div>
 
                             <div style="display: inline-block;">Quantité <br>
                                 <a href="#" class="boutonquanti" onclick="decreaseQuantity()">-</a>
                                 <span id="quantity<?= $item['idItems'] ?>"><?= htmlspecialchars($item['quantiteItem']) ?></span>
                                 <a href="#" class="boutonquanti" onclick="increaseQuantity()">+</a>
                             </div>
-                        </div>
 
-                    </div>
-                <?php } ?>
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
         </th>
         <th>
