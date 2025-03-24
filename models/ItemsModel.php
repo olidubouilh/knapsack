@@ -1,27 +1,25 @@
 <?php
-require_once dirname(__FILE__) . '/../src/class/Database.php';
-
-
-function getItemById($id)
+require_once 'src/class/Items.php';
+class ItemsModel
 {
 
-    try {
-        $pdo = Database::getInstance();
+    public function __construct(private PDO $pdo) {}
 
-        $stmt = $pdo->prepare("CALL getItemById(?)");
+    public function getItemById($id)
+    {
 
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        try {
+            $stm = $this->pdo->prepare('CALL getItemById(:id)');
+            $stm->bindValue(":id", $id, PDO::PARAM_STR);
+            $stm->execute();
 
-        $stmt->execute();
+            $data = $stm->fetch(PDO::FETCH_ASSOC);
 
-        $item = $stmt->fetch();
-
-        $stmt->closeCursor();
-
-        return $item ?: null;
-    } catch (PDOException $erreur) {
-        echo "Erreur dans getItemById: " . $erreur->getMessage();
-        return null;
+            return $data ?: null;
+        } catch (PDOException $erreur) {
+            echo "Erreur dans getItemById: " . $erreur->getMessage();
+            return null;
+        }
     }
+    
 }
-?>

@@ -3,8 +3,6 @@ require 'partials/head.php';
 require 'partials/header.php';
 ?>
 
-<html>
-<body>
     <main>
 
         <h1><?php echo $item['nomItem']; ?></h1>
@@ -43,5 +41,4 @@ require 'partials/header.php';
             <a href="#" class="bouton">Acheter</a>
         </div>
     </main>
-</body>
-</html>
+<?php require 'partials/footer.php'; ?> 

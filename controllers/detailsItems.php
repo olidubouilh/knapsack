@@ -1,17 +1,15 @@
 <?php 
-require_once dirname(__FILE__) . '/../models/ItemsModel.php';
+require_once 'src/functions.php';   
+require 'src/class/Database.php';
+require 'models/ItemsModel.php';
+sessionStart();
+$pdo = Database::getInstance();
+$id = isset($_GET['id']) ? (string)$_GET['id'] : null;
 
-function showDetailsItem(){
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+$itemsModel = new ItemsModel($pdo); 
 
-    $item = getItemById($id);
+$item = $itemsModel->getItemById($id);
 
-    if($item == null){
-        redirect(dirname(__FILE__) . '/../views/page-not-found.php');
-    }
-
-    require dirname(__FILE__) . '/../views/detailsItems.php';
-}
-
-showDetailsItem();
-?>
+view('detailsItems.php', [
+    'item' => $item
+]);
