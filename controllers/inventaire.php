@@ -62,12 +62,15 @@ if (isset($_SESSION['user']['id'])) {
     $stmt->execute(['idJoueur' => $idJoueur]);
     $inventaire = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-view("inventaire.php", [
-    'id' => $idJoueur,
-    'inventaire' => $inventaire,
-    'errors' => $errors ?? '',
-    'popUp' => $popUp ?? '',
-    'style' => $style ?? '',    
-]);
+    view("inventaire.php", [
+        'id' => $idJoueur,
+        'inventaire' => $inventaire,
+        'errors' => $errors ?? '',
+        'popUp' => $popUp ?? '',
+        'style' => $style ?? '',    
+    ]);
 
+}
+else {
+    redirect('/connexion');
 }
