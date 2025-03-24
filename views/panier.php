@@ -22,14 +22,14 @@ require 'views/partials/header.php'
                             <div>
 
                             <div style="display: inline-block;">Quantité <br>
-                                <a href="#" class="boutonquanti" onclick="decreaseQuantity()">-</a>
-                                <span id="quantity<?= $item['idItems'] ?>"><?= htmlspecialchars($item['quantiteItem']) ?></span>
-                                <a href="#" class="boutonquanti" onclick="increaseQuantity()">+</a>
+                                <a href="#" class="boutonquanti" onclick="decreaseQuantity(<?=$item['idItems'] ?>)">-</a>
+                                <span id=<?= $item['idItems'] ?>><?= htmlspecialchars($item['quantiteItem']) ?></span>
+                                <a href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems']?>)">+</a>
                             </div>
 
                         </div>
+                    </div>
                     <?php } ?>
-                </div>
             </div>
         </th>
         <th>

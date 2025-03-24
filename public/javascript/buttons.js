@@ -1,13 +1,13 @@
-function increaseQuantity(){
+function increaseQuantity(id){
     //Ne fonctionne pas encore
-    const Element = document.getElementById('quantity').textContent;
+    const Element = document.getElementById(id).textContent;
     quantity = parseInt(Element) + 1;
-    document.getElementById('quantity').textContent = quantity;
+    document.getElementById(id).textContent = quantity;
 }
 
-function decreaseQuantity(){
+function decreaseQuantity(id){
     //Ne fonctionne pas encore
-    const Element = document.getElementById('quantity').textContent;
+    const Element = document.getElementById(id).textContent;
     quantity = parseInt(Element) - 1;
-    document.getElementById('quantity').textContent = quantity;
+    document.getElementById(id).textContent = quantity;
 }
