@@ -22,3 +22,26 @@ function decreaseQuantity(id){
 function payerPanier(id, montantTotal){
 
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateTotal();
+
+    document.querySelectorAll('.boutonquanti').forEach(button => {
+        button.addEventListener('click', () => {
+            setTimeout(updateTotal, 50); 
+        });
+    });
+});
+
+function updateTotal() {
+    let total = 0;
+
+    document.querySelectorAll('.quantite').forEach(span => {
+        const quantity = parseInt(span.innerText);
+        const price = parseInt(span.getAttribute('data-prix'));
+
+        total += quantity * price;
+    });
+
+    document.getElementById('totalPrix').innerText = total;
+}

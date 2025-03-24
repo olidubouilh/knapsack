@@ -6,9 +6,7 @@ require 'partials/header.php';
 <html>
 <body>
     <main>
-        <div style="color: rgb(255, 255, 25);">
-            <h3>Caps: <?php echo $_SESSION['user']['montant']; ?></h3>
-        </div>
+
         <h1><?php echo $item['nomItem']; ?></h1>
         <img src="<?php echo $item['photo']; ?>" alt="">
         <br>
@@ -16,6 +14,7 @@ require 'partials/header.php';
         <h3>Utilité: <?php echo $item['utilite']; ?></h3>
         <h3>Description: </h3>
         <h4><?php echo $item['description']; ?></h4>
+        
         <h3>Prix : <?php echo $item['prix']; ?></h3>
         <h3>Quantite Disponible: <?php echo $item['quantiteItem']; ?></h3>
         <h3>Poid : <?php echo $item['poids']; ?></h3>

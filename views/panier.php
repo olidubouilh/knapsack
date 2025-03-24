@@ -24,14 +24,17 @@ require 'views/partials/header.php'
                             <div>Prix : <?= htmlspecialchars($item['prix']) ?> Caps<br></div>
                             <div>
 
-                            <div style="display: position;">Quantité <br>
-                                <button href="#" class="boutonquanti" onclick="decreaseQuantity(<?=$item['idItems'] ?>)">-</button>
-                                <span id=<?= $item['idItems'] ?>><?= htmlspecialchars($item['quantiteItem']) ?></span>
-                                <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems']?>)">+</button>
+                            <div style="position: relative;">Quantité <br>
+                                    <button href="#" class="boutonquanti" onclick="decreaseQuantity(<?= $item['idItems'] ?>)">-</button>
+                                    <span class="quantite" id="item-<?= $item['idItems'] ?>" data-id="<?= $item['idItems'] ?>"
+                                        data-prix="<?= $item['prix'] ?>">
+                                        <?= htmlspecialchars($item['quantiteItem']) ?>
+                                    </span>
+                                    <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems'] ?>)">+</button>
+                                </div>
+                            
                             </div>
-
-                        </div>
-                    </div>
+                            </div>
                     <?php } ?>
             </div>
         </th>
