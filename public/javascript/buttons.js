@@ -1,13 +1,24 @@
 function increaseQuantity(id){
-    //Ne fonctionne pas encore
     const Element = document.getElementById(id).textContent;
-    quantity = parseInt(Element) + 1;
+    if(parseInt(Element) <= 20){
+            quantity = parseInt(Element) + 1;
+    }
+    else{
+        
+    }
     document.getElementById(id).textContent = quantity;
 }
 
 function decreaseQuantity(id){
-    //Ne fonctionne pas encore
     const Element = document.getElementById(id).textContent;
-    quantity = parseInt(Element) - 1;
+    if(parseInt(Element) > 1){
+        quantity = parseInt(Element) - 1;
+    }
+    else{
+        quantity = 1;
+    }
     document.getElementById(id).textContent = quantity;
+}
+function payerPanier(id, montantTotal){
+
 }
