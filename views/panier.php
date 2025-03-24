@@ -2,6 +2,7 @@
 require 'partials/head.php';
 require 'views/partials/header.php'
 ?>
+<script src="/public/javascript/buttons.js"></script>
  <h1 style="text-align: center;">Panier</h1>
 <main class="panier-core">
    
@@ -10,7 +11,7 @@ require 'views/partials/header.php'
         <th style="width: 950px">
 
             <div class="panier-items">
-                <?php foreach ($panier as $item) { ?>
+                <?php foreach ($panier as $item) {?>
                     <div class="item-slot">
 
                         <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
@@ -23,9 +24,9 @@ require 'views/partials/header.php'
                         <div>
 
                             <div style="display: inline-block;">Quantité <br>
-                                <a href="#" class="boutonquanti">-</a>
-                                <?= htmlspecialchars($item['quantiteItem']) ?>
-                                <a href="#" class="boutonquanti">+</a>
+                                <a href="#" class="boutonquanti" onclick="decreaseQuantity()">-</a>
+                                <span id="quantity<?= $item['idItems'] ?>"><?= htmlspecialchars($item['quantiteItem']) ?></span>
+                                <a href="#" class="boutonquanti" onclick="increaseQuantity()">+</a>
                             </div>
                         </div>
 
@@ -44,5 +45,4 @@ require 'views/partials/header.php'
         </th>
     </table>
 </main>
-
 <?php require 'partials/footer.php'; ?>

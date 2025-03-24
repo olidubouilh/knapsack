@@ -73,14 +73,16 @@ class UserModel
             if(! empty($data)) {
 
                 return new User(
-                    $id, 
-                    $data['name'], 
-                    $data['email'], 
-                    $data['role'], 
-                    $data['password'],
-                    $data['active']
-                    );
-
+                    $data['idJoueurs'], 
+                    $data['nomJoueur'],
+                    $data['prenomJoueur'],
+                    $data['alias'],
+                    $data['mPasse'], 
+                    $data['montant'],
+                    $data['dexterite'],
+                    $data['pvJoueur'],
+                    $data['PoidsMaximal']
+                );
             }
             
             return null;
