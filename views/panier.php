@@ -8,8 +8,11 @@ require 'views/partials/header.php'
     <table>
         <th style="width: 950px">
 
-            <div class="panier-items">
-                <?php foreach ($panier as $item) {?>
+            <div class="panier-items"> 
+               
+                <?php foreach ($panier as $item) {
+                    $totalPrix += $item['prix'] * $item['quantiteItem'];?>
+                    
                     <div class="item-slot">
 
                             <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
@@ -21,10 +24,10 @@ require 'views/partials/header.php'
                             <div>Prix : <?= htmlspecialchars($item['prix']) ?> Caps<br></div>
                             <div>
 
-                            <div style="display: inline-block;">Quantité <br>
-                                <a href="#" class="boutonquanti" onclick="decreaseQuantity(<?=$item['idItems'] ?>)">-</a>
+                            <div style="display: position;">Quantité <br>
+                                <button href="#" class="boutonquanti" onclick="decreaseQuantity(<?=$item['idItems'] ?>)">-</button>
                                 <span id=<?= $item['idItems'] ?>><?= htmlspecialchars($item['quantiteItem']) ?></span>
-                                <a href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems']?>)">+</a>
+                                <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems']?>)">+</button>
                             </div>
 
                         </div>
@@ -34,7 +37,7 @@ require 'views/partials/header.php'
         </th>
         <th>
             <div class="confirmation">
-                <h1>Prix total: Caps</h1>
+                <h1>Prix total: <? $totalPrix ?> Caps</h1>
                 <div class="boutons-container">
                     <a href="#" class="bouton">Acheter</a>
                     <a href="#" class="bouton">Annuler</a>
