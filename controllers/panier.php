@@ -36,12 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'poidsMaximal' => $user->getPoidsMaximal(),
         ];
 
-        redirect('/');  // This ends the script, nothing below this line will be executed
+        redirect('/');
         exit;
     }
 }
 
-// 👇 Make sure this part is outside of the POST request block
 if (isset($_SESSION['user']['id'])) {
     $idJoueur = $_SESSION['user']['id']; 
 
