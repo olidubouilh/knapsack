@@ -1,10 +1,10 @@
-function increaseQuantity(id){
+function increaseQuantity(id, maxQty){
     const Element = document.getElementById(id).textContent;
-    if(parseInt(Element) <= 20){
+    if(parseInt(Element) < maxQty){
             quantity = parseInt(Element) + 1;
     }
     else{
-        
+        quantity = maxQty;
     }
     document.getElementById(id).textContent = quantity;
 }
@@ -22,7 +22,6 @@ function decreaseQuantity(id){
 function payerPanier(id, montantTotal){
 
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     updateTotal();
 
