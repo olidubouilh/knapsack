@@ -11,7 +11,7 @@ require 'views/partials/header.php'
             <div class="panier-items"> 
                
                 <?php foreach ($panier as $item) {
-                    $totalPrix += $item['prix'] * $item['quantiteItem'];?>
+                   ?>
                     
                     <div class="item-slot">
 

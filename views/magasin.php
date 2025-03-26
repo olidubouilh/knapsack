@@ -3,12 +3,15 @@
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>   
+<div class="search">
+   <form method="POST">
+</div>
 <main class="inventaire">    
-<body><form method="POST"></form>
+
     
 <h1>Magasin</h1>
 <div class="inventaire-container">
-
+<form method="POST"></form>
    <?php foreach ($magasin as $item) { ?>
        <div class="item-container">
            <div><?= htmlspecialchars($item['nomItem']) ?><br></div>

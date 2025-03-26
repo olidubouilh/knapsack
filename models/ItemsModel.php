@@ -21,5 +21,18 @@ class ItemsModel
             return null;
         }
     }
+    public function getItemsMagasin(){
+        try{
+            $stmt = $this->pdo->prepare("SELECT * FROM Items");
+            $stmt->execute();
+            $magasin = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $magasin ?? null;
+
+        }
+        catch(PDOException $erreur){
+            echo"erreur: ". $erreur->getMessage();
+            return null;
+        }
+    }
     
 }
