@@ -15,7 +15,7 @@ DELIMITER $$
 
 CREATE PROCEDURE verifierAlias(IN S_alias VARCHAR(40))
 BEGIN
-    SELECT alias FROM Joueurs WHERE alias = S_alias;
+    SELECT * FROM Joueurs WHERE alias = S_alias;
 END $$
 
 DELIMITER ;

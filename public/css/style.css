@@ -1,19 +1,83 @@
+
+
 header{
     background-color: #961d1dee;
     color: #731919a3;
     padding: 10px;
     text-align: center;
     padding-top: 20px;
+    position: sticky;
+    top: 10px; 
+    z-index: 1000; 
 }
 body{
     background-image: url("../img/background.jpg");
     background-size: cover;
 }
-nav{
-    text-align: left;
+
+
+
+/* Style global de la navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+   
 }
+
+/* Groupes gauche, centre et droite */
+.nav-left,
+.nav-center,
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Centre le logo en lui assignant l'espace disponible */
+.nav-center {
+    flex: 1;
+    justify-content: center;
+}
+
+/* Espacement interne pour les liens des groupes gauche et droite */
+.nav-left a,
+.nav-right a {
+    margin: 0 0.5em;
+}
+
+/* Tailles des images pour les groupes gauche et droite */
+.nav-left a img {
+    width: 80px;
+    height: auto;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.nav-right a img {
+    width: 50px;
+    height: auto;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Taille du logo central (plus grand) */
+.nav-center a img {
+    width: 200px;
+    height: auto;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Effet au survol pour toutes les images de la navbar */
+.navbar a:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+/* -------------------------------
+   Fin de la gestion de la navigation
+---------------------------------*/
+
 main {
-    display: center;
+    /* Note : "display: center" n'est pas une valeur CSS valide. 
+       Si tu voulais centrer le contenu, tu pourrais utiliser "margin: 0 auto;" ou "text-align: center;" */
     background-color:  #961d1db5;
     color: rgb(255, 255, 25);
     margin: 5em;
@@ -29,23 +93,12 @@ div{
     -webkit-text-stroke: 1.5px #961d1db5;
 }
 
-nav a img {
-    transition: transform 0.3s ease, filter 0.3s ease; 
-}
-nav a:hover img {
-    transform: scale(1.2); 
-    filter: brightness(1.1); 
-}
-nav a{
-    text-decoration: none;
-}
-
 .funnel-sans-body {
     font-family: "Funnel Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 395;
     font-style: normal;
-  }
+}
 
 .popupNotification{
     display: none;
@@ -62,8 +115,6 @@ nav a{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-
 @font-face {
     font-family: 'falloutFont';
     src: url('../fonts/OverseerItalic.woff2') format('woff2');
@@ -75,9 +126,4 @@ nav a{
     src: url('../fonts/OverseerBoldItalic.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
-}
-header {
-    position: sticky;
-    top: 10px; 
-    z-index: 1000; 
 }

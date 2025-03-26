@@ -36,34 +36,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     else{
         $nomJoueur = $_POST['nomJoueur'];
     }
-    if(isset($_POST['penomJoueur'])){
-        $errors['penomJoueur'] = "Vous devez inscrire votre prenom";
+    if(!isset($_POST['prenomJoueur'])){
+        $errors['prenomJoueur'] = "Vous devez inscrire votre prenom";
     }
     else{
-        $penomJoueur = $_POST['penomJoueur'];
+        $prenomJoueur = $_POST['prenomJoueur'];
     }
    if($_POST['password'] !== $_POST['repassword']) {
         $errors['repassword'] = "Les mots de passe ne correspondent pas.";
    }
 /////////////////////////////A FAIRE POUR VERIFFIER SI LE NOM D'UTILISATEUR EST DEJA UTILISER//////////////////////////
-    if($userModel->verifyAlias($alias)) {
-        $errors['email'] = "Cette adresse courriel est déjà utilisée.";
+    if($userModel->verifierAlias($alias)) {
+        $errors['alias'] = "Cette alias est déjà utilisée.";
     }
     
-    if (empty($password)) {
-        $errors['password'] = "Le mot de passe est obligatoire.";
-    }
-    if(strlen($password) < 8) {
-        $errors['password'] = "Le mot de passe doit contenir au moins 8 caractères.";
-    }
-    if ($repassword !== $password) {
-        $errors['repassword'] = "Les mots de passe ne correspondent pas.";
-    }
+  
     if (empty($errors)) {
 
-        $user = $userModel->insertOne([
-            'name' => $name,
-            'email' => $email,
+        $userModel->insertOne([
+            'alias' => $alias,
+            'nomJoueur' => $nomJoueur,
+            'prenomJoueur' => $prenomJoueur,
             'password' => $password,
         ]);
         $_SESSION['success'] = true;

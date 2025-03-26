@@ -6,59 +6,9 @@ require_once 'src/class/User.php';
 class UserModel
 {
 
-    // La propriété pourrait être déclarée hors constructeur
-    // private PDO $pdo
-
-    // Ici la propriété $pdo est déclarée dans le constructeur directement
     public function __construct(private PDO $pdo) {}
 
     
-    
-    
-    // public function selectAll() : null|array {
-        
-    //     $users = [];
-
-    //     try{
-
-    //         // $this->pdo-> car $pdo est une propriété de l'objet
-    //         $stm = $this->pdo->prepare(query: "#######`#######");
-    
-    //         $stm->execute();
-    
-    //         $data = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-    //         if (! empty($data)) {
-
-    //             foreach ($data as $row) {
-    //                 if ($row['role'] != '1'){
-    //                     $users[] = new User(
-    //                         $row['id'], 
-    //                         $row['name'], 
-    //                         $row['email'], 
-    //                         $row['role'], 
-    //                         $row['password'],
-    //                         $row['active']
-    //                         );
-    //                 }
-                    
-
-    //             }
-
-    //             return $users;
-
-    //         }
-            
-    //         return null;
-            
-    //     } catch (PDOException $e) {
-    
-    //         throw new PDOException($e->getMessage(), $e->getCode());
-            
-    //     }
-
-    // }
-
     public function selectById(int $id) {
         
         try{
@@ -96,7 +46,7 @@ class UserModel
     }
     public function verifierAlias(string $alias) : bool {
         try{
-            $stm = $this->pdo->prepare('call verifierAlias(alias =:alias)');
+            $stm = $this->pdo->prepare('call verifierAlias(:alias)');
             $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
             $stm->execute();
 
@@ -146,36 +96,28 @@ class UserModel
             }
             
         } catch (PDOException $e) {
-            var_dump($e->getMessage());
-    
-            throw new PDOException($e->getMessage(), $e->getCode());
+            throw new PDOException($e->getMessage() . " (SQLSTATE: {$e->getCode()})", 0);
             
         }  
 
     }
 
-    function insertOne(array $data) : int|false
+    function insertOne(array $data) : void
     {
         try{
-            $hashedPassword = password_hash($data["password"], PASSWORD_DEFAULT);
-            $stm = $this->pdo->prepare('INSERT INTO user (name, email, password) VALUES (:name, :email, :password)');
             
-            $stm->bindValue(":name", $data["name"], PDO::PARAM_STR);
-            $stm->bindValue(":email", $data["email"], PDO::PARAM_STR);
-            $stm->bindValue(":password", $hashedPassword, PDO::PARAM_STR);
-
+            $stm = $this->pdo->prepare('CALL AjouterJoueur(:alias, :nomJoueur, :prenomJoueur, :password)');  
             
-            if ($stm->execute()) {
-
-                return $this->pdo->lastInsertId();
-                
-            }
+            $stm->bindValue(":alias", $data["alias"], PDO::PARAM_STR);
+            $stm->bindValue(":nomJoueur", $data["nomJoueur"], PDO::PARAM_STR);
+            $stm->bindValue(":prenomJoueur", $data["prenomJoueur"], PDO::PARAM_STR);
+            $stm->bindValue(":password", $data['password'], PDO::PARAM_STR);
+            $stm->execute();
             
-            return false;
 
         } catch (PDOException $e) {
                     
-            throw new PDOException($e->getMessage(), $e->getCode());
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
 
         }    
 

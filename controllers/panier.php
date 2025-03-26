@@ -56,3 +56,6 @@ if (isset($_SESSION['user']['id'])) {
         'style' => $style ?? '',
     ]);
 }
+else {
+    redirect('/connexion');
+}
