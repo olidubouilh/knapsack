@@ -43,5 +43,5 @@ function updateTotal() {
         total += quantity * price;
     });
 
-    document.getElementById('totalPrix').innerText = total;
+    document.getElementById('totalPrix').innerText = "Total Prix: " + total + " caps";
 }

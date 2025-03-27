@@ -6,6 +6,8 @@ require 'partials/header.php';
 <html>
 
 <body>
+    <div id="popupNotification" class="popupNotification">
+        Article ajouté!</div>
     <main>
 
         <h1><?php echo $item['nomItem']; ?></h1>
@@ -41,12 +43,18 @@ require 'partials/header.php';
 
         <div class="boutons-container">
             <a href="/magasin" class="bouton">Retour</a>
-            <form action="/panier" method="post">
-                <input type="hidden" name="item_id" value="<?php echo $item['idItem']; ?>">
+            <form action="/detailsItems" method="post">
+                <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
                 <button type="submit" class="bouton">Acheter</button>
             </form>
         </div>
     </main>
+    <!-- <?php if ($popUp): ?>
+        <script>
+            alertShow();
+        </script>
+    <?php endif; ?> -->
 </body>
+
 
 </html>

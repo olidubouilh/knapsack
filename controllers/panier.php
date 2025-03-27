@@ -1,5 +1,4 @@
 <?php
-
 require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
@@ -9,40 +8,8 @@ sessionStart();
 $pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $alias = $_POST['alias'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    if (empty($alias)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-    if (empty($password)) {
-        $errors = "Alias ou mot de passse invalide";
-    } elseif (!$userModel->selectByAlias($alias, $password)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-
-    if (empty($errors)) {
-
-        $user = $userModel->selectByAlias($alias, $password);
-
-        $_SESSION['user'] = [
-            'id' => $user->getId(),
-            'alias' => $user->getAlias(),
-            'montant' => $user->getMontant(),
-            'dexterite' => $user->getDexterite(),
-            'pvJoueur' => $user->getPvJoueur(),
-            'poidsMaximal' => $user->getPoidsMaximal(),
-        ];
-
-        redirect('/');
-        exit;
-    }
-}
-
-if (isset($_SESSION['user']['id'])) {
-    $idJoueur = $_SESSION['user']['id']; 
+if (isset($_SESSION['user']['id']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $idJoueur = $_SESSION['user']['id'];
 
     $stmt = $pdo->prepare("SELECT * FROM VPanier WHERE idJoueurs = :idJoueur");
     $stmt->execute(['idJoueur' => $idJoueur]);
@@ -55,7 +22,8 @@ if (isset($_SESSION['user']['id'])) {
         'popUp' => $popUp ?? '',
         'style' => $style ?? '',
     ]);
-}
-else {
+} else if (!isset($_SESSION['user']['id'])) {
     redirect('/connexion');
+    exit;
 }
+?>

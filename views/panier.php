@@ -1,11 +1,14 @@
 <?php
 require 'partials/head.php';
-require 'views/partials/header.php'
+require 'views/partials/header.php';
+
+$totalPrix = 0;
 ?>
 <script src="/public/javascript/buttons.js"></script>
  <h1 style="text-align: center;">Panier</h1>
 <main class="panier-core">
     <table>
+    <tr>
         <th style="width: 950px">
 
             <div class="panier-items"> 
@@ -38,15 +41,18 @@ require 'views/partials/header.php'
                     <?php } ?>
             </div>
         </th>
+        
         <th>
             <div class="confirmation">
-                <h1>Prix total: <? $totalPrix ?> Caps</h1>
+                <h1 id="totalPrix"></h1>
                 <div class="boutons-container">
                     <a href="#" class="bouton">Acheter</a>
                     <a href="#" class="bouton">Annuler</a>
                 </div>
             </div>
         </th>
+
+    </tr>
     </table>
 </main>
 <?php require 'partials/footer.php'; ?>

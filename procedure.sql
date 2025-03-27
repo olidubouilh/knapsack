@@ -34,38 +34,39 @@ DELIMITER ;
 
 
 -- Ajouter un item au panier(À partir du magasin)
-DELIMITER $$
+DELIMITER //
 CREATE PROCEDURE AjouterItemPanier(S_idItem INT, S_idJoueurs INT)
 BEGIN	
-	DECLARE qtyItemMagasin INT;
-    DECLARE qtyItemPanier INT;
+    DECLARE qtyItemMagasin INT;
+    DECLARE qtyItemPanier INT DEFAULT 0;
     
-	IF NOT EXISTS(SELECT nomItem FROM Items WHERE idItems = S_idItem)
-		THEN CALL log("Erreur, l\'id du item n\'existe pas. ");
-	END IF;
-    
-    SELECT quantiteItem INTO qtyItemMagasin FROM Items WHERE idItems = S_idItem;
-    SELECT quantiteItem INTO qtyItemPanier FROM Panier WHERE idItems = S_idItem AND idJoueurs = S_idJoueurs;
-    
-    IF NOT EXISTS(SELECT alias FROM Joueurs WHERE idJoueurs = S_idJoueurs)
-		THEN CALL log("Erreur, le joueur n\'existe pas");
-    ELSEIF(qtyItemMagasin = 0)
-		THEN CALL log("Erreur, il n\'a pas assez de cet item dans le magasin pour le nombre que vous voulez.");
-	ELSEIF(qtyItemPanier = qtyItemMagasin)
-		THEN CALL log("Erreur, le nombre maximal de l\'objet pouvant être mis dans le panier est atteint");
-	END IF;
-    
-    IF(qtyItemPanier = 0)
-		THEN 
-			BEGIN
-				INSERT INTO Panier(idItems, idJoueurs, quantiteItem) VALUES(S_idItem, S_idJoueurs, 1);
-			END;
-    ELSE
-		BEGIN
-			UPDATE Panier SET quantiteItem = quantiteItem + 1 WHERE idItems = S_idItem AND idJoueurs = S_idJoueurs;
-        END;
+    -- Check item exists
+    IF NOT EXISTS(SELECT nomItem FROM Items WHERE idItems = S_idItem) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Item does not exist";
     END IF;
-END $$
+    
+    -- Get stock quantities
+    SELECT quantiteItem INTO qtyItemMagasin FROM Items WHERE idItems = S_idItem;
+    SELECT COALESCE(quantiteItem, 0) INTO qtyItemPanier 
+    FROM Panier WHERE idItems = S_idItem AND idJoueurs = S_idJoueurs;
+    
+    -- Validate conditions
+    IF NOT EXISTS(SELECT alias FROM Joueurs WHERE idJoueurs = S_idJoueurs) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Player does not exist";
+    ELSEIF qtyItemMagasin = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "No stock available";
+    ELSEIF qtyItemPanier >= qtyItemMagasin THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Max quantity reached";
+    ELSE
+        -- Add or update cart
+        IF qtyItemPanier = 0 THEN
+            INSERT INTO Panier(idItems, idJoueurs, quantiteItem) VALUES(S_idItem, S_idJoueurs, 1);
+        ELSE
+            UPDATE Panier SET quantiteItem = quantiteItem + 1 
+            WHERE idItems = S_idItem AND idJoueurs = S_idJoueurs;
+        END IF;
+    END IF;
+END //
 DELIMITER ;
 
 -- Modifier le mot de passe
