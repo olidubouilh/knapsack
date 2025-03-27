@@ -61,7 +61,7 @@ h1{
 
 /* Section confirmation achat (placée à droite) */
 .confirmation {
-    background-color: rgba(248, 252, 0, 0.9);
+    background-color: rgba(248, 252, 0, 0.5);
     padding: 20px;
     margin-left: 7%;
     border-radius: 8px;
@@ -84,11 +84,11 @@ h1{
 .bouton {
     background-color: #d32f2f;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: none;
     border-radius: 25px;
     font-size: 23px;
-    font-weight: bold;
+    -webkit-text-stroke: 1.5px black;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -123,6 +123,14 @@ h1{
     text-align: center;
     text-decoration: none;
     transition: background 0.3s ease-in-out, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+
+}
+.boutonSupprimer{
+    background-color: #b32a2a;
+    color: white;
+    border-radius: 6px;
+    border: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 
 }

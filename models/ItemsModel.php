@@ -35,4 +35,14 @@ class ItemsModel
         }
     }
     
+
+    public function SupprimerItemPanier($idItem, $idJoueur): void
+    {
+        $pdo = Database::getInstance();
+        $stmt = $pdo->prepare("CALL SupprimerItemPanier(:idItems, :idJoueurs)");
+        $stmt->execute([
+            'idItems' => $idItem,
+            'idJoueurs' => $idJoueur
+        ]);
+    }
 }

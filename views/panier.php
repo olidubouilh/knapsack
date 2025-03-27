@@ -32,18 +32,17 @@ require 'views/partials/header.php'
                                     </span>
                                     <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems'] ?>, <?= $item['quantiteItemMax'] ?>)">+</button>
                                 </div>
-                            
-                            </div>
+                                <button class="boutonSupprimer" onclick="supprimerItemPanier(<?= $item['idItems'] ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
                             </div>
                     <?php } ?>
             </div>
         </th>
         <th>
             <div class="confirmation">
-                <h1>Prix total: <? $totalPrix ?> Caps</h1>
+                <h1>Prix total: <?= $totalPrix ?> Caps</h1>
                 <div class="boutons-container">
-                    <a href="#" class="bouton">Acheter</a>
-                    <a href="#" class="bouton">Annuler</a>
+                    <a href="#" class="bouton">Payer</a>
+
                 </div>
             </div>
         </th>
