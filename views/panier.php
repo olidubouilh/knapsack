@@ -11,9 +11,7 @@ $totalPrix = 0;
     <tr>
         <th style="width: 950px">
 
-            <div class="panier-items"> 
-               
-<<<<<<< HEAD
+            <div class="panier-items">
                 <?php foreach ($panier as $item) {?>
                     <div class="item-slot">
 
@@ -36,8 +34,9 @@ $totalPrix = 0;
                                 </div>
                                 <button class="boutonSupprimer" onclick="supprimerItemPanier(<?= $item['idItems'] ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
                             </div>
+                            </div>
                     <?php } ?>
-            </div>
+            
         </th>
         
         <th>
