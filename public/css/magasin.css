@@ -42,3 +42,15 @@ main h1{
 .item-container div{
     margin-bottom: 10px;
 }
+.button{
+    background-color:  rgba(248, 252, 0, 0.9);
+    border-radius: 4px;
+    border: none;
+    padding: 0.5em;
+}
+.aucun-item{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    
+}

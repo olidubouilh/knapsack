@@ -2,7 +2,7 @@
 
 require_once 'src/functions.php';   
 require 'src/class/Database.php';
-require 'models/UserModel.php';
+require 'models/ItemsModel.php';
 $style = 'magasin.css';
 sessionStart();
 
@@ -13,53 +13,36 @@ sessionStart();
 //     unset($_SESSION['success']);
 // }
 $pdo = Database::getInstance();
-$userModel = new UserModel($pdo);
+$itemsModel = new ItemsModel($pdo); 
+$magasin = $itemsModel->getItemsMagasin();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
-
-    $alias = $_POST['alias'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    if (empty($alias)) {
-    $errors = "Alias ou mot de passse invalide";
+    if (isset($_POST['details'])) {
+        $idDetails = $_POST['details'] ?? '';
+        header("Location: /detailsItems?id=" . urlencode($idDetails));
+        exit;
     }
-    if (empty($password)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-    elseif(!$userModel->selectByAlias($alias, $password)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-    if (empty($errors)) {
 
-        $user = $userModel->selectByAlias($alias, $password);
-        //FUTURE POUR SAVOIR SI EST ADMIN OU NON
-        // if($user->getActive() == false){
-        //     redirect('/inactif');
-        //     exit;
-        // }
-        //else{
-            $_SESSION['user'] = [
-                'id' => $user->getId(),
-                'alias'=> $user->getAlias(),
-                'montant'=> $user->getMontant(),
-                'dexterite'=> $user->getDexterite(),
-                'pvJoueur'=> $user->getPvJoueur(),
-                'poidsMaximal'=> $user->getPoidsMaximal(),
-            ];
-            redirect('/');
-            exit;
-        //}
-       
-    }  
+    if (isset($_POST['search'])) {
+        $recherche = isset($_POST['searchBar']) ? trim($_POST['searchBar']) : "";
+        $categories = [];
+        if (isset($_POST['A'])) $categories[] = "A";
+        if (isset($_POST['W'])) $categories[] = "W";
+        if (isset($_POST['M'])) $categories[] = "M";
+        if (isset($_POST['N'])) $categories[] = "N";
+        if (isset($_POST['B'])) $categories[] = "B";
+        
+        $magasin = $itemsModel->getItemsMagasinFiltrer($recherche, $categories);
+    }
 }
-#############################Câlicement temporaire################
+
+
+
+
 
 
 // Fetching inventory data from VInventaire view
-$stmt = $pdo->prepare("SELECT * FROM Items");
-$stmt->execute();
-$magasin = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 view("magasin.php", [
     'magasin' => $magasin,
@@ -67,4 +50,3 @@ view("magasin.php", [
     'popUp' => $popUp ?? '',
     'style' => $style ?? '',    
 ]);
-
