@@ -5,13 +5,16 @@ require 'views/partials/header.php';
 ?>   
 <div class="search">
    <form method="POST">
+
+   </form>
 </div>
 <main class="inventaire">    
 
     
 <h1>Magasin</h1>
 <div class="inventaire-container">
-<form method="POST"></form>
+<form method="POST">
+
    <?php foreach ($magasin as $item) { ?>
        <div class="item-container">
            <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
@@ -30,7 +33,7 @@ require 'views/partials/header.php';
            <div>Utilite : <?= htmlspecialchars($item['utilite']) ?><br></div>
            <div>Quantite dans le sac : <?= htmlspecialchars($item['quantiteItem']) ?></div>
 
-           <div><a type="submit" class="btn btn-primary" href="/detailsItems?id=<?php echo $item['idItems']; ?>" value="$item['idItem']"name="details" id="details">Details</a></div>
+           <div><a type="submit" class="btn btn-primary" href="/detailsItems?id=<?php echo $item['idItems']; ?>" value="<?=$item['idItem']?>"name="details" id="details">Details</a></div>
            
        </div>
    <?php } ?>
