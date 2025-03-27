@@ -44,3 +44,28 @@ function updateTotal() {
 
     document.getElementById('totalPrix').innerText = "Prix total : " + total + " caps";
 }
+
+
+
+function supprimerItemPanier(itemId, userId) {
+    if (!confirm("Voulez-vous vraiment supprimer cet article du panier ?")) return;
+
+    let formData = new FormData();
+    formData.append("idItems", itemId);
+    formData.append("idJouers", userId);
+
+    fetch("../../models/ItemsModel.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(responseText => {
+        if (responseText.trim() === "success") {
+            document.getElementById(itemId).closest('.item-slot').remove();
+            alert("Article supprimé !");
+        } else {
+            alert("Erreur : " + responseText);
+        }
+    })
+    .catch(error => console.error("Erreur:", error));
+}

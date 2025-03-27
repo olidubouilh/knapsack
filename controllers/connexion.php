@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //     exit;
         // }
         //else{
+            //$_SESSION['user'] = $user;   FAIRE PLUS TARD
             $_SESSION['user'] = [
                 'id' => $user->getId(),
                 'alias'=> $user->getAlias(),

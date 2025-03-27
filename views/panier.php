@@ -10,6 +10,7 @@ require 'views/partials/header.php'
 
             <div class="panier-items"> 
                
+<<<<<<< HEAD
                 <?php foreach ($panier as $item) {?>
                     <div class="item-slot">
 
@@ -30,8 +31,7 @@ require 'views/partials/header.php'
                                     </span>
                                     <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems'] ?>, <?= $item['quantiteItemMax'] ?>)">+</button>
                                 </div>
-                            
-                            </div>
+                                <button class="boutonSupprimer" onclick="supprimerItemPanier(<?= $item['idItems'] ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
                             </div>
                     <?php } ?>
             </div>
@@ -40,8 +40,8 @@ require 'views/partials/header.php'
             <div class="confirmation">
                 <h1 id="totalPrix"></h1>
                 <div class="boutons-container">
-                    <a href="#" class="bouton">Acheter</a>
-                    <a href="#" class="bouton">Annuler</a>
+                    <a href="#" class="bouton">Payer</a>
+
                 </div>
             </div>
         </th>

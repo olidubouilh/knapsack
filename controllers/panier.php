@@ -3,11 +3,13 @@
 require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
+require 'models/ItemsModel.php';
 $style = 'panier.css';
 sessionStart();
 
 $pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
+$itemModel = new ItemsModel($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -41,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+        $itemId = $panier['idItem'];               //me souviens pu ce que je faisais mais il me maquait le idItem là.
+        $userId = $_SESSION['user']['id'];    //ps: j'essayais d'utiliser les classes, models, controllers et pdo pis ça marchait pas fort fort
+        $itemModel -> SupprimerItemPanier($itemId, $userId);
+        
 // 👇 Make sure this part is outside of the POST request block
 if (isset($_SESSION['user']['id'])) {
     $idJoueur = $_SESSION['user']['id']; 
@@ -52,6 +58,7 @@ if (isset($_SESSION['user']['id'])) {
     view("panier.php", [
         'id' => $idJoueur,
         'panier' => $panier,
+        
         'errors' => $errors ?? '',
         'popUp' => $popUp ?? '',
         'style' => $style ?? '',
