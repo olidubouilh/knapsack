@@ -13,9 +13,8 @@ $totalPrix = 0;
 
             <div class="panier-items"> 
                
-                <?php foreach ($panier as $item) {
-                    $totalPrix += $item['prix'] * $item['quantiteItem'];?>
-                    
+<<<<<<< HEAD
+                <?php foreach ($panier as $item) {?>
                     <div class="item-slot">
 
                             <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
@@ -29,14 +28,13 @@ $totalPrix = 0;
 
                             <div style="position: relative;">Quantité <br>
                                     <button href="#" class="boutonquanti" onclick="decreaseQuantity(<?= $item['idItems'] ?>)">-</button>
-                                    <span class="quantite" id="item-<?= $item['idItems'] ?>" data-id="<?= $item['idItems'] ?>"
+                                    <span class="quantite" id="<?= $item['idItems'] ?>" data-id="<?= $item['idItems'] ?>"
                                         data-prix="<?= $item['prix'] ?>">
                                         <?= htmlspecialchars($item['quantiteItem']) ?>
                                     </span>
-                                    <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems'] ?>)">+</button>
+                                    <button href="#" class="boutonquanti" onclick="increaseQuantity(<?= $item['idItems'] ?>, <?= $item['quantiteItemMax'] ?>)">+</button>
                                 </div>
-                            
-                            </div>
+                                <button class="boutonSupprimer" onclick="supprimerItemPanier(<?= $item['idItems'] ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
                             </div>
                     <?php } ?>
             </div>
@@ -46,8 +44,8 @@ $totalPrix = 0;
             <div class="confirmation">
                 <h1 id="totalPrix"></h1>
                 <div class="boutons-container">
-                    <a href="#" class="bouton">Acheter</a>
-                    <a href="#" class="bouton">Annuler</a>
+                    <a href="#" class="bouton">Payer</a>
+
                 </div>
             </div>
         </th>
