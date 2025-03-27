@@ -3,6 +3,7 @@
 require_once 'src/functions.php';
 require 'src/class/Database.php';
 require_once 'src/configuration.php';
+require 'src/class/User.php';
 $style = 'index.css';
 
 sessionStart();

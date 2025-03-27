@@ -2,7 +2,7 @@
 
 require_once 'src/functions.php';   
 require 'src/class/Database.php';
-require 'models/UserModel.php';
+require 'models/ItemsModel.php';
 $style = 'magasin.css';
 sessionStart();
 
@@ -15,9 +15,9 @@ sessionStart();
 $pdo = Database::getInstance();
 $itemsModel = new ItemsModel($pdo); 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['form1_submit'])) {
+    if (isset($_POST['search'])) {
         // Formulaire 1 soumis
-    } elseif (isset($_POST['form2_submit'])) {
+    } elseif (isset($_POST[''])) {
         // Formulaire 2 soumis
     }
 
