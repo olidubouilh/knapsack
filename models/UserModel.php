@@ -44,6 +44,23 @@ class UserModel
         }  
 
     }
+    public function poidSac(string $id) : string|null{
+        try{
+            $stm = $this->pdo->prepare('call poidSac(:id)');
+            $stm->bindValue(":id", $id, PDO::PARAM_STR);
+            $stm->execute();
+
+            $data = $stm->fetch(PDO::FETCH_ASSOC);
+
+            if (!empty($data)) {
+                return $data['poids_total'];
+            }
+            return 0;
+        } catch (PDOException $e) {
+
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
+    }
     public function verifierAlias(string $alias) : bool {
         try{
             $stm = $this->pdo->prepare('call verifierAlias(:alias)');

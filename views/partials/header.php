@@ -14,6 +14,14 @@
             <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>
             </div>
         </nav>
+        <div class="stats">
+            <p><?= $_SESSION['user']['alias'] ?? '';?></p>
+            <p> Caps: <?= $_SESSION['user']['montant'] ?? '';?> </p>
+            <p> Dex: <?= $_SESSION['user']['dexterite'] ?? '';?> </p>
+            <p> Pv: <?= $_SESSION['user']['pvJoueur'] ?? '';?> </p>
+            <p> Poids Maximal: <?= $_SESSION['user']['poidsMaximal'] ?? '';?></p>
+            <p> Poids du sac: <?= $_SESSION['user']['poidsSac'] ?? '';?> </p>
+        </div>
     </header>
 
 

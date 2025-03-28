@@ -13,7 +13,7 @@ require 'views/partials/header.php';
                 
         <div class="mb-3">
             <label for="alias" class="form-label">Alias</label>
-            <input type="alias" class="form-control" id="alias" name="alias" value="<?= htmlspecialchars($alias ?? '') ?>">
+            <input type="text" class="form-control" id="alias" name="alias" value="<?= htmlspecialchars($alias ?? '') ?>">
             
         </div>
 
@@ -26,9 +26,11 @@ require 'views/partials/header.php';
             <span class="help-inline" style="color: red;"><?= $errors ?? '' ?></span>
         </div>
         
-            
-        <button type="submit" class="btn btn-primary">Connexion</button>
-        <a class="btn btn-secondary" href="/inscription">Inscription</a>
+        <div class="bouton-group">
+            <button class="button" type="submit">Connexion</button>
+            <a class="button" href="/inscription">Inscription</a>
+        </div>   
+        
     </form>
 </main>
 <?php if ($popUp): ?>

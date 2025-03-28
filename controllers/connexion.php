@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'dexterite'=> $user->getDexterite(),
                 'pvJoueur'=> $user->getPvJoueur(),
                 'poidsMaximal'=> $user->getPoidsMaximal(),
+                'poidsSac'=> $userModel->poidSac($user->getId())
+
                 
                 
             ];
