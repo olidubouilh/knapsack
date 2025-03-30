@@ -28,6 +28,10 @@ require 'views/partials/header.php';
            <div>Quantite dans le sac : <?= htmlspecialchars($item['quantiteItem']) ?></div>
 
            <div><a type="submit" class="btn btn-primary" href="/detailsItems?id=<?php echo $item['idItems']; ?>" value="$item['idItem']"name="details" id="details">Details</a></div>
+           <form action="/detailsItems" method="post">
+                <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
+                <button type="submit" class="bouton">Acheter</button>
+            </form>
            
        </div>
    <?php } ?>
