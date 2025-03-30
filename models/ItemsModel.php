@@ -34,6 +34,43 @@ class ItemsModel
             return null;
         }
     }
+    public function getItemsMagasinFiltrer($recherche, $categories): array|null{
+        try {
+            $sql = "SELECT * FROM Items";
+            $conditions = [];
+            $params = [];
+    
+            if (!empty($recherche)) {
+                $conditions[] = "nomItem LIKE :recherche";
+                $params[':recherche'] = "%" . $recherche . "%";
+            }
+    
+            if (!empty($categories)) {
+               
+                $placeholders = [];
+                foreach ($categories as $index => $cat) {
+                    $placeholder = ":typeItem" . $index;
+                    $placeholders[] = $placeholder;
+                    $params[$placeholder] = $cat;
+                }
+                $conditions[] = "typeItem IN (" . implode(',', $placeholders) . ")";
+            }
+    
+            if (!empty($conditions)) {
+                $sql .= " WHERE " . implode(" AND ", $conditions);
+            }
+    
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            $resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $resultats ?: null;
+        } 
+        catch (PDOException $e) {
+            echo "Erreur dans getItemsFiltres: " . $e->getMessage();
+            return null;
+        }
+    }
     
 
     public function SupprimerItemPanier($idItem, $idJoueur): void

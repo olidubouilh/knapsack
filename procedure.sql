@@ -100,3 +100,12 @@ SacADos.quantite
 from Items inner join SacADos on
 Items.idItems = SacADos.idItems;
 Select * from VInventaire;
+
+----Poids du sac a dos ---------
+CREATE PROCEDURE poidSac(IN S_id VARCHAR(40))
+BEGIN
+	SELECT SUM(i.poids * s.quantite) AS poids_total
+    FROM SacADos s
+    JOIN Items i ON s.idItems = i.idItems
+    WHERE s.idJoueurs = S_id;
+END $$

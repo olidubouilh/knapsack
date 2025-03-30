@@ -9,6 +9,7 @@ header{
     position: sticky;
     top: 10px; 
     z-index: 1000; 
+    border-radius: 10px;
 }
 body{
     background-image: url("../img/background.jpg");
@@ -23,6 +24,7 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 0.5em 1em;
+    
    
 }
 
@@ -76,21 +78,91 @@ body{
 ---------------------------------*/
 
 main {
-    /* Note : "display: center" n'est pas une valeur CSS valide. 
-       Si tu voulais centrer le contenu, tu pourrais utiliser "margin: 0 auto;" ou "text-align: center;" */
     background-color:  #961d1db5;
     color: rgb(255, 255, 25);
-    margin: 5em;
+    margin-top: 2%;
     margin-left: 10%;
     margin-right: 10%;
     padding-bottom: 2em;
-    padding-top: 2em;
     border-radius: 10px;
 }
 div{
     font-family: 'falloutFont';
     font-size: 25px;
     -webkit-text-stroke: 1.5px #961d1db5;
+}
+input[type="text"]{
+    background-color: rgb(255, 255, 25);
+    border-radius: 2px;
+    border: none;
+    color: #961d1d;
+    -webkit-text-stroke: 0;
+    font-weight: bold;
+}
+input[type="text"]:focus{
+    background-color: #731919;
+    color: rgb(248, 252, 0) ;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    -webkit-text-stroke: 0;
+    font-weight: bold;
+    
+}
+input[type="text"]:hover{
+    background-color: #731919;
+    color: rgb(248, 252, 0) ;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    
+    
+}
+input[type="password"]{
+    background-color: rgb(255, 255, 25);
+    border-radius: 2px;
+    border: none;
+    color: #961d1d;
+    -webkit-text-stroke: 0;
+    font-weight: bold;
+}
+input[type="password"]:focus{
+    background-color: #731919;
+    color: rgb(248, 252, 0) ;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    -webkit-text-stroke: 0;
+    font-weight: bold;
+    
+}
+input[type="password"]:hover{
+    background-color: #731919;
+    color: rgb(248, 252, 0) ;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    
+    
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #731919;
+    border: 2px solid rgb(248, 252, 0);
+    width: 22px;
+    height: 22px;
+    border-radius: 6px; 
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 10px;
+    transition: background 0.3s ease;
+}
+input[type="checkbox"]:checked {
+    background-color: rgb(248, 252, 0); 
 }
 
 .funnel-sans-body {
@@ -114,6 +186,23 @@ div{
     z-index: 9999;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.button {
+    background-color: rgba(248, 252, 0, 0.9);
+    border-radius: 4px;
+    border: none;
+    padding: 0.5em 1em;
+    font-family: 'falloutFont', sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    -webkit-text-stroke: 0px;
+    color: #731919;
+    font-size: 20px;
+}
+
+.button:hover {
+    background-color: #731919;
+    color: rgba(248, 252, 0, 0.9) ;
+}
 
 @font-face {
     font-family: 'falloutFont';
@@ -126,4 +215,11 @@ div{
     src: url('../fonts/OverseerBoldItalic.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
+}
+.stats{
+    color: rgb(255, 255, 25);
+    display: flex;
+    justify-content: center;  
+    gap: 100px;
+    
 }

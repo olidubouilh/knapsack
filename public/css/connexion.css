@@ -1,10 +1,28 @@
-form{
-    margin: auto;
-    width: 50%;
-    padding: 1em;
-    border: 1px solid #CCC;
-    border-radius: 1em;
+main form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
-main h1{
+main h1 {
     text-align: center;
+    color: rgb(255, 255, 25);
+    font-family: 'falloutFont';
+    font-size: 60px;
+    -webkit-text-stroke: 2.5px #961d1db5;
+    margin-bottom: 30px;
+}
+main form .button{
+    margin-top: 20px;
+    display: inline-block;  
+}
+a{
+    text-decoration: none;
+}
+
+.bouton-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
 }

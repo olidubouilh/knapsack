@@ -1,44 +1,76 @@
-main h1{
+
+
+main h1 {
     text-align: center;
-    font-family: 'falloutFont';
-    font-size: 40px;
-    -webkit-text-stroke: 2.5px #961d1db5;
-}
-.search{
-   
-    background-color:  #961d1db5;
     color: rgb(255, 255, 25);
-    margin: 5em;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-bottom: 2em;
-    padding-top: 2em;
+    font-family: 'falloutFont';
+    font-size: 60px;
+    -webkit-text-stroke: 2.5px #961d1db5;
+    margin-bottom: 30px;
+}
+
+.search {
+    background-color: #961d1db5;
+    color: rgb(255, 255, 25);
+    margin: 1em 10%;
+    padding-bottom: 1em;
     border-radius: 10px;
+    text-align: center;
+}
+
+.inventaire {
+    padding-top: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
 }
-.inventaire {
-    display: center;
-    background-color:  #961d1db5;
-    color: rgb(255, 255, 25);
-    margin: 8em;
-    margin-left: 10em;
-    margin-right: 10em;
-    padding-bottom: 2em;
-    padding-top: 2em;
+
+/* ✅ SCROLL ZONE POUR LES ITEMS */
+.scroll-zone {
+    max-height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    padding: 0 10px;
 }
+
+.scroll-zone::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scroll-zone::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 25, 0.7);
+    border-radius: 5px;
+}
+
+.scroll-zone::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 .inventaire-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    margin-left: 10px;
-    margin-right: 10px;
 }
+
 .item-container {
-    background-color: rgb(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 20px;
     text-align: center;
     border-radius: 4px;
 }
-.item-container div{
+
+.item-container div {
     margin-bottom: 10px;
 }
+
+
+
+.aucun-item {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+}
+

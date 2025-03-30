@@ -1,32 +1,70 @@
-main h1{
+
+
+main h1 {
     text-align: center;
-    font-family: 'falloutFont';
-    font-size: 40px;
-    -webkit-text-stroke: 2.5px #961d1db5;
-}
-.inventaire {
-    display: center;
-    background-color:  #961d1db5;
     color: rgb(255, 255, 25);
-    margin: 8em;
-    margin-left: 10em;
-    margin-right: 10em;
-    padding-bottom: 2em;
-    padding-top: 2em;
+    font-family: 'falloutFont';
+    font-size: 60px;
+    -webkit-text-stroke: 2.5px #961d1db5;
+    margin-bottom: 30px;
+    margin-top:0px;
 }
+
+.inventaire {
+    background-color: #961d1db5;
+    color: rgb(255, 255, 25);
+   
+    padding-left: 2em;
+    padding-right: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    
+}
+
+
+.scroll-zone {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    padding-right: 0;
+    border-radius: 10px;
+    min-height: 25em;
+}
+
+
 .inventaire-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 0 10px;
 }
+
+
 .item-container {
-    background-color: rgb(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 20px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 8px;
+    width: 98%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
-.item-container div{
+
+.item-container div {
     margin-bottom: 10px;
+}
+.scroll-zone::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scroll-zone::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 25, 0.7); /* Jaune Fallout */
+    border-radius: 5px;
+}
+
+.scroll-zone::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
 }

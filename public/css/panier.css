@@ -1,78 +1,87 @@
-header{
+body {
+    background-image: url("../img/background.jpg");
+    background-size: cover;
+}
+
+header {
     background-color: #961d1dee;
     color: #731919a3;
     padding: 10px;
-    text-align: center;
     padding-top: 20px;
-    
+    text-align: center;
 }
-body{
-    background-image: url(img/background.jpg);
-    background-size: cover; 
-        
-}
-nav{
-    text-align: left;
-}
-h1{
-    text-align:center;
+
+main h1 {
+    text-align: center;
     color: rgb(255, 255, 25);
     font-family: 'falloutFont';
     font-size: 60px;
     -webkit-text-stroke: 2.5px #961d1db5;
+    margin-bottom: 30px;
 }
+
 .panier-core {
-    display: flex; /* Affichage horizontal */
-    justify-content: space-between; /* Répartit les items à gauche et la confirmation à droite */
-    align-items: flex-start; /* Aligne la confirmation en haut */
-    background-color: rgba(150, 29, 29, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     color: rgb(255, 255, 25);
-    padding-left: 2%;
-    margin-left: 10%;
-    
-    width: 1400px;
-    max-width: 100%;
+    margin: 0 5%;
+    gap: 40px;
 }
 
-/* Section contenant les items du panier */
+.panier-colonne-gauche {
+    direction: rtl;
+    width: 950px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 100%;
+}
+
+.panier-colonne-gauche::-webkit-scrollbar {
+    width: 10px;
+}
+
+.panier-colonne-gauche::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 25, 0.7);
+    border-radius: 5px;
+}
+
+.panier-colonne-gauche::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 .panier-items {
-    display: flex; /* Affiche les items en ligne */
-    flex-wrap: wrap; /* Permet aux items de passer à la ligne si nécessaire */
-    gap: 20px; /* Espacement uniforme */
-    justify-content: flex-start; /* Aligner les items à gauche */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    direction: ltr;
 }
 
-/* Style des items */
 .item-slot {
     background: rgba(255, 255, 255, 0.1);
     padding: 10px;
     border-radius: 8px;
-    text-align:center;
+    text-align: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 900px; /* Largeur fixe */
-    /*flex: 0 0 250px; /* Empêche l'étirement */
-    height: auto;
-    display:grid;
-    grid-template-columns: 150px 280px 150px 150px 100px; /* Custom sizes for each column */
-    gap: 15px; /* Space between items */
-    grid-row-start: auto;
-    /*justify-content:space-between;*/
+    width: 98%;
+    display: grid;
+    grid-template-columns: 150px 280px 150px 150px 100px;
+    gap: 15px;
+    
 }
 
-/* Section confirmation achat (placée à droite) */
 .confirmation {
     background-color: rgba(248, 252, 0, 0.9);
     padding: 20px;
-    margin-left: 7%;
     border-radius: 8px;
     text-align: center;
-    width: 300px; /* Taille fixe pour éviter qu'elle ne bouge */
-    height: fit-content; /* Ajuste la hauteur au contenu */
+    width: 300px;
+    height: fit-content;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    align-self: flex-start; /* Place la confirmation en haut */
+    align-self: flex-start;
 }
 
-/* Conteneur des boutons */
 .boutons-container {
     display: flex;
     justify-content: center;
@@ -80,7 +89,6 @@ h1{
     margin-top: 10px;
 }
 
-/* Style des boutons */
 .bouton {
     background-color: #d32f2f;
     color: white;
@@ -94,39 +102,42 @@ h1{
     text-decoration: none;
     transition: background 0.3s ease-in-out, transform 0.2s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 120px; /* Taille uniforme */
+    width: 120px;
 }
 
-/* Effet au survol */
 .bouton:hover {
     background-color: #b71c1c;
     transform: scale(1.05);
 }
 
-/* Effet au clic */
 .bouton:active {
     background-color: #9a0007;
     transform: scale(0.95);
 }
+
 .boutonquanti {
     background-color: #b32a2a;
     color: white;
-    padding-right: 10px;
-    padding-left: 7px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 10px;
     border: none;
     border-radius: 6px;
     font-size: 20px;
-    font-weight: normal;
     cursor: pointer;
-    text-align: center;
-    text-decoration: none;
     transition: background 0.3s ease-in-out, transform 0.2s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-
 }
-body{
-    background-image: url("../img/background.jpg");
-    background-size: cover;
+
+.boutonSupprimer {
+    margin-top: 10px;
+    background-color: #8b0000;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.boutonSupprimer:hover {
+    background-color: #a50000;
 }
