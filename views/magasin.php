@@ -10,7 +10,8 @@ require 'views/partials/header.php';
    <h1>Magasin</h1>
    <form method="POST">
       <label for="searchBar">Recherche :</label>
-      <input type="text" name="searchBar" id="searchBar" value="<?= isset($_POST['searchBar']) ? htmlspecialchars($_POST['searchBar']) : '' ?>">
+      <input type="text" name="searchBar" id="searchBar"
+         value="<?= isset($_POST['searchBar']) ? htmlspecialchars($_POST['searchBar']) : '' ?>">
       <label for="A">Armure</label>
       <input type="checkbox" name="A" id="A" <?= isset($_POST['A']) ? 'checked' : '' ?>>
       <label for="W">Arme</label>
@@ -25,8 +26,8 @@ require 'views/partials/header.php';
    </form>
 </div>
 
-<main class="inventaire">    
-   
+<main class="inventaire">
+
 
    <div class="scroll-zone">
       <div class="inventaire-container">
@@ -37,11 +38,16 @@ require 'views/partials/header.php';
                   <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="140"><br></div>
                   <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
                   <?php
-                  if ($item['typeItem'] == 'A') echo "<div>Type d'item : Armure<br></div>";
-                  if ($item['typeItem'] == 'W') echo "<div>Type d'item : Arme<br></div>";
-                  if ($item['typeItem'] == 'M') echo "<div>Type d'item : Médicament<br></div>";
-                  if ($item['typeItem'] == 'N') echo "<div>Type d'item : Nourriture<br></div>";
-                  if ($item['typeItem'] == 'B') echo "<div>Type d'item : Munitions<br></div>";
+                  if ($item['typeItem'] == 'A')
+                     echo "<div>Type d'item : Armure<br></div>";
+                  if ($item['typeItem'] == 'W')
+                     echo "<div>Type d'item : Arme<br></div>";
+                  if ($item['typeItem'] == 'M')
+                     echo "<div>Type d'item : Médicament<br></div>";
+                  if ($item['typeItem'] == 'N')
+                     echo "<div>Type d'item : Nourriture<br></div>";
+                  if ($item['typeItem'] == 'B')
+                     echo "<div>Type d'item : Munitions<br></div>";
                   ?>
                   <div>Utilité : <?= htmlspecialchars($item['utilite']) ?><br></div>
                   <div>Quantité disponible : <?= htmlspecialchars($item['quantiteItem']) ?></div>
@@ -49,15 +55,19 @@ require 'views/partials/header.php';
                      <input type="submit" class="button" value="Details">
                      <input type="hidden" name="details" value="<?= htmlspecialchars($item['idItems']) ?>">
                   </form>
+                  <form action="/detailsItems" method="post">
+                     <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
+                     <button type="submit" class="bouton">Acheter</button>
+                  </form>
                </div>
             <?php } ?>
          <?php } else { ?>
-            </div>
-            <div class="aucun-item">
-               <div>Aucun item trouvé</div>
-            </div>
-         <?php } ?>
-      </div>
+         </div>
+         <div class="aucun-item">
+            <div>Aucun item trouvé</div>
+         </div>
+      <?php } ?>
+   </div>
    </div>
 </main>
 
