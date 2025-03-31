@@ -11,6 +11,7 @@ function increaseQuantity(id, maxQty){
     const Element = document.getElementById(id).textContent;
     if(parseInt(Element) < maxQty){
             quantity = parseInt(Element) + 1;
+            
     }
     else{
         quantity = maxQty;
