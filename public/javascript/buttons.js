@@ -52,7 +52,7 @@ function supprimerItemPanier(itemId, userId) {
 
     let formData = new FormData();
     formData.append("idItems", itemId);
-    formData.append("idJouers", userId);
+    formData.append("idJoueurs", userId);
 
     fetch("../../models/ItemsModel.php", {
         method: "POST",
