@@ -20,32 +20,34 @@ main h1 {
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
+    max-width: 85%;
+    margin: 30px auto;
     
 }
 
 
 .scroll-zone {
-    max-height: 500px;
+    max-height: none; /*Activer la scroll*/
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
     padding-right: 0;
     border-radius: 10px;
-    min-height: 25em;
+    min-height: 15em;
 }
 
 
 .inventaire-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin: 0 10px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 0 5px;
 }
 
 
 .item-container {
     background-color: rgba(255, 255, 255, 0.15);
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     border-radius: 8px;
     width: 98%;
@@ -54,7 +56,15 @@ main h1 {
 }
 
 .item-container div {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    font-size: 23px !important;
+}
+.item-container img {
+    max-width: 100%;
+    height: auto;
+    max-height: 140px;
+    display: block;
+    margin: 0 auto;
 }
 .scroll-zone::-webkit-scrollbar {
     width: 10px;
@@ -67,4 +77,24 @@ main h1 {
 
 .scroll-zone::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.2);
+}
+.boutonVendre {
+    background-color: #d32f2f;
+    color: rgb(255, 255, 25);
+    padding: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'falloutFont';
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.boutonVendre:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
 }

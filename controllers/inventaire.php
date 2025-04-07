@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/functions.php';   
+require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
 $style = 'inventaire.css';
@@ -15,48 +15,51 @@ sessionStart();
 $pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
+    $item_id = isset($_POST['item_id']) ? (int) $_POST['item_id'] : 0;
+    $item_value = isset($_POST['item_value']) ? (int) $_POST['item_value'] : 0;
 
-    $alias = $_POST['alias'] ?? '';
-    $password = $_POST['password'] ?? '';
+    if ($item_id > 0 && $item_value >= 0) {
 
-    if (empty($alias)) {
-    $errors = "Alias ou mot de passse invalide";
+        $caps_to_add = (int) ($item_value * 0.6);
+
+        $user_id = isset($_SESSION['user']['id']) ? (int) ($_SESSION['user']['id']) : 0;
+
+        if ($user_id > 0) {
+            try {
+                $stmt = $pdo->prepare("CALL ModifierCapsJoueurs(:caps, :idJoueurs)");
+                $stmt->bindValue(":caps", $caps_to_add, PDO::PARAM_INT);
+                $stmt->bindValue(":idJoueurs", $user_id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $stmt = $pdo->prepare("CALL ReduireItemInventaire(:idItem, :idJoueurs)");
+                $stmt->bindValue(":idItem", $item_id, PDO::PARAM_INT);
+                $stmt->bindValue(":idJoueurs", $user_id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $stmt = $pdo->prepare("CALL poidSac(:idJoueurs)");
+                $stmt->bindValue(":idJoueurs", (string) $user_id, PDO::PARAM_STR);
+                $stmt->execute();
+                $poids = $stmt->fetch(PDO::FETCH_ASSOC);
+                $new_poids = $poids['poids_total'];
+
+                $_SESSION['user']['poidsSac'] = $new_poids;
+
+                $stmt = $pdo->prepare("CALL verifierAlias(:alias)");
+                $stmt->bindValue(":alias", $_SESSION['user']['alias'], PDO::PARAM_STR);
+                $stmt->execute();
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['user']['montant'] = $user['montant'];
+            } catch (PDOException $e) {
+                die("Erreur lors de la vente: " . $e->getMessage());
+            }
+        }
     }
-    if (empty($password)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-    elseif(!$userModel->selectByAlias($alias, $password)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-    if (empty($errors)) {
-
-        $user = $userModel->selectByAlias($alias, $password);
-        //FUTURE POUR SAVOIR SI EST ADMIN OU NON
-        // if($user->getActive() == false){
-        //     redirect('/inactif');
-        //     exit;
-        // }
-        //else{
-            $_SESSION['user'] = [
-                'id' => $user->getId(),
-                'alias'=> $user->getAlias(),
-                'montant'=> $user->getMontant(),
-                'dexterite'=> $user->getDexterite(),
-                'pvJoueur'=> $user->getPvJoueur(),
-                'poidsMaximal'=> $user->getPoidsMaximal(),
-            ];
-            redirect('/');
-            exit;
-        //}
-       
-    }  
 }
-#############################Câlicement temporaire################
 
 if (isset($_SESSION['user']['id'])) {
-    $idJoueur = $_SESSION['user']['id']; 
+    $idJoueur = $_SESSION['user']['id'];
 
     $stmt = $pdo->prepare("SELECT * FROM VInventaire WHERE idJoueurs = :idJoueur");
     $stmt->execute(['idJoueur' => $idJoueur]);
@@ -67,10 +70,10 @@ if (isset($_SESSION['user']['id'])) {
         'inventaire' => $inventaire,
         'errors' => $errors ?? '',
         'popUp' => $popUp ?? '',
-        'style' => $style ?? '',    
+        'style' => $style ?? '',
     ]);
 
-}
-else {
+} else {
     redirect('/connexion');
 }
+
