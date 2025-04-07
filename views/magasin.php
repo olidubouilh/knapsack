@@ -51,13 +51,15 @@ require 'views/partials/header.php';
                   ?>
                   <div>Utilité : <?= htmlspecialchars($item['utilite']) ?><br></div>
                   <div>Quantité disponible : <?= htmlspecialchars($item['quantiteItem']) ?></div>
+                  <h3>Prix : <?php echo $item['prix']; ?></h3>
                   <form method="POST">
                      <input type="submit" class="button" value="Details">
                      <input type="hidden" name="details" value="<?= htmlspecialchars($item['idItems']) ?>">
                   </form>
+                  <div></div>
                   <form action="/detailsItems" method="post">
                      <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
-                     <button type="submit" class="bouton">Acheter</button>
+                     <button type="submit" class="boutonAcheter">Acheter</button>
                   </form>
                </div>
             <?php } ?>
