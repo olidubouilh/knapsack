@@ -47,6 +47,6 @@ function isAuthenticated() : bool
 function isAdministrator() : bool 
 {
     sessionStart();
-    return !empty($_SESSION['user']) && $_SESSION['user']['role'] === '1';
+    return !empty($_SESSION['user']) && $_SESSION['user']['isAdmin'] === '1';
 }
 
