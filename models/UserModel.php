@@ -23,15 +23,17 @@ class UserModel
             if(! empty($data)) {
 
                 return new User(
-                    $data['idJoueurs'], 
-                    $data['nomJoueur'],
-                    $data['prenomJoueur'],
-                    $data['alias'],
-                    $data['mPasse'], 
-                    $data['montant'],
-                    $data['dexterite'],
-                    $data['pvJoueur'],
-                    $data['PoidsMaximal']
+                    id: $data['idJoueurs'], 
+                    nom: $data['nomJoueur'],
+                    prenom: $data['prenomJoueur'],
+                    alias: $data['alias'],
+                    password: $data['mPasse'], 
+                    argent: $data['montant'],
+                    dex: $data['dexterite'],
+                    pv: $data['pvJoueur'],
+                    poids: $data['PoidsMaximal'],
+                    isAdmin: $data['isAdmin'],
+
                 );
             }
             
@@ -103,7 +105,8 @@ class UserModel
                         $data['montant'],
                         $data['dexterite'],
                         $data['pvJoueur'],
-                        $data['PoidsMaximal'] 
+                        $data['PoidsMaximal'],
+                        isAdmin: $data['isAdmin'],
                     );
                 }
                 return null;

@@ -9,6 +9,9 @@
                 <a href="/"><img src="public/img/logo.png" alt="Logo de Knapsack" class="logo"></a>
             </div>
             <div class="nav-right">
+                <?php  if($_SESSION['user']['isAdmin'] == 1) {?>
+                    <a href="/panier"><img src="public/img/adminHeader.jpg" alt="Admin"></a>
+                <?php } ?>
                 <a href="/panier"><img src="public/img/panier.png" alt="Panier"></a>
                 <a href="/inventaire"><img src="public/img/school-bag.png" alt="Inventaire"></a>
                 <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>

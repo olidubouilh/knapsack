@@ -12,11 +12,10 @@ class User
     private string $dexterite;
     private string $pvJoueur;
     private string $poidsMaximal;
-    
+    private string $isAdmin;
 
     
-    public function __construct(string $id, string $nom, string $prenom, string $alias, string $password,
-                                string $argent, string $dex, string $pv, string $poids ) 
+    public function __construct(string $id, string $nom, string $prenom, string $alias, string $password, string $argent, string $dex, string $pv, string $poids, string $isAdmin ) 
     {
         $this->idJoueurs = $id;
         $this->nomJoueur = $nom;
@@ -27,7 +26,7 @@ class User
         $this->dexterite = $dex;
         $this->pvJoueur = $pv;
         $this->poidsMaximal = $poids;
-
+        $this->isAdmin = $isAdmin;
     }
 
 
@@ -59,7 +58,9 @@ class User
     public function getPoidsMaximal(): string {
         return $this->poidsMaximal;
     }
-    
+    public function getIsAdmin(): string {
+        return $this->isAdmin;
+    }
 
     
 
