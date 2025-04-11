@@ -10,7 +10,8 @@ const ROUTES = [
     '/magasin' => 'magasin.php',
     '/detailsItems' => 'detailsItems.php',
     '/enigma' => 'enigma.php',
-    
+    '/enigmaQuestion' => 'enigmaQuestion.php',
+
 
 
 ];

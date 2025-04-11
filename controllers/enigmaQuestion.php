@@ -71,7 +71,7 @@ if(isset($_SESSION['user']['id'])) {
     }
     //*Choses à améliorer: ne pas nécéssairement diviser $question, mais plutot de l'envoyer à la vue qui va elle
     // le diviser selon le besoin.
-    view("enigma.php", [
+    view("enigmaQuestion.php", [
         'id' => $idJoueur,
         'idQuestion' => $idQuestion ?? '',
         'enonce' => $enonce ?? '',
