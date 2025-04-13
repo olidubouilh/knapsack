@@ -19,7 +19,7 @@ require 'views/partials/header.php';
 
     <div class="enigma-stats">
         <p>Statistiques :</p>
-        <p>Nombre de bonnes réponses : <?= htmlspecialchars($nbBonnesReponses) ?></p>
+        <p>Nombre de bonnes réponses : <?= htmlspecialchars(string: $nbBonnesReponses) ?></p>
         <p>Nombre de mauvaises réponses : <?= htmlspecialchars($nbMauvaisesReponses) ?></p>
     </div>
     <?php if (isset($errors)): ?>
@@ -31,3 +31,5 @@ require 'views/partials/header.php';
 </div>
 
 <!-- Ajouts très simple : 2025-04-07 par Raph -->  
+
+<!--Web2 voir documentation Time spawn -->

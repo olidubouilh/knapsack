@@ -7,7 +7,8 @@ require 'models/EnigmaModel.php';
 sessionStart();
 $pdo = Database::getInstance();
 $enigmaModel = new EnigmaModel($pdo);
-
+$idJoueur = $_SESSION['user']['id'] ?? '';
+$stats = new StatistiqueEnigma($idJoueur);
 //Lorsque le joueur soumet une réponse
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['reponse'])) {
@@ -15,8 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idQuestion = $_POST['idQuestion'] ?? '';
         $difficulte = $_POST['difficulte'] ?? '';
         $nbCaps = $_POST['nbCaps'] ?? '';
-        $idJoueur = $_SESSION['user']['id'] ?? '';
-        $stats = new StatistiqueEnigma($idJoueur); //Dû à l'instanciation de la classe à chaque fois qu'on soumet une réponse
+         //Dû à l'instanciation de la classe à chaque fois qu'on soumet une réponse
         //la suite de bonnes réponses, le nombre de bonnes réponses et le nombre de mauvaises réponses sont remis à 0.
 
         if(empty($reponse)) {
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Ici c'est un test, je compte bel et bien changer getEnonce() par getReponse() dans la classe Enigma
                 // et dans la base de données, mais pour l'instant je laisse ça comme ça
-                if ($question->getEnonce() === $reponse) {
+                if ($question->getReponse() == $reponse) {
                     
                     // Réponse correcte
                     $popUp = "Bravo ! Vous avez trouvé la bonne réponse.";
@@ -46,12 +46,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 // Vérifiez si l'utilisateur est connecté
-if(isset($_SESSION['user']['id'])) {
+if($idJoueur) {
     // Si l'utilisateur est connecté, on peut lui afficher une question aléatoire
     // et on affiche ses statistiques
-
-    $idJoueur = $_SESSION['user']['id'];
-    $stats = new StatistiqueEnigma($idJoueur);
     $questions = $enigmaModel->getAllQuestions(); // Récupérer toutes les questions de la base de données
     if($questions) {
         //Pour l'instant, je ne fais que récupérer une question facile, mais je vais faire en sorte de récupérer une question aléatoire
@@ -75,6 +72,7 @@ if(isset($_SESSION['user']['id'])) {
         'id' => $idJoueur,
         'idQuestion' => $idQuestion ?? '',
         'enonce' => $enonce ?? '',
+        'difficulte' => $difficulte ?? '',
         'nbBonnesReponses' => $stats->getNbBonneReponse(),
         'nbMauvaisesReponses' => $stats->getNbMauvaiseReponse(),
         'errors' => $errors ?? '',

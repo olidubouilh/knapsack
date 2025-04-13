@@ -6,13 +6,16 @@ class Enigma{
     private string $enonce; //Enoncé de la question
     private int $nbCaps; //Nombre de caps qui est donné si on répond correctement à la question
 
+    private string $reponse; //Réponse de la question
+
     //Constructeur de la classe Enigma
     //Il prend en paramètre l'id de la question, la difficulté, l'énoncé et le nombre de caps
-    public function __construct(int $idQuestion, string $niveau, string $question, int $nbCaps){
+    public function __construct(int $idQuestion, string $niveau, string $question, int $nbCaps, string $reponse){
         $this->idQuestion = $idQuestion;
         $this->difficulte = $niveau;
         $this->enonce = $question;
         $this->nbCaps = $nbCaps;
+        $this->reponse = $reponse;
     }
     public function getIdQuestion(): int{
         return $this->idQuestion;
@@ -25,6 +28,9 @@ class Enigma{
     }
     public function getNbCaps(): int{
         return $this->nbCaps;
+    }
+    public function getReponse(): string{
+        return $this->reponse;
     }
 }
 
@@ -61,9 +67,9 @@ class StatistiqueEnigma{
         $stats = $stmt->fetch(PDO::FETCH_ASSOC);
         //On récupère les statistiques du joueur dans la base de données
         if($stats){
-            $this->suiteBonneReponse = $stats['suiteBonneReponse'];
-            $this->nbBonneReponse = $stats['nbBonneReponse'];
-            $this->nbMauvaiseReponse = $stats['nbMauvaiseReponse'];
+            $this->suiteBonneReponse = $this->getSuiteBonneReponse();
+            $this->nbBonneReponse = $this->getNbBonneReponse();
+            $this->nbMauvaiseReponse = $this->getNbMauvaiseReponse();
         }
     }
 
@@ -72,7 +78,7 @@ class StatistiqueEnigma{
     {
         $this->nbBonneReponse++;
         $this->suiteBonneReponse++;
-        $this->updateStatsInDatabase();
+        
     }
 
     //Permet d'incrémenter le nombre de mauvaises réponses
@@ -98,14 +104,17 @@ class StatistiqueEnigma{
 
     public function getSuiteBonneReponse(): int
     {
+      
         return $this->suiteBonneReponse;
     }
     public function getNbBonneReponse(): int
     {
+        $this->updateStatsInDatabase();
         return $this->nbBonneReponse;
     }
     public function getNbMauvaiseReponse(): int
     {
+        $this->updateStatsInDatabase();
         return $this->nbMauvaiseReponse;
     }
 }
