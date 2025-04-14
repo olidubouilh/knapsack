@@ -1,11 +1,12 @@
 <?php
 require_once 'src/class/Items.php';
+require_once 'src/class/Panier.php';    
 class ItemsModel
 {
 
     public function __construct(private PDO $pdo) {}
 
-    public function getItemById($id)
+    public function getItemById($id): array|null
     {
 
         try {
@@ -21,6 +22,7 @@ class ItemsModel
             return null;
         }
     }
+   
     public function getItemsMagasin(){
         try{
             $stmt = $this->pdo->prepare("SELECT * FROM Items");

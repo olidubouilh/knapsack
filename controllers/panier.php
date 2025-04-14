@@ -3,23 +3,29 @@ require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
 require 'models/ItemsModel.php';
+require 'models/PannierModel.php';
+require_once 'src/class/Panier.php';
 $style = 'panier.css';
 sessionStart();
 
 $pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
+$itemsModel = new ItemsModel($pdo);
+$pannierModel = new PannierModel($pdo);
 
 
 if (isset($_SESSION['user']['id'])) {
     $idJoueur = $_SESSION['user']['id']; 
-
-    $stmt = $pdo->prepare("SELECT * FROM VPanier WHERE idJoueurs = :idJoueur");
-    $stmt->execute(['idJoueur' => $idJoueur]);
-    $panier = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $panier = new Panier($idJoueur);
+    $panier = $pannierModel->getItemsPanierById($panier);
+    $panier = $pannierModel->setItemPanier($panier);
+    $panierItems = $panier->getItemPanier();
+    $itemsDescription = $panier->getDescriptionItem();
 
     view("panier.php", [
         'id' => $idJoueur,
-        'panier' => $panier,
+        'panier' => $itemsDescription,
+        'quantite' => $panierItems,
         
         'errors' => $errors ?? '',
         'popUp' => $popUp ?? '',

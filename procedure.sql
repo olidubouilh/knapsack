@@ -32,6 +32,21 @@ BEGIN
 END $$
 DELIMITER ;
 
+---Get les itemes du panier avec l id du joueurs------
+DELIMITER //
+
+CREATE PROCEDURE GetItemsPanierById(IN joueur_id INT)
+BEGIN
+    SELECT 
+        idItems,
+        quantiteItem
+    FROM 
+        Panier
+    WHERE 
+        idJoueurs = joueur_id;
+END //
+
+DELIMITER ;
 
 -- Ajouter un item au panier(À partir du magasin)
 DELIMITER //
