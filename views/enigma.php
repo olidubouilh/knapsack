@@ -27,7 +27,10 @@ require 'views/partials/header.php';
     <input type="radio" name="difficulte" value="difficile"> Difficile<br>
     <input type="radio" name="difficulte" value="aléatoire"> Aléatoire (la difficulté de la question sera facile, moyenne ou difficile)<br>
 
-
+    <form action="/enigmaQuestion" method="post">
+        <input type="hidden" name="difficulte_id" value="<?php $difficulte ?>">
+        <button type="submit">Confirmer</button>
+    </form>
 
     <div class="enigma-stats">
         <p>Statistiques :</p>
