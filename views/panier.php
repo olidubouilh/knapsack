@@ -20,9 +20,15 @@ $totalPrix = 0;
                         <div>Prix : <?= htmlspecialchars($item->getPrix()) ?> Caps<br></div>
                         <div>
                             <div style="position: relative;">Quantité <br>
+<<<<<<< HEAD
                                 <button class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
                                 <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>" data-prix="<?= $item->getPrix() ?>">
                                     <?= htmlspecialchars($quantite[$idItem]) ?>
+=======
+                                <button class="boutonquanti" onclick="decreaseQuantity(<?= $item['idItems'] ?>)">-</button>
+                                <span class="quantite" id="<?= $item['idItems'] ?>" data-id="<?= $item['idItems'] ?>" data-prix="<?= $item['prix'] ?>">
+                                    <?= htmlspecialchars($item['quantiteItem']) ?>
+>>>>>>> 3fadc193098e99e0cfc6757cd54c43fc57ba983d
                                 </span>
                                 <button class="boutonquanti" onclick="increaseQuantity(<?= $idItem, $item->getQuantiteItem() ?>)">+</button>
                             </div>

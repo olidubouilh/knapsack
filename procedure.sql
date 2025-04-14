@@ -124,3 +124,46 @@ BEGIN
     JOIN Items i ON s.idItems = i.idItems
     WHERE s.idJoueurs = S_id;
 END $$
+
+----PayerPanier **En développement----
+CREATE PROCEDURE PayerPanier(IN S_idJoueur INT)
+BEGIN
+	DECLARE total DECIMAL(10,2);
+    DECLARE poids_total DECIMAL(10,2);
+    DECLARE solde_actuel DECIMAL(10,2);
+    
+    IF NOT EXISTS(SELECT * FROM Joueurs WHERE idJoueurs = S_idJoueur)
+		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT  = "Joueur introuvable";
+	END IF;
+    
+    SELECT SUM(vp.prix * p.quantiteItem) INTO total FROM Panier p
+    JOIN VPanier vp ON p.idItems = vp.idItems WHERE p.idJoueurs = S_idJoueur;
+    
+    IF total IS NULL 
+		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Le panier est vide";
+    END IF;
+    
+    SELECT montant INTO solde_actuel FROM Joueurs WHERE idJoueurs = S_idJoueur;
+    
+    IF solde_actuel < total 
+		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Fonds insuffisants";
+	END IF;
+    
+    CALL poidSac(S_idJoueur);
+    SELECT SUM(i.poids * p.quantiteItem) INTO poids_total
+    FROM Panier p JOIN Items i ON p.idItems = i.idItems WHERE p.idJoueurs = S_idJoueur;
+    
+    IF poids_total > (SELECT PoidsMaximal FROM Joueurs WHERE idJoueurs = S_idJoueur)
+		THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Poids maximal dépassé";
+	END IF;
+    
+    UPDATE Items i
+    JOIN Panier p ON i.idItems = p.idItems 
+    SET i.quantiteItem = i.quantiteItem - p.quantiteItem WHERE p.idJoueurs = S_idJoueur;
+    
+    INSERT INTO SacADos (idItems, idJoueurs, quantite)
+    SELECT p.idItems, p.idJoueurs, p.quantiteItem FROM Panier p
+    ON DUPLICATE KEY UPDATE quantite = quantite + VALUE(quantite);
+    
+    DELETE FROM Panier WHERE idJoueurs = S_idJoueur;
+END $$
