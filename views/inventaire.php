@@ -36,12 +36,12 @@ require 'views/partials/header.php';
                             <input type="hidden" name="item_value" value="<?= htmlspecialchars($item['prix']) ?>">
                             <button type="submit" class="boutonVendre" style="margin-bottom: 20px">Vendre</button>
                         </form>
+                        <h3>Effet: <?php echo $item['effet']; ?></h3>
                         <?php
-                        if ($item['typeItem'] == 'M') {
+                        if ($item['typeItem'] == 'M' || $item['typeItem'] == 'N') {
                             echo <<<HTML
-                                <form action="/inventaire" method="POST">
+                                <form action="/useItem" method="POST">
                                     <input type="hidden" name="item_id" value="{$item['idItems']}">
-                                    <input type="hidden" name="item_value" value="{$item['prix']}">
                                     <button type="submit" class="button">Utiliser</button>
                                 </form>
                         HTML;

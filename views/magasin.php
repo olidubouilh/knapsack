@@ -42,10 +42,14 @@ require 'views/partials/header.php';
                      echo "<div>Type d'item : Armure<br></div>";
                   if ($item['typeItem'] == 'W')
                      echo "<div>Type d'item : Arme<br></div>";
-                  if ($item['typeItem'] == 'M')
+                  if ($item['typeItem'] == 'M'){
                      echo "<div>Type d'item : Médicament<br></div>";
-                  if ($item['typeItem'] == 'N')
+                     echo "<div>Effet: " . $item['effet'] . "</div>";
+                  }
+                  if ($item['typeItem'] == 'N'){
                      echo "<div>Type d'item : Nourriture<br></div>";
+                     echo "<div>Effet: " . $item['effet'] . "</div>";
+                  }
                   if ($item['typeItem'] == 'B')
                      echo "<div>Type d'item : Munitions<br></div>";
                   ?>
