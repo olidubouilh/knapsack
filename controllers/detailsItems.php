@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['item_id'])) {
         $stmt->execute();
         $_SESSION['success'] = true;
 
-        redirect("/detailsItems?id=$itemId");
+        redirect("/magasin");
         
         exit;
     } catch (PDOException $e) {

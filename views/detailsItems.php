@@ -2,7 +2,7 @@
 require 'partials/head.php';
 require 'partials/header.php';
 ?>
-
+<link rel="stylesheet" href="/public/css/magasin.css">
 <html>
 
 <body>
@@ -36,17 +36,18 @@ require 'partials/header.php';
             <h3>Effet secondaire: <?php echo $item['effetSecondaire']; ?></h3>
             <h3>Durée: <?php echo $item['duree']; ?></h3>
         <?php elseif ($item['typeItem'] == 'N'): ?>
+            <h3>Effet: <?php echo $item['effetNourriture']; ?></h3>
             <h3>Nombre de calories: <?php echo $item['nbCalories']; ?></h3>
             <h3>Composant Nutritif: <?php echo $item['composantNutritif']; ?></h3>
             <h3>Composant Mineral: <?php echo $item['composantMineral']; ?></h3>
         <?php endif; ?>
 
         <div class="boutons-container">
-            <a href="/magasin" class="bouton">Retour</a>
             <form action="/detailsItems" method="post">
                 <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
-                <button type="submit" class="bouton">Acheter</button>
+                <button type="submit" class="boutonAcheter" style="margin-bottom: 10px;">Acheter</button>
             </form>
+            <a href="/magasin" class="button">Retour</a>
         </div>
     </main>
     <!-- <?php if ($popUp): ?>

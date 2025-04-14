@@ -85,11 +85,11 @@ BEGIN
 END $$
 DELIMITER ;
 -- View Panier
-Create View VPanier As Select
-Items.nomItem, Items.photo, Items.poids, 
-Items.prix, Panier.idJoueurs, Panier.quantiteItem
-from Items inner join Panier on
-Items.idItems = Panier.idItems;
+CREATE OR REPLACE VIEW VPanier AS
+SELECT i.idItems, i.nomItem, i.photo, i.poids, i.quantiteItem AS quantiteItemMax, i.prix, p.idJoueurs, p.quantiteItem
+FROM Panier p
+LEFT JOIN 
+Items i ON i.idItems = p.idItems;
 
 Select * from VPanier;
 --View VInventaire
