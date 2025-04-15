@@ -11,12 +11,10 @@ body{
     background-size: cover; 
         
 }
+
 nav{
     
     text-align: left;
-    
-    
-    
 }
 main {
    
@@ -28,7 +26,7 @@ main {
     padding: 2em;
     border-radius: 10px;
     margin-top: 1em;
-    
+    font-family: 'falloutFont';
     
 }
 .filtre {
@@ -56,13 +54,7 @@ main img {
     height: 90px;
     
 }
-.boutons-container {
-    display: flex;
-    justify-content: center; 
-    gap: 10px; 
-    margin-top: 10px; 
-    padding: 10px;
-}
+
 
 .bouton {
     background-color: #d32f2f; 
@@ -85,9 +77,49 @@ main img {
     background-color: #b71c1c; 
     transform: scale(1.05);
 }
+.boutonAcheter {
+    background-color: #d32f2f;
+    color: rgb(255, 255, 25);
+    padding: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'falloutFont';
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 90px;
+}
 
+.boutonAcheter:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+}
 
 .bouton:active {
     background-color: #9a0007;
     transform: scale(0.95);
+}
+
+
+.boutons-container {
+    display: flex;
+    justify-content: center; 
+    gap: 10px; 
+    margin-top: 10px; 
+    padding: 10px;
+}
+
+
+.bouton-cote {
+    display: flex;
+    gap: 10px; /* space between buttons */
+    justify-content: center;
+  }
+
+.bouton-cote form {
+  margin: 0;
 }

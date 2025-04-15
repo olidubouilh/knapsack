@@ -3,7 +3,7 @@ require 'partials/head.php';
 require 'views/partials/header.php';
 ?>
 <!-- Lien vers ton fichier CSS -->
-<link rel="stylesheet" href="/public/css/magasin.css">
+
 <script src="/public/javascript/buttons.js"></script>
 
 <div class="search">
@@ -56,15 +56,17 @@ require 'views/partials/header.php';
                   <div>Utilité : <?= htmlspecialchars($item['utilite']) ?><br></div>
                   <div>Quantité disponible : <?= htmlspecialchars($item['quantiteItem']) ?></div>
                   <h3>Prix : <?php echo $item['prix']; ?></h3>
+
+               <div class="bouton-cote">
                   <form method="POST">
-                     <input type="submit" class="button" value="Details">
                      <input type="hidden" name="details" value="<?= htmlspecialchars($item['idItems']) ?>">
+                     <button type="submit" class="boutonAcheter" value="Details">Details</button>
                   </form>
-                  <div></div>
                   <form action="/detailsItems" method="post">
                      <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
                      <button type="submit" class="boutonAcheter">Acheter</button>
                   </form>
+               </div>
                </div>
             <?php } ?>
          <?php } else { ?>
