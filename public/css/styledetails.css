@@ -113,13 +113,3 @@ main img {
     padding: 10px;
 }
 
-
-.bouton-cote {
-    display: flex;
-    gap: 10px; /* space between buttons */
-    justify-content: center;
-  }
-
-.bouton-cote form {
-  margin: 0;
-}
