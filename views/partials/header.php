@@ -20,11 +20,11 @@
         <?php if (isset($_SESSION['user'])): ?>
             <div class="stats">
                 <p><?= $_SESSION['user']['alias'] ?? ''; ?></p>
-                <p>Caps: <?= $_SESSION['user']['montant'] ?? ''; ?></p>
-                <p>Dex: <?= $_SESSION['user']['dexterite'] ?? ''; ?></p>
-                <p>Pv: <?= $_SESSION['user']['pvJoueur'] ?? ''; ?></p>
+                <p>Caps: <?= $_SESSION['user']['montant'] ?? '0'; ?></p>
+                <p>Dex: <?= $_SESSION['user']['dexterite'] ?? '0'; ?></p>
+                <p>Pv: <?= $_SESSION['user']['pvJoueur'] ?? '0'; ?></p>
                 <p>Poids Maximal: <?= $_SESSION['user']['poidsMaximal'] ?? ''; ?></p>
-                <p>Poids du sac: <?= $_SESSION['user']['poidsSac'] ?? ''; ?></p>
+                <p>Poids du sac: <?= $_SESSION['user']['poidsSac'] ?? '0'; ?></p>
             </div>
         <?php endif; ?>
     </header>
