@@ -25,6 +25,75 @@ class PannierModel
             throw new PDOException($e->getMessage(), $e->getCode());
         }   
     }
+    public function verificationPayerPanierPrix(array $quantiteItem, string $alias):bool{
+        try{
+            $prixTotal = 0;
+            foreach ($quantiteItem as $idItem => $quantite){
+                $itemModel = new ItemsModel($this->pdo);
+                $item = $itemModel->getItemById($idItem);
+                if($item){
+                    $prixTotal += $item['prix'] * $quantite;
+                }
+            }
+            $user = new UserModel($this->pdo);
+            $infoJoueur = $user->selectInfoJoueur($alias);
+            $caps = $infoJoueur->getMontant();
+            if($caps >= $prixTotal){
+                return true;
+            }
+            return false;
+        }
+        catch(PDOException $e){
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
+    }
+    public function VerifierDex(array $quantiteItem, string $alias){
+        try{
+            $poidsTotalpanier = 0;
+            foreach ($quantiteItem as $idItem => $quantite){
+                $itemModel = new ItemsModel($this->pdo);
+                $item = $itemModel->getItemById($idItem);
+                if($item){
+                    $poidsTotalpanier += $item['poids'] * $quantite;
+                }
+            }
+            $user = new UserModel($this->pdo);
+            $infoJoueur = $user->selectInfoJoueur($alias);
+            $poidsMax = $infoJoueur->getPoidsMaximal();
+            $poidsSacc = $user->poidSac($_SESSION['user']['id']);
+            if($poidsTotalpanier + $poidsSacc <= $poidsMax){
+                return true;
+            }
+            return false;
+        }
+        catch(PDOException $e){
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
+
+    }
+    public function payerPanier(array $quantiteItem, string $alias){
+        try{
+            $prixTotal = 0;
+            foreach ($quantiteItem as $idItem => $quantite){
+                $itemModel = new ItemsModel($this->pdo);
+                $item = $itemModel->getItemById($idItem);
+                if($item){
+                    $prixTotal += $item['prix'] * $quantite;
+                }
+            }
+            $user = new UserModel($this->pdo);
+            $infoJoueur = $user->selectInfoJoueur($alias);
+            $caps = $infoJoueur->getMontant();
+            $caps -= $prixTotal;
+            $stm = $this->pdo->prepare('Update Joueurs set montant = :caps where alias = :alias');
+            $stm->bindValue(":caps", $caps, PDO::PARAM_STR);
+            $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
+            $stm->execute();
+        }
+        catch(PDOException $e){
+            throw new PDOException($e->getMessage(), $e->getCode());
+        }
+    }
     public function setItemPanier(Panier $panier){
         try{
             $itemPanier = $panier->getItemPanier();

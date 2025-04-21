@@ -22,6 +22,23 @@ if (isset($_SESSION['user']['id'])) {
     $panierItems = $panier->getItemPanier();
     $itemsDescription = $panier->getDescriptionItem();
 
+    if(isset($_POST['quantites'])){
+        $quantiteItems = $_POST['quantites'];
+       
+        $payerPossible = $pannierModel->verificationPayerPanierPrix($quantiteItems, $_SESSION['user']['alias']);
+        if($payerPossible){
+            $poidLourd = $pannierModel->VerifierDex($quantiteItems, $_SESSION['user']['alias']);
+            if($poidLourd){
+                $panierModel->payerPanier($quantiteItems, $_SESSION['user']['alias']);
+                $popUp = "Vous avez payé votre panier avec succès";
+                
+            }
+        }
+        else{
+            $popUp = "Vous n'avez pas assez d'argent pour payer votre panier";
+        }
+    }
+
     view("panier.php", [
         'id' => $idJoueur,
         'panier' => $itemsDescription,

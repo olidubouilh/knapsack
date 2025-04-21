@@ -5,9 +5,13 @@ require 'views/partials/header.php';
 $totalPrix = 0;
 ?>
 <script src="/public/javascript/buttons.js"></script>
-
+<script src="/public/javascript/alert.js"></script>
 <main>
+    <div id="popupNotification" class="popupNotification">
+        <?=$popUp?>
+    </div>
     <h1>Panier</h1>
+    <form method="post" action="/panier">
     <div class="panier-core">
 
         <div class="panier-colonne-gauche">
@@ -20,33 +24,28 @@ $totalPrix = 0;
                         <div>Prix : <?= htmlspecialchars($item->getPrix()) ?> Caps<br></div>
                         <div>
                             <div style="position: relative;">Quantité <br>
-<<<<<<< HEAD
-                                <button class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
-                                <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>" data-prix="<?= $item->getPrix() ?>">
-                                    <?= htmlspecialchars($quantite[$idItem]) ?>
-=======
-                                <button class="boutonquanti" onclick="decreaseQuantity(<?= $item['idItems'] ?>)">-</button>
-                                <span class="quantite" id="<?= $item['idItems'] ?>" data-id="<?= $item['idItems'] ?>" data-prix="<?= $item['prix'] ?>">
-                                    <?= htmlspecialchars($item['quantiteItem']) ?>
->>>>>>> 3fadc193098e99e0cfc6757cd54c43fc57ba983d
+                                <button type="button" class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
+                                <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>" data-prix="<?= $item->getPrix() ?>" value="<?= $quantite[$idItem] ?>">
+                                    <?= htmlspecialchars($quantite[$idItem]) ?> 
                                 </span>
-                                <button class="boutonquanti" onclick="increaseQuantity(<?= $idItem, $item->getQuantiteItem() ?>)">+</button>
+                                <input type="hidden" name="quantites[<?= $idItem ?>]" id="input-<?= $idItem ?>" value="<?= $quantite[$idItem] ?>">
+                                <button type="button" class="boutonquanti" onclick="increaseQuantity(<?= $idItem?>, <?= $item->getQuantiteItem() ?>)">+</button>
                             </div>
                             <button class="boutonSupprimer" onclick="supprimerItemPanier(<?= $idItem ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
                         </div>
+                        <input type="hidden" name="prixTotal" id="prixTotalInput" value="0">
                     </div>
                 <?php } ?>
 
             </div>
         </div>
 
-        <div class="confirmation">
+        <div>
             <h1 id="totalPrix"></h1>
-            <div class="boutons-container">
-                <a href="#" class="bouton">Payer</a>
-            </div>
+            <button class="button" type="submit">Payer</button>
         </div>
     </div>
+    </form>
 </main>
 
 <?php require 'partials/footer.php'; ?>
