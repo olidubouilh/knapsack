@@ -115,8 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-<<<<<<< HEAD
-=======
 
 //bouton confirmer difficulté question Enigma
 
@@ -156,4 +154,3 @@ function setReponseValue() {
 
 
 
->>>>>>> dfe00f9112cebe9985a5a4851302e027cc790269

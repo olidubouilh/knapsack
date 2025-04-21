@@ -24,22 +24,12 @@ $totalPrix = 0;
                         <div>Prix : <?= htmlspecialchars($item->getPrix()) ?> Caps<br></div>
                         <div>
                             <div style="position: relative;">Quantité <br>
-<<<<<<< HEAD
                                 <button type="button" class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
                                 <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>" data-prix="<?= $item->getPrix() ?>" value="<?= $quantite[$idItem] ?>">
                                     <?= htmlspecialchars($quantite[$idItem]) ?> 
                                 </span>
                                 <input type="hidden" name="quantites[<?= $idItem ?>]" id="input-<?= $idItem ?>" value="<?= $quantite[$idItem] ?>">
                                 <button type="button" class="boutonquanti" onclick="increaseQuantity(<?= $idItem?>, <?= $item->getQuantiteItem() ?>)">+</button>
-=======
-                                <button class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
-                                <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>"
-                                    data-prix="<?= $item->getPrix() ?>">
-                                    <?= htmlspecialchars($quantite[$idItem]) ?>
-                                </span>
-                                <button class="boutonquanti"
-                                    onclick="increaseQuantity(<?= $idItem, $item->getQuantiteItem() ?>)">+</button>
->>>>>>> dfe00f9112cebe9985a5a4851302e027cc790269
                             </div>
                             <button class="boutonSupprimer"
                                 onclick="supprimerItemPanier(<?= $idItem ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
