@@ -1,6 +1,6 @@
 <?php
 require_once 'src/class/Panier.php';
-
+require_once 'src/class/User.php';
 
 class PannierModel
 {
@@ -10,7 +10,7 @@ class PannierModel
     public function getItemsPanierById(Panier $panier){
         try{
             $idJoueur = $panier->getId();
-            $stm = $this->pdo->prepare('CALL GetItemsPanierById(:id)');
+            $stm = $this->pdo->prepare('SELECT * FROM Panier WHERE idJoueurs = :id');
             $stm->bindValue(":id", $idJoueur, PDO::PARAM_STR);
             $stm->execute();
             $data = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -71,27 +71,108 @@ class PannierModel
         }
 
     }
-    public function payerPanier(array $quantiteItem, string $alias){
+    public function payerFullPanier(array $quantiteItem, string $alias, bool $modifierDex){
         try{
-            $prixTotal = 0;
+            $itemModel = new ItemsModel($this->pdo);    
+            $userModel = new UserModel($this->pdo);
+
+            $totalPrix = 0;
+            $poidsAjoute = 0;
+
             foreach ($quantiteItem as $idItem => $quantite){
-                $itemModel = new ItemsModel($this->pdo);
+                
                 $item = $itemModel->getItemById($idItem);
                 if($item){
-                    $prixTotal += $item['prix'] * $quantite;
+                    $totalPrix += $item['prix'] * $quantite;
+                    $poidsAjoute += $item['poids'] * $quantite;
                 }
             }
-            $user = new UserModel($this->pdo);
-            $infoJoueur = $user->selectInfoJoueur($alias);
-            $caps = $infoJoueur->getMontant();
-            $caps -= $prixTotal;
-            $stm = $this->pdo->prepare('Update Joueurs set montant = :caps where alias = :alias');
-            $stm->bindValue(":caps", $caps, PDO::PARAM_STR);
-            $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
-            $stm->execute();
+
         }
         catch(PDOException $e){
             throw new PDOException($e->getMessage(), $e->getCode());
+        }
+        $erreur = '';
+        $poidsActuel = $userModel->poidSac($_SESSION['user']['id']);
+        $poidsTotal = $poidsActuel + $poidsAjoute;
+        
+        $excedent = $poidsTotal - 50;
+        $infoJoueur = $userModel->selectInfoJoueur($alias);
+        $dexActuelle = $infoJoueur->getDexterite();
+        if($poidsTotal > 50) {
+            $poidSac = 50;
+        }
+        else{
+            $poidSac = $poidsTotal;
+        }
+
+        if ($dexActuelle <= 1) {
+            $erreur = "Vous n’avez pas assez de dextérité pour compenser la surcharge.";
+        }
+        if ($dexActuelle < $excedent) {
+            $erreur = "Vous n’avez pas assez de dextérité pour compenser la surcharge.";
+            
+        }
+        if($erreur == ''){
+            try{
+                $stm = $this->pdo->prepare("UPDATE Joueurs SET montant = montant - :totalPrix WHERE alias = :alias");
+                $stm->execute([
+                    'totalPrix' => $totalPrix,
+                    'alias' => $alias
+                ]);
+                $stm = $this->pdo->prepare("UPDATE Joueurs SET poids = :poidsAjoute WHERE alias = :alias");
+                $stm->execute([
+                    'poidsAjoute' => $poidSac,
+                    'alias' => $alias
+                ]);
+                if($excedent > 0){
+                   
+                    
+                    $stm = $this->pdo->prepare("UPDATE Joueurs SET dexterite = dexterite - :excedent WHERE alias = :alias");
+                    $stm->execute([
+                    'excedent' => $excedent,
+                    'alias' => $alias
+                    ]);
+                    
+                    
+                }
+               
+                foreach ($quantiteItem as $idItem =>$quantite) {
+                    $stm = $this->pdo->prepare("INSERT INTO SacADos (idItems, idJoueurs, quantite) VALUES (:idItem, :idJoueur, :quantite) ON DUPLICATE KEY UPDATE quantite = quantite + :quantite");
+                    $stm->execute([
+                        'idItem' => $idItem,
+                        'idJoueur' => $_SESSION['user']['id'],
+                        'quantite' => $quantite
+                    ]);
+                }
+                $stm = $this->pdo->prepare("DELETE from Panier WHERE idJoueurs = :idJoueur");
+                $stm->execute([
+                    'idJoueur' => $_SESSION['user']['id']
+                ]);
+                return $erreur;
+            }
+            catch(PDOException $e){
+                throw $e;
+            }
+            
+        }
+        else{
+            return $erreur;
+        }
+            
+       
+
+        
+    }
+    public function supprimerItemDuPanier($idJoueur, $idItem): void {
+        try {
+            $stm = $this->pdo->prepare("DELETE FROM Panier WHERE idJoueurs = :idJoueur AND idItems = :idItem");
+            $stm->execute([
+                'idJoueur' => $idJoueur,
+                'idItem' => $idItem
+            ]);
+        } catch (PDOException $e) {
+            throw $e;
         }
     }
     public function setItemPanier(Panier $panier){

@@ -6,39 +6,54 @@ $totalPrix = 0;
 ?>
 <script src="/public/javascript/buttons.js"></script>
 <script src="/public/javascript/alert.js"></script>
+
+<?php if ($popUp2 === "confirmationDex") : ?>
+<script>
+    window.quantitesEnAttente = <?= json_encode($quantitesEnAttente) ?>;
+    window.afficherConfirmationDex = true;
+</script>
+<?php else: ?>
+<script>
+    window.afficherConfirmationDex = false;
+</script>
+<?php endif; ?>
+
 <main>
-    <div id="popupNotification" class="popupNotification">
-        <?=$popUp?>
-    </div>
+<?php if (!empty($popUp)): ?>
+    <div class="popupNotification" id="popupNotification"><?= htmlspecialchars($popUp) ?></div>
+<?php endif; ?>
     <h1>Panier</h1>
     <form method="post" action="/panier">
     <div class="panier-core">
-
-        <div class="panier-colonne-gauche">
-            <div class="panier-items">
-                <?php foreach ($panier as $idItem => $item) { ?>
-                    <div class="item-slot">
-                        <div><?= htmlspecialchars($item->getNomItem()) ?><br></div>
-                        <div><img src="<?= htmlspecialchars($item->getPhoto()) ?>" alt="Image" height="100"><br></div>
-                        <div>Poids : <?= htmlspecialchars($item->getPoids()) ?> lbs<br></div>
-                        <div>Prix : <?= htmlspecialchars($item->getPrix()) ?> Caps<br></div>
-                        <div>
-                            <div style="position: relative;">Quantité <br>
-                                <button type="button" class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
-                                <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>" data-prix="<?= $item->getPrix() ?>" value="<?= $quantite[$idItem] ?>">
-                                    <?= htmlspecialchars($quantite[$idItem]) ?> 
-                                </span>
-                                <input type="hidden" name="quantites[<?= $idItem ?>]" id="input-<?= $idItem ?>" value="<?= $quantite[$idItem] ?>">
-                                <button type="button" class="boutonquanti" onclick="increaseQuantity(<?= $idItem?>, <?= $item->getQuantiteItem() ?>)">+</button>
+        <?php if($panier != null) : ?>
+            <div class="panier-colonne-gauche">
+                <div class="panier-items">
+                    <?php foreach ($panier as $idItem => $item) { ?>
+                        <div class="item-slot">
+                            <div><?= htmlspecialchars($item->getNomItem()) ?><br></div>
+                            <div><img src="<?= htmlspecialchars($item->getPhoto()) ?>" alt="Image" height="100"><br></div>
+                            <div>Poids : <?= htmlspecialchars($item->getPoids()) ?> lbs<br></div>
+                            <div>Prix : <?= htmlspecialchars($item->getPrix()) ?> Caps<br></div>
+                            <div>
+                                <div style="position: relative;">Quantité <br>
+                                    <button type="button" class="boutonquanti" onclick="decreaseQuantity(<?= $idItem ?>)">-</button>
+                                    <span class="quantite" id="<?= $idItem ?>" data-id="<?= $idItem ?>" data-prix="<?= $item->getPrix() ?>" value="<?= $quantite[$idItem] ?>">
+                                        <?= htmlspecialchars($quantite[$idItem]) ?> 
+                                    </span>
+                                    <input type="hidden" name="quantites[<?= $idItem ?>]" id="input-<?= $idItem ?>" value="<?= $quantite[$idItem] ?>">
+                                    <button type="button" class="boutonquanti" onclick="increaseQuantity(<?= $idItem?>, <?= $item->getQuantiteItem() ?>)">+</button>
+                                </div>
+                                <form method="post" action="/panier" style="display:inline;">
+                                    <input type="hidden" name="supprimer" value="<?= $idItem ?>">
+                                    <button type="submit" class="boutonSupprimer">Supprimer</button>
+                                </form>
                             </div>
-                            <button class="boutonSupprimer"
-                                onclick="supprimerItemPanier(<?= $idItem ?>, <?= $_SESSION['user']['id'] ?>)">Supprimer</button>
+                            <input type="hidden" name="prixTotal" id="prixTotalInput" value="0">
                         </div>
-                        <input type="hidden" name="prixTotal" id="prixTotalInput" value="0">
-                    </div>
-                <?php } ?>
+                    <?php } ?>
 
-            </div>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div>
@@ -48,5 +63,5 @@ $totalPrix = 0;
     </div>
     </form>
 </main>
-
+<script src="/public/javascript/confirmationPanier.js"></script>
 <?php require 'partials/footer.php'; ?>
