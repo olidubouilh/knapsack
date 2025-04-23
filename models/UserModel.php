@@ -12,7 +12,7 @@ class UserModel
     public function selectInfoJoueur(string $alias) {
         
         try{
-            $stm = $this->pdo->prepare('select * from Joueurs where alias = :alias');
+            $stm = $this->pdo->prepare('SELECT * FROM Joueurs WHERE alias = :alias');
     
             $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
             
