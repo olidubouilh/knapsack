@@ -94,5 +94,16 @@ class EnigmaModel
             return null;
         }
     }
+    public function giveCapsAmountEnigma($idJoueur, $difficulte)
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL QuestionGainCaps(:idJoueur, :difficulte)");
+            $stmt->bindValue(':idJoueur', $idJoueur, PDO::PARAM_INT);
+            $stmt->bindValue(':difficulte', $difficulte, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Erreur lors de l'appel de la procédure QuestionGainCaps : " . $e->getMessage();
+        }
+    }
 }
 //Modifications/Commentaires : 2025-04-07 par Raph  
