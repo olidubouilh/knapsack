@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         confirmation.value = "1";
         form.appendChild(confirmation);
 
+        const boutonPayer = document.createElement("input");
+        boutonPayer.type = "hidden";
+        boutonPayer.name = "payer";
+        boutonPayer.value = "1";
+        form.appendChild(boutonPayer);
+
         document.body.appendChild(form);
         form.submit();
     } else {

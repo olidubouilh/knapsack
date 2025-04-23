@@ -15,8 +15,13 @@ $itemsModel = new ItemsModel($pdo);
 $pannierModel = new PannierModel($pdo);
 $popUp = false;
 if (isset($_SESSION['success'])) {
-    $popUp = '';
+    $popUp = true;
     unset($_SESSION['success']);
+}
+$message = '';
+if (isset($_SESSION['popUp'])) {
+    $message = $_SESSION['popUp'];
+    unset($_SESSION['popUp']);
 }
 
 if (isset($_SESSION['user']['id'])) {
@@ -32,9 +37,18 @@ if (isset($_SESSION['user']['id'])) {
    
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
-        if(isset($_POST['quantites'])){
+        
+        if (isset($_POST['supprimer'])) {
+            $idItemASupprimer = $_POST['supprimer'];
+            $pannierModel->supprimerItemDuPanier($_SESSION['user']['id'], $idItemASupprimer);
+            $message = "Objet supprimé du panier";
+            $_SESSION['popUp'] = $message;
+            $_SESSION['success'] = true;
+            redirect('/panier');
+        }
+            
+           
+        if(isset($_POST['payer']) && isset($_POST['quantites'])) {
             $quantiteItems = $_POST['quantites'];
         
             $payerPossible = $pannierModel->verificationPayerPanierPrix($quantiteItems, $_SESSION['user']['alias']);
@@ -44,7 +58,8 @@ if (isset($_SESSION['user']['id'])) {
                     $erreur = $pannierModel->payerFullPanier($quantiteItems, $_SESSION['user']['alias'], $poidLourd);
                     
                     if(empty($erreur)){
-                        $popUp = "Vous avez payé votre panier avec succès";
+                        $message = "Vous avez payé votre panier avec succès";
+                        $_SESSION['popUp'] = $message;
                         $_SESSION['success'] = true;
                         $alias = $_SESSION['user']['alias'];
                         $user = $userModel->selectInfoJoueur($alias);
@@ -60,10 +75,13 @@ if (isset($_SESSION['user']['id'])) {
                             
                         ];
                         redirect('/panier');
+                        
                     }
                     else{
-                        $popUp = $erreur;
+                        $message = $erreur;
+                        $_SESSION['popUp'] = $message;
                         $_SESSION['success'] = true;
+                        redirect('/panier');
                     }
                     
                     
@@ -74,16 +92,14 @@ if (isset($_SESSION['user']['id'])) {
                 }
             }
             else{
-                $popUp = "Vous n'avez pas assez d'argent pour payer votre panier";
+                $message = "Vous n'avez pas assez d'argent pour payer votre panier";
+                $_SESSION['popUp'] = $message;
                 $_SESSION['success'] = true;
+                redirect('/panier');
             }
         }
-        if (isset($_POST['supprimer'])) {
-            $idItemASupprimer = $_POST['supprimer'];
-            $pannierModel->supprimerItemDuPanier($_SESSION['user']['id'], $idItemASupprimer);
-            
-            redirect('/panier');
-        }
+         
+        
     }
 
     view("panier.php", [
@@ -95,6 +111,7 @@ if (isset($_SESSION['user']['id'])) {
         'popUp' => $popUp ?? '',
         'popUp2' => $popUp2 ?? '',
         'style' => $style ?? '',
+        'message' => $message ?? '',
     ]);
 } else if (!isset($_SESSION['user']['id'])) {
     redirect('/connexion');
