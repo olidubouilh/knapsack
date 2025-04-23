@@ -11,11 +11,11 @@ require 'views/partials/header.php';
         <input type="hidden" name="idQuestion" value="<?= htmlspecialchars($idQuestion) ?>">
         <input type="hidden" name="difficulte" value="<?= htmlspecialchars($difficulte) ?>">
         <?php foreach($reponses as $index => $reponse): ?>
-            <input type="radio" name="reponse" id="reponse<?= $index + 1?>" value="<?= htmlspecialchars($reponse['laReponse'])?>">
-            <label for="reponse<?= $index + 1?>"><?= htmlspecialchars(string: $reponse['laReponse']) ?></label><br>
+            <input type="radio" name="reponse_id" id="reponse<?= $index + 1?>" value="<?= htmlspecialchars($reponse['laReponse'])?>">
+            <label name="reponse_id"for="reponse<?= $index + 1?>"><?= htmlspecialchars(string: $reponse['laReponse']) ?></label><br>
         <?php endforeach; ?>
-        <input type="hidden" name="reponse_id" id="reponse_id">
-        <button type="submit" value="Soumettre">Confirmer</button>
+        <input type="hidden"  id="reponse_id">
+        <button type="submit">Confirmer</button>
     </form>
 
     <div class="enigma-stats">
