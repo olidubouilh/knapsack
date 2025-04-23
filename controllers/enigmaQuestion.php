@@ -23,7 +23,7 @@ if($idJoueur){
 //Lorsque le joueur soumet une réponse
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion']);
+    $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion'] ?? 1) ;
     $VraieReponse = $questionAvant->getBonneReponse();
     var_dump($_POST); //debug qui montre les données envoyées par le formulaire(idQuestion, difficulte, reponse, reponse_id)
     $difficulte = $_POST['difficulte'] ?? null; //difficulte choisie par le joueur
@@ -37,15 +37,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($reponse == $VraieReponse) { //si la réponse soumise est égale à la réponse attendue 
             //*il y a aussi une fonction checkReponse dans la classe Enigma qui pourrait être utilisée ici, mais je ne l'ai pas utilisé pour le moment
                 $match = true;
-                var_dump($match); //debug
                
-                $errors = $match ? null : "Mauvaise réponse. Essayez encore !"; //message d'erreur si la réponse est incorrecte
-                $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : null; //message de popup si la réponse est correcte
+                $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
                 $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
-                $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur 
                 
         }
-        $match = false;
+        else
+        {        
+            $match = false;        
+            $errors = $match ? false : "Mauvaise réponse. Essayez encore !"; //message d'erreur si la réponse est incorrecte                
+            $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur 
+
+        }
+        var_dump($match); //debug
+
     }
     else {
         $errors = "Veuillez entrer une réponse.";
