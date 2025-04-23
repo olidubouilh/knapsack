@@ -22,22 +22,19 @@ if($idJoueur){
 
 //Lorsque le joueur soumet une réponse
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion']);
+    $VraieReponse = $questionAvant->getBonneReponse();
     var_dump($_POST); //debug qui montre les données envoyées par le formulaire(idQuestion, difficulte, reponse, reponse_id)
     $difficulte = $_POST['difficulte'] ?? null; //difficulte choisie par le joueur
     $reponse = $_POST['reponse_id'] ?? null; //reponse choisie par le joueur lorsque le joueur soumet une réponse ou null lors de sa première question
-    if(!isset($idQuestion)) {
-        $question = $enigmaModel->getRandomQuestionByDifficulty($difficulte); //question choisie aléatoirement selon la difficulté choisie par le joueur
-        $idQuestion = $question->getIdQuestion(); //id de la question choisie aléatoirement
-        $enonce = $question->getEnonce() ?? ''; //énoncé de la question choisie aléatoirement
-        $reponses = $enigmaModel->getAnswersById($idQuestion); //réponses de la question choisie aléatoirement(4 choix)
-        $reponseAttendue = $question->getBonneReponse() ?? null;//réponse attendue de la question choisie aléatoirement(prend la question selon son id et retourne la reponse où estBonne = 1)
-    }     
+    $idQuestion = $_POST['idQuestion'];
     if (isset($reponse)) 
     {
          //si le joueur a soumis une réponse
-        var_dump($reponseAttendue); //debug
-        var_dump($reponse); //debug
-        if ($reponse == $reponseAttendue) { //si la réponse soumise est égale à la réponse attendue 
+        /*var_dump($reponseAttendue); //debug
+        var_dump($reponse); //debug*/
+        if ($reponse == $VraieReponse) { //si la réponse soumise est égale à la réponse attendue 
             //*il y a aussi une fonction checkReponse dans la classe Enigma qui pourrait être utilisée ici, mais je ne l'ai pas utilisé pour le moment
                 $match = true;
                 var_dump($match); //debug
@@ -53,6 +50,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     else {
         $errors = "Veuillez entrer une réponse.";
     }
+    $question = $enigmaModel->getRandomQuestionByDifficulty($difficulte); //question choisie aléatoirement selon la difficulté choisie par le joueur
+    $idQuestion = $question->getIdQuestion(); //id de la question choisie aléatoirement
+    $enonce = $question->getEnonce() ?? ''; //énoncé de la question choisie aléatoirement
+    $reponses = $enigmaModel->getAnswersById($idQuestion); //réponses de la question choisie aléatoirement(4 choix)
+    $reponseAttendue = $question->getBonneReponse() ?? null;//réponse attendue de la question choisie aléatoirement(prend la question selon son id et retourne la reponse où estBonne = 1)
 
 // Vérifiez si l'utilisateur est connecté
     view("enigmaQuestion.php", [
@@ -67,6 +69,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         'popUp' => $popUp ?? '',
         'style' => $style ?? '',
     ]);
+       
+       
 }
 else {
     redirect('/enigma');
