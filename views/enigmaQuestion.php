@@ -3,6 +3,7 @@ require 'partials/head.php';
 require 'views/partials/header.php';
 ?>
 <script src="/public/javascript/buttons.js"></script>
+<script src="/public/javascript/enigma.js"></script>
 <main>
 <h1 style="text-align: center;">Enigma</h1>
 <div class="enigma-container">
