@@ -41,6 +41,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
                 $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
                 $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                $enigmaModel->getMontantById($idJoueur);
                 
         }
         else

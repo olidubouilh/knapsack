@@ -105,5 +105,20 @@ class EnigmaModel
             echo "Erreur lors de l'appel de la procédure QuestionGainCaps : " . $e->getMessage();
         }
     }
+    public function getMontantById($idJoueur)
+    {
+        try {
+            $stmt = $this->pdo->prepare("SELECT montant FROM Joueurs WHERE idJoueurs = :idJoueur");
+            $stmt->bindValue(':idJoueur', $idJoueur, PDO::PARAM_INT);
+            $stmt->execute();
+            $newMontant = $stmt->fetchColumn();
+        
+            if ($newMontant !== false) {
+                $_SESSION['user']['montant'] = $newMontant;
+            }
+        } catch (PDOException $e) {
+            echo "Erreur lors de la mise à jour du montant des caps : " . $e->getMessage();
+        }
+    }
 }
 //Modifications/Commentaires : 2025-04-07 par Raph  
