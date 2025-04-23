@@ -14,7 +14,7 @@ class UserModel
         try{
             $stm = $this->pdo->prepare('select * from Joueurs where alias = :alias');
     
-            $stm->bindValue(":alias", $alias, PDO::PARAM_INT);
+            $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
             
             $stm->execute();
     
