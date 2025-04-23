@@ -11,6 +11,7 @@ $pdo = Database::getInstance();
 $enigmaModel = new EnigmaModel($pdo);
 $idJoueur = $_SESSION['user']['id'] ?? '';
 
+$match = false;
 if($idJoueur){
     $stats = new StatistiqueEnigma($idJoueur);
 }
@@ -32,19 +33,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $reponseAttendue = $question->getBonneReponse() ?? null;//réponse attendue de la question choisie aléatoirement(prend la question selon son id et retourne la reponse où estBonne = 1)
     }     
     if (isset($reponse)) 
-    { //si le joueur a soumis une réponse
-
+    {
+         //si le joueur a soumis une réponse
+        var_dump($reponseAttendue); //debug
+        var_dump($reponse); //debug
         if ($reponse == $reponseAttendue) { //si la réponse soumise est égale à la réponse attendue 
             //*il y a aussi une fonction checkReponse dans la classe Enigma qui pourrait être utilisée ici, mais je ne l'ai pas utilisé pour le moment
-
-                //var_dump($match); //debug
-                //var_dump($reponseAttendue); //debug
-                //var_dump($reponse); //debug
+                $match = true;
+                var_dump($match); //debug
+               
                 $errors = $match ? null : "Mauvaise réponse. Essayez encore !"; //message d'erreur si la réponse est incorrecte
                 $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : null; //message de popup si la réponse est correcte
                 $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
                 $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur 
+                
         }
+        $match = false;
     }
     else {
         $errors = "Veuillez entrer une réponse.";

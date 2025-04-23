@@ -68,13 +68,18 @@ class StatistiqueEnigma{
     public function __construct(int $idJoueur){
         $this->idJoueur = $idJoueur;//Id du joueur
         $this->loadStatsFromDatabase();//On charge les statistiques du joueur depuis la base de données
-        
+
+
+
+       /* 
         //*À revoir parce qu'à chaque fois que la page est lancée,        
         //la suite de bonnes réponses, le nombre de bonnes réponses et le nombre de mauvaises réponses sont remis à 0.
         $this->suiteBonneReponse = 0;
 
         $this->nbBonneReponse = 0;//Nombre de bonnes réponses total
-        $this->nbMauvaiseReponse = 0;//Nombre de mauvaises réponses total
+        $this->nbMauvaiseReponse = 0;//Nombre de mauvaises réponses total*/
+
+        //PREMIER PROBLÈME RÉGLÉ, LES STATISTIQUES S'INSÈRENT DASN LA TABLE STATISTIQUES ENIGMA QUAND ELLES N'EXISTENT PAS
     }
 
     //Permet de charger les statistiques du joueur depuis la base de données grâce à son id stocké dans la variable idJoueur
@@ -85,11 +90,23 @@ class StatistiqueEnigma{
         $stmt->bindValue(":idJoueur", $this->idJoueur, PDO::PARAM_INT);
         $stmt->execute();
         $stats = $stmt->fetch(PDO::FETCH_ASSOC);
-        //On récupère les statistiques du joueur dans la base de données
-        if($stats){
-            $this->suiteBonneReponse = $this->getSuiteBonneReponse();
-            $this->nbBonneReponse = $this->getNbBonneReponse();
-            $this->nbMauvaiseReponse = $this->getNbMauvaiseReponse();
+    
+        if ($stats) {
+            $this->suiteBonneReponse = (int)$stats['suiteBonneReponse'];
+            $this->nbBonneReponse = (int)$stats['nbBonneReponse'];
+            $this->nbMauvaiseReponse = (int)$stats['nbMauvaiseReponse'];
+        } else {
+            // If not found, initialize all values to 0 and insert into DB
+            $this->suiteBonneReponse = 0;
+            $this->nbBonneReponse = 0;
+            $this->nbMauvaiseReponse = 0;
+    
+            $insert = Database::getInstance()->prepare("
+                INSERT INTO StatistiqueEnigma (idJoueurs, suiteBonneReponse, nbBonneReponse, nbMauvaiseReponse)
+                VALUES (:idJoueur, 0, 0, 0)
+            ");
+            $insert->bindValue(":idJoueur", $this->idJoueur, PDO::PARAM_INT);
+            $insert->execute();
         }
     }
 
