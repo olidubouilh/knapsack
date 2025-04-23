@@ -10,7 +10,7 @@
             </div>
             <div class="nav-right">
                 <?php  if(isAdministrator()) {?>
-                    <a href="/panier"><img src="public/img/adminHeader.jpg" alt="Admin"></a>
+                    <a href="/admin"><img src="public/img/adminHeader.jpg" alt="Admin"></a>
                 <?php } ?>
                 <a href="/panier"><img src="public/img/panier.png" alt="Panier"></a>
                 <a href="/inventaire"><img src="public/img/school-bag.png" alt="Inventaire"></a>

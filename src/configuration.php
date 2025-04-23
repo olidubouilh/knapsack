@@ -12,6 +12,7 @@ const ROUTES = [
     '/enigma' => 'enigma.php',
     '/enigmaQuestion' => 'enigmaQuestion.php',
     '/useItem' => 'useItem.php',
+    '/admin' => 'admin.php',
 
 
 
