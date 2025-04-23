@@ -9,12 +9,12 @@ class UserModel
     public function __construct(private PDO $pdo) {}
 
     
-    public function selectById(int $id) {
+    public function selectInfoJoueur(string $alias) {
         
         try{
-            $stm = $this->pdo->prepare('##########');
+            $stm = $this->pdo->prepare('select * from Joueurs where alias = :alias');
     
-            $stm->bindValue(":id", $id, PDO::PARAM_INT);
+            $stm->bindValue(":alias", $alias, PDO::PARAM_INT);
             
             $stm->execute();
     
@@ -41,7 +41,7 @@ class UserModel
             
         } catch (PDOException $e) {
     
-            throw new PDOException($e->getMessage(), $e->getCode());
+            throw $e;
             
         }  
 

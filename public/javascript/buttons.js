@@ -19,6 +19,7 @@ function increaseQuantity(id, maxQty){
     document.getElementById(id).textContent = quantity;
 }
 
+
 /**
  * Réduit la quantité affichée d'un item spécifique de 1, en s'assurant que la quantité ne soit pas en dessous de 1.
  *
@@ -57,7 +58,13 @@ function updateTotal() {
 
     document.getElementById('totalPrix').innerText = "Prix total : " + total + " caps";
 }
-
+function syncQuantites() {
+    document.querySelectorAll('.quantite').forEach(span => {
+        const id = span.getAttribute('data-id');
+        const input = document.getElementById('input-' + id);
+        if (input) input.value = span.innerText.trim();
+    });
+}
 
 
 /**
@@ -96,12 +103,19 @@ function supprimerItemPanier(itemId, userId) {
 
 //Met à jour le prix total du panier en appelant updateTotal() lors du chargement de la page(après le DOM)
 document.addEventListener('DOMContentLoaded', () => {
+    syncQuantites();
     updateTotal();
 
     document.querySelectorAll('.boutonquanti').forEach(button => {
         button.addEventListener('click', () => {
-            setTimeout(updateTotal, 50); 
+            setTimeout(() => {
+                syncQuantites();
+                updateTotal();
+            }, 50);
         });
     });
 });
+
+
+
 

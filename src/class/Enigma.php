@@ -4,18 +4,17 @@ class Enigma{
     private int $idQuestion; //Id question
     private string $difficulte; //Difficulté de la question(facile, moyen, difficile)
     private string $enonce; //Enoncé de la question
-    private int $nbCaps; //Nombre de caps qui est donné si on répond correctement à la question
+    private string $reponse; //Réponses de la question
 
-    private string $reponse; //Réponse de la question
-
+    private int $estBonne; //Réponse correcte de la question
     //Constructeur de la classe Enigma
     //Il prend en paramètre l'id de la question, la difficulté, l'énoncé et le nombre de caps
-    public function __construct(int $idQuestion, string $niveau, string $question, int $nbCaps, string $reponse){
+    public function __construct(int $idQuestion, string $niveau, string $question, string $reponse, int $estBonne){
         $this->idQuestion = $idQuestion;
         $this->difficulte = $niveau;
         $this->enonce = $question;
-        $this->nbCaps = $nbCaps;
         $this->reponse = $reponse;
+        $this->estBonne = $estBonne;
     }
     public function getIdQuestion(): int{
         return $this->idQuestion;
@@ -26,11 +25,32 @@ class Enigma{
     public function getEnonce(): string{
         return $this->enonce;
     }
-    public function getNbCaps(): int{
-        return $this->nbCaps;
-    }
     public function getReponse(): string{
         return $this->reponse;
+    }
+    public function getEstBonne(): int{
+        return $this->estBonne;
+    }
+    //À changer
+    public function getBonneReponse() : string{
+        
+        $stmt = Database::getInstance()->prepare("SELECT laReponse FROM VEnigma WHERE idQuestion = :idQuestion AND estBonne = 1");
+        $stmt->bindValue(":idQuestion", $this->idQuestion, PDO::PARAM_INT);
+        $stmt->execute();
+        $reponse = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($reponse){
+            return $reponse['laReponse'];
+        }
+        else {
+            return "Aucune réponse trouvée";
+        }
+    }
+    public function checkReponse(string $reponse): bool{
+        var_dump("reponse venant d'enigma: " . $this->reponse);
+        var_dump("reponse venant du formulaire: " . $reponse);
+
+
+        return $this->reponse == $reponse && $this->estBonne == 1;
     }
 }
 
@@ -48,13 +68,18 @@ class StatistiqueEnigma{
     public function __construct(int $idJoueur){
         $this->idJoueur = $idJoueur;//Id du joueur
         $this->loadStatsFromDatabase();//On charge les statistiques du joueur depuis la base de données
-        
+
+
+
+       /* 
         //*À revoir parce qu'à chaque fois que la page est lancée,        
         //la suite de bonnes réponses, le nombre de bonnes réponses et le nombre de mauvaises réponses sont remis à 0.
         $this->suiteBonneReponse = 0;
 
         $this->nbBonneReponse = 0;//Nombre de bonnes réponses total
-        $this->nbMauvaiseReponse = 0;//Nombre de mauvaises réponses total
+        $this->nbMauvaiseReponse = 0;//Nombre de mauvaises réponses total*/
+
+        //PREMIER PROBLÈME RÉGLÉ, LES STATISTIQUES S'INSÈRENT DASN LA TABLE STATISTIQUES ENIGMA QUAND ELLES N'EXISTENT PAS
     }
 
     //Permet de charger les statistiques du joueur depuis la base de données grâce à son id stocké dans la variable idJoueur
@@ -65,28 +90,44 @@ class StatistiqueEnigma{
         $stmt->bindValue(":idJoueur", $this->idJoueur, PDO::PARAM_INT);
         $stmt->execute();
         $stats = $stmt->fetch(PDO::FETCH_ASSOC);
-        //On récupère les statistiques du joueur dans la base de données
-        if($stats){
-            $this->suiteBonneReponse = $this->getSuiteBonneReponse();
-            $this->nbBonneReponse = $this->getNbBonneReponse();
-            $this->nbMauvaiseReponse = $this->getNbMauvaiseReponse();
+    
+        if ($stats) {
+            $this->suiteBonneReponse = (int)$stats['suiteBonneReponse'];
+            $this->nbBonneReponse = (int)$stats['nbBonneReponse'];
+            $this->nbMauvaiseReponse = (int)$stats['nbMauvaiseReponse'];
+        } else {
+            // If not found, initialize all values to 0 and insert into DB
+            $this->suiteBonneReponse = 0;
+            $this->nbBonneReponse = 0;
+            $this->nbMauvaiseReponse = 0;
+    
+            $insert = Database::getInstance()->prepare("
+                INSERT INTO StatistiqueEnigma (idJoueurs, suiteBonneReponse, nbBonneReponse, nbMauvaiseReponse)
+                VALUES (:idJoueur, 0, 0, 0)
+            ");
+            $insert->bindValue(":idJoueur", $this->idJoueur, PDO::PARAM_INT);
+            $insert->execute();
         }
     }
 
     //Permet d'incrémenter le nombre de bonnes réponses
-    public function incrementNbBonneReponse(): void
+    public function incrementNbBonneReponse(bool $match): void
     {
-        $this->nbBonneReponse++;
-        $this->suiteBonneReponse++;
-        
+        if($match){
+            $this->nbBonneReponse++;
+            $this->suiteBonneReponse++;
+        }
+        $this->updateStatsInDatabase();
     }
 
     //Permet d'incrémenter le nombre de mauvaises réponses
     //On remet la suite de bonnes réponses à 0
-    public function incrementNbMauvaiseReponse() : void
+    public function incrementNbMauvaiseReponse(bool $match) : void
     {
-        $this->nbMauvaiseReponse++;
-        $this->suiteBonneReponse = 0;
+        if(!$match){
+            $this->nbMauvaiseReponse++;
+            $this->suiteBonneReponse = 0;
+        }
         $this->updateStatsInDatabase();
     }
 
@@ -104,17 +145,14 @@ class StatistiqueEnigma{
 
     public function getSuiteBonneReponse(): int
     {
-      
         return $this->suiteBonneReponse;
     }
     public function getNbBonneReponse(): int
     {
-        $this->updateStatsInDatabase();
         return $this->nbBonneReponse;
     }
     public function getNbMauvaiseReponse(): int
     {
-        $this->updateStatsInDatabase();
         return $this->nbMauvaiseReponse;
     }
 }

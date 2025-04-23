@@ -3,7 +3,7 @@ require 'partials/head.php';
 require 'views/partials/header.php';
 ?>
 <!-- Lien vers ton fichier CSS -->
-<link rel="stylesheet" href="/public/css/magasin.css">
+
 <script src="/public/javascript/buttons.js"></script>
 
 <div class="search">
@@ -34,6 +34,15 @@ require 'views/partials/header.php';
          <?php if (!empty($magasin)) { ?>
             <?php foreach ($magasin as $item) { ?>
                <div class="item-container">
+
+
+
+               <form method="POST">
+                     <input type="hidden" name="details" value="<?= htmlspecialchars($item['idItems']) ?>">
+                     <button type="submit" class="bouton-detail-photo" value="Details">
+                  
+
+
                   <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
                   <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="140"><br></div>
                   <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
@@ -55,16 +64,15 @@ require 'views/partials/header.php';
                   ?>
                   <div>Utilité : <?= htmlspecialchars($item['utilite']) ?><br></div>
                   <div>Quantité disponible : <?= htmlspecialchars($item['quantiteItem']) ?></div>
-                  <h3>Prix : <?php echo $item['prix']; ?></h3>
-                  <form method="POST">
-                     <input type="submit" class="button" value="Details">
-                     <input type="hidden" name="details" value="<?= htmlspecialchars($item['idItems']) ?>">
-                  </form>
-                  <div></div>
+                  <div>Prix : <?php echo $item['prix']; ?></div>
+                  </button>
+               </form>              
+               <div class="bouton-cote">
                   <form action="/detailsItems" method="post">
                      <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
-                     <button type="submit" class="boutonAcheter">Acheter</button>
+                     <button type="submit" class="bouton">Ajouter au panier</button>
                   </form>
+               </div>
                </div>
             <?php } ?>
          <?php } else { ?>

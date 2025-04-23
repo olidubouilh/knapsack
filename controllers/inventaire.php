@@ -13,7 +13,9 @@ sessionStart();
 //     unset($_SESSION['success']);
 // }
 $pdo = Database::getInstance();
+
 $userModel = new UserModel($pdo);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

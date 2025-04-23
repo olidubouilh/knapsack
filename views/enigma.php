@@ -21,14 +21,13 @@ require 'views/partials/header.php';
         <p>Si vous répondez correctement à 3 questions
         aléatoires ou difficiles vous recevrez 1000 caps</p>
     </div>
-    <div>Niveau de difficulté:</div>
-    <input type="radio" name="difficulte" value="facile"> Facile <br>
-    <input type="radio" name="difficulte" value="moyen"> Moyen<br>
-    <input type="radio" name="difficulte" value="difficile"> Difficile<br>
-    <input type="radio" name="difficulte" value="aléatoire"> Aléatoire (la difficulté de la question sera facile, moyenne ou difficile)<br>
-
-    <form action="/enigmaQuestion" method="post">
-        <input type="hidden" name="difficulte_id" value="<?php $difficulte ?>">
+    <form action="/enigmaQuestion" method="POST">
+        <div>Niveau de difficulté:</div>
+        <input type="radio" name="difficulte" value="facile"> Facile <br>
+        <input type="radio" name="difficulte" value="moyen"> Moyen<br>
+        <input type="radio" name="difficulte" value="difficile"> Difficile<br>
+        <input type="radio" name="difficulte" value="aléatoire"> Aléatoire (la difficulté de la question sera facile, moyenne ou difficile)<br>
+        <input type="hidden" name="difficulte_id" onclick="setHiddenValue()" id="difficulte_id">
         <button type="submit">Confirmer</button>
     </form>
 
