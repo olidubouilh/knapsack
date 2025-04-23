@@ -53,6 +53,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute();
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 $_SESSION['user']['montant'] = $user['montant'];
+
+                $poidsMaximal = $user['PoidsMaximal'];
+                $currentDexterite = $user['dexterite'];
+
+                if ($new_poids <= $poidsMaximal && $currentDexterite < 100) {
+                    
+                    $stmt = $pdo->prepare("CALL ModifierDexteriteJoueurs(:dex, :idJoueur)");
+                    $stmt->bindValue(":dex", 100, PDO::PARAM_INT);
+                    $stmt->bindValue(":idJoueur", $user_id, PDO::PARAM_INT);
+                    $stmt->execute();
+
+                    $_SESSION['user']['dexterite'] = 100;
+                }
             } catch (PDOException $e) {
                 die("Erreur lors de la vente: " . $e->getMessage());
             }
