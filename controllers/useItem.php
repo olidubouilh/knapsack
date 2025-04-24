@@ -23,14 +23,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user']['id'])) {
         $poids = $stmt->fetch(PDO::FETCH_ASSOC);
         $new_poids = $poids['poids_total'];
         $_SESSION['user']['poidsSac'] = $new_poids;
-        
+
         $stmt = $pdo->prepare("CALL verifierAlias(:alias)");
         $stmt->bindValue(":alias", $_SESSION['user']['alias'], PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $_SESSION['user']['pvJoueur'] = $user['pvJoueur'];
 
-        $_SESSION['popUp'] = "Item bien utilisé!";
+        $poidsMaximal = $user['PoidsMaximal'];
+        $currentDexterite = $user['dexterite'];
+
+        if ($new_poids <= $poidsMaximal && $currentDexterite < 100) {
+
+            $stmt = $pdo->prepare("CALL ModifierDexteriteJoueurs(:dex, :idJoueur)");
+            $stmt->bindValue(":dex", 100, PDO::PARAM_INT);
+            $stmt->bindValue(":idJoueur", $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $_SESSION['user']['dexterite'] = 100;
+        }
         redirect('/inventaire');
     } catch (PDOException $e) {
         $_SESSION['errors'] = "Erreur lors d'utilisation d'items: " . $e->getMessage();
