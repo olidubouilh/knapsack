@@ -66,6 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $_SESSION['user']['dexterite'] = 100;
                 }
+
+                $stmt = $pdo->prepare("UPDATE Items SET quantiteItem = quantiteItem + 1 WHERE idItems = :idItem");
+                $stmt->bindValue(":idItem", $item_id, PDO::PARAM_INT);
+                $stmt->execute();
+
             } catch (PDOException $e) {
                 die("Erreur lors de la vente: " . $e->getMessage());
             }
