@@ -122,14 +122,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $enonce = $question->getEnonce() ?? ''; //énoncé de la question choisie aléatoirement
             $reponses = $enigmaModel->getAnswersById($idQuestion); //réponses de la question choisie aléatoirement(4 choix)
             $reponseAttendue = $question->getBonneReponse() ?? null;//réponse attendue de la question choisie aléatoirement(prend la question selon son id et retourne la reponse où estBonne = 1)
-        
-
-
-
-
-
-
-
         }
         else
         {
@@ -148,10 +140,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     //*il y a aussi une fonction checkReponse dans la classe Enigma qui pourrait être utilisée ici, mais je ne l'ai pas utilisé pour le moment
                         $match = true;
                        
-                        $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
-                        $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
-                        $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
-                        $enigmaModel->getMontantById($idJoueur);
+
+                        if($difficulte == 'difficile' && $stats->getSuiteBonneReponse() % 3 === 0)
+
+                        {
+                            $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
+                            $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->getMontantById($idJoueur);
+                        }
+                        else
+                        {
+                            $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
+                            $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
+                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            $enigmaModel->getMontantById($idJoueur);
+                        }
+                        
                         
                 }
                 else
@@ -186,9 +196,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         'errors' => $errors ?? '',
         'popUp' => $popUp ?? '',
         'style' => $style ?? '',
-    ]);
-       
-       
+    ]);    
 }
 
 //Modifications/Commentaires : 2025-04-07 par Raph  

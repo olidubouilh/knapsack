@@ -144,6 +144,11 @@ class PannierModel
                         'idJoueur' => $_SESSION['user']['id'],
                         'quantite' => $quantite
                     ]);
+                    $stm = $this->pdo->prepare("UPDATE Items SET quantiteItem = quantiteItem - :quantite WHERE idItems = :idItem");
+                    $stm->execute([
+                        'quantite' => $quantite,
+                        'idItem' => $idItem
+                    ]);
                 }
                 $stm = $this->pdo->prepare("DELETE from Panier WHERE idJoueurs = :idJoueur");
                 $stm->execute([

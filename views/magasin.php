@@ -70,7 +70,11 @@ require 'views/partials/header.php';
                <div class="bouton-cote">
                   <form action="/detailsItems" method="post">
                      <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
-                     <button type="submit" class="bouton">Ajouter au panier</button>
+                     <?php if($item['quantiteItem'] > 0) { ?>
+                        <button type="submit" class="bouton">Ajouter au panier</button>
+                        <?php } else { ?>
+                        <div> Non disponible</div>
+                        <?php } ?>
                   </form>
                </div>
                </div>
