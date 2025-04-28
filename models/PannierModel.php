@@ -47,7 +47,7 @@ class PannierModel
             throw new PDOException($e->getMessage(), $e->getCode());
         }
     }
-    public function VerifierDex(array $quantiteItem, string $alias){
+    public function VerifierDex(array $quantiteItem, string $alias): bool{
         try{
             $poidsTotalpanier = 0;
             foreach ($quantiteItem as $idItem => $quantite){
@@ -71,7 +71,7 @@ class PannierModel
         }
 
     }
-    public function payerFullPanier(array $quantiteItem, string $alias, bool $modifierDex){
+    public function payerFullPanier(array $quantiteItem, string $alias, bool $modifierDex): string{
         try{
             $itemModel = new ItemsModel($this->pdo);    
             $userModel = new UserModel($this->pdo);

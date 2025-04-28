@@ -14,7 +14,12 @@
                 <?php } ?>
                 <a href="/panier"><img src="public/img/panier.png" alt="Panier"></a>
                 <a href="/inventaire"><img src="public/img/school-bag.png" alt="Inventaire"></a>
-                <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>
+                <?php if(isAuthenticated()): ?>
+                    <!-- <a href="/profil"><img src="public/img/profil.png" alt="Profil"></a> *Pour si on veut afficher le profil du user !-->
+                    <a href="/connexion"><img src="public/img/deconnexion.png" alt="Déconnexion"></a>
+                <?php else: ?>
+                    <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>
+                <?php endif; ?>
             </div>
         </nav>
         <?php if (isset($_SESSION['user'])): ?>

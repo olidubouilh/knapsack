@@ -4,35 +4,36 @@ require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
 $style = 'connexion.css';
-sessionStart();
-
 //A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
 $popUp = false;
 if (isset($_SESSION['success'])) {
     $popUp = true;
+    $message = $_SESSION['popUp'];
     unset($_SESSION['success']);
 }
+sessionStart();
+
 $pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(!isAuthenticated()){    
+        $alias = $_POST['alias'] ?? '';
+        $password = $_POST['password'] ?? '';
 
-    $alias = $_POST['alias'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    if (empty($alias)) {
-    $errors = "Alias ou mot de passse invalide";
-    }
-    if (empty($password)) {
+        if (empty($alias)) {
         $errors = "Alias ou mot de passse invalide";
-    }
-    elseif(!$userModel->selectByAlias($alias, $password)) {
-        $errors = "Alias ou mot de passse invalide";
-    }
-    if (empty($errors)) {
+        }
+        if (empty($password)) {
+            $errors = "Alias ou mot de passse invalide";
+        }
+        elseif(!$userModel->selectByAlias($alias, $password)) {
+            $errors = "Alias ou mot de passse invalide";
+        }
+        if (empty($errors)) {
 
-        $user = $userModel->selectByAlias($alias, $password);
+            $user = $userModel->selectByAlias($alias, $password);
         //FUTURE POUR SAVOIR SI EST ADMIN OU NON
         // if($user->getActive() == false){
         //     redirect('/inactif');
@@ -57,15 +58,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         //}
        
-    }  
+        }  
+    }
+    if(isset($_POST['deconnexion']) && isAuthenticated())
+    {
+        
+        session_destroy();
+        $_SESSION['popUp'] = "Vous avez été déconnecté avec succès.";
+        $_SESSION['success'] = true;
+        redirect('/connexion');
+        exit;
+    }
 }
 
 view("connexion.php", [
     'alias' => $alias ?? '',
     'password' => $password ?? '',
     'errors' => $errors ?? '',
-    'popUp' => $popUp ?? '',
-    'style' => $style ?? '',   
+    'popUp' => $popUp,
+    'style' => $style ?? '', 
+    'message' => $message ?? '',  
      
     
 ]);

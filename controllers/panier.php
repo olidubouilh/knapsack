@@ -6,6 +6,14 @@ require 'models/ItemsModel.php';
 require 'models/PannierModel.php';
 require_once 'src/class/Panier.php';
 $style = 'panier.css';
+
+if(!isAuthenticated()){
+    $message = "Vous devez être connecté pour accéder au panier.";
+    $_SESSION['popUp'] = $message;
+    $_SESSION['success'] = true;
+    redirect('/connexion');
+    exit;
+}
 sessionStart();
 
 $pdo = Database::getInstance();
