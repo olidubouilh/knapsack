@@ -4,6 +4,7 @@ require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
 $style = 'connexion.css';
+sessionStart();
 //A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
 $popUp = false;
 if (isset($_SESSION['success'])) {
@@ -11,7 +12,6 @@ if (isset($_SESSION['success'])) {
     $message = $_SESSION['popUp'];
     unset($_SESSION['success']);
 }
-sessionStart();
 
 $pdo = Database::getInstance();
 $userModel = new UserModel($pdo);
