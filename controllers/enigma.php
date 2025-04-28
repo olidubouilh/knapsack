@@ -11,6 +11,10 @@ $idJoueur = $_SESSION['user']['id'] ?? '';
 if($idJoueur){
     $stats = new StatistiqueEnigma($idJoueur);
 }
+else if (!isset($_SESSION['user']['id'])) {
+    redirect('/connexion');
+    exit;
+}
 view("enigma.php", [
         'id' => $idJoueur,
         'nbBonnesReponses' => $stats->getNbBonneReponse(),
@@ -19,4 +23,5 @@ view("enigma.php", [
         'popUp' => $popUp ?? '',
         'style' => $style ?? '',
     ]);
+
 //Modifications/Commentaires : 2025-04-07 par Raph  

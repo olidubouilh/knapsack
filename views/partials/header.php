@@ -19,12 +19,12 @@
         </nav>
         <?php if (isset($_SESSION['user'])): ?>
             <div class="stats">
-                <p><?= $_SESSION['user']['alias'] ?? ''; ?></p>
-                <p>Caps: <?= $_SESSION['user']['montant'] ?? '0'; ?></p>
-                <p>Dex: <?= $_SESSION['user']['dexterite'] ?? '0'; ?></p>
-                <p>Pv: <?= $_SESSION['user']['pvJoueur'] ?? '0'; ?></p>
-                <p>Poids Maximal: <?= $_SESSION['user']['poidsMaximal'] ?? ''; ?></p>
-                <p>Poids du sac: <?= $_SESSION['user']['poidsSac'] ?? '0'; ?></p>
+                <div><?= $_SESSION['user']['alias'] ?? ''; ?></div>
+                <div>Caps: <?= $_SESSION['user']['montant'] ?? '0'; ?></div>
+                <div>Dex: <?= $_SESSION['user']['dexterite'] ?? '0'; ?></div>
+                <div>Pv: <?= $_SESSION['user']['pvJoueur'] ?? '0'; ?></div>
+                <div>Poids Maximal: <?= $_SESSION['user']['poidsMaximal'] ?? ''; ?> lbs</div>
+                <div>Poids du sac: <?= $_SESSION['user']['poidsSac'] ?? '0'; ?> lbs</div>
             </div>
         <?php endif; ?>
     </header>
