@@ -1,11 +1,20 @@
 <?php
-
 use Random\Randomizer;
+
 require_once 'src/functions.php';
 require 'src/class/Database.php';
 require_once 'src/configuration.php';
 require 'models/EnigmaModel.php';
 $style = 'enigma.css';
+
+$message = '';
+if(!isAuthenticated()){
+    $message = "Vous devez être connecté pour accéder à la page d'Énigma.";
+    $_SESSION['popUp'] = $message;
+    $_SESSION['success'] = true;
+    redirect('/connexion');
+    exit;
+}
 sessionStart();
 $pdo = Database::getInstance();
 $enigmaModel = new EnigmaModel($pdo);
@@ -16,12 +25,8 @@ if($idJoueur){
     $stats = new StatistiqueEnigma($idJoueur);
 }
 
-//Erreurs: actuellement, ce qui est pris en compte(réponse du user) n'est pas nécéssairement ce qui est pris en compte.
-//J'ai essayé de modifier ça avec du Javascript, mais ça ne fonctionne pas.
-//Je n'en peut plus aider moi!  
-
 //Lorsque le joueur soumet une réponse
-    $random = new Randomizer();
+$random = new Randomizer();
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 

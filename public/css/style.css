@@ -260,3 +260,23 @@ input[type="checkbox"]:checked {
     gap: 100px;
     
 }
+@media (max-width: 750px) {
+    /* Your CSS rules here */
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5em 1em;
+        flex-direction: column;
+    }
+    .stats{
+        color: rgb(255, 255, 25);
+        display: flex;
+        justify-content: center;  
+        gap: 10px;
+
+    }
+    div{
+        font-size: 22px;
+    }
+}
