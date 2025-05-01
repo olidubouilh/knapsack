@@ -14,6 +14,7 @@ const ROUTES = [
     '/enigmaResultat' => 'enigmaResultat.php',
     '/useItem' => 'useItem.php',
     '/admin' => 'admin.php',
+    '/profil' => 'profil.php',
 
 
 
