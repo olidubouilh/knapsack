@@ -15,9 +15,6 @@ body{
     background-image: url("../img/background.jpg");
     background-size: cover;
 }
-
-
-
 /* Style global de la navbar */
 .navbar {
     display: flex;
