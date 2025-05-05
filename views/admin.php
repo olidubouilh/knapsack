@@ -43,6 +43,29 @@ require 'views/partials/header.php';
             </tbody>
         </table>
     </div>
+    <br>
+    <div>Tests Unitaires</div>
+    <div>1: Les pv ne peuvent pas être négatifs après une mauvaise réponse</div>
+    <div>2: Les pv descendent en fonction de la difficulté en cas de mauvaise réponse</div>
+    <div>3: Affichage d'enigma adaptatif jusqu'à la largeur cellulaire</div>
+    <div>4: La quantité d'un item dans le panier ne peut pas être plus petit qu'1</div>
+    <div>5: La quantité disponible dans le magasin se met à jour après un achat confirmé</div>
+    <div>6: Le montant de caps d'un joueur est +petit que le coût de son panier</div>
+    <div>7: La déconnexion retire l'accès au données reliées au joueur</div>
+    <div>8: Accéder à enigma sans être connecté</div>
+    <div>9: Accéder à panier sans être connecté</div>
+    <div>10: Accéder à inventaire sans être connecté</div>
+    <div>11: La dextérité remonte graduellement en vendant, mangeant ou jettant des items</div>
+    <div>12: Accéder à la page admin sans en être un</div>
+    <div>13: Ajouter des items au panier modifie la valeur poids total</div>
+    <div>14: Payer le panier quand panier+inventaire plus lourd que 100 lbs</div>
+    <div>15: Ajouter des items au panier modifie la valeur de coût total</div>
+    <div>16: Le pourcentage de chaque niveau d'étoiles évalué est affiché</div>
+    <div>17: La moyenne d'évaluation pour toutes les évals de l'item est correcte</div>
+    <div>18: Si l'item n'a pas d'évaluation 'Aucune évaluation pour cet article' est affiché </div>
+    <div>19: Les évaluations et commentaires s'affichent selon l'item sélectionné</div>
+    <div>20: Ne peut pas acheter un item dont la quantité est = 0</div>
+
 </main>
 
 <?php

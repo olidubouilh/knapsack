@@ -52,11 +52,25 @@ require 'partials/footer.php';
     </tr>
     </td>
     <td>
+    <?php
+        $totalStars = 0;
+        $count = count($itemComm);
+        foreach ($itemComm as $eval) {
+            $totalStars += $eval['nbEtoiles'];
+        }
+        $average = $count > 0 ? $totalStars / $count : 0;
+        $percentage = ($average / 5) * 100;
+    ?>
+    <div style="margin-bottom: 10px;">
+        <strong>Moyenne des étoiles : <?= round($average, 1) ?>/5</strong>
+        <div style="background-color: #eee; border-radius: 5px; width: 100%; height: 10px; margin: 5px 0;">
+            <div style="background-color: gold; height: 100%; border-radius: 5px; width: <?= $percentage ?>%;"></div>
+        </div>
+    </div>
     <?php if (empty($itemComm) || !is_array($itemComm)): ?>
         <div>Aucune évaluation pour cet article.</div>
     <?php else: ?>
         <?php
-            // Initialize counters
             $starCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
             $total = count($itemComm);
 
@@ -67,8 +81,6 @@ require 'partials/footer.php';
                 }
             }
         ?>
-
-        <!-- Stars distribution -->
         <div style="margin-bottom: 15px;">
             <strong>Répartition des évaluations :</strong>
             <?php foreach ($starCounts as $stars => $count): 
@@ -83,9 +95,7 @@ require 'partials/footer.php';
                 </div>
             <?php endforeach; ?>
         </div>
-
-        <!-- Scrollable comments -->
-        <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+        <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
             <?php foreach ($itemComm as $eval): ?>
                 <div style="margin-bottom: 1em;">
                     <strong><?= $eval['nbEtoiles'] ?>★</strong> – <?= htmlspecialchars($eval['commentaire']) ?>
@@ -94,9 +104,6 @@ require 'partials/footer.php';
         </div>
     <?php endif; ?>
 </td>
-
-
-       
     </table>
     </main>
     <!-- <?php if ($popUp): ?>
