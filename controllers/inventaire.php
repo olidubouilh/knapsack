@@ -30,10 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user_id > 0) {
             try {
-                $stmt = $pdo->prepare("CALL ModifierCapsJoueurs(:caps, :idJoueurs)");
-                $stmt->bindValue(":caps", $caps_to_add, PDO::PARAM_INT);
-                $stmt->bindValue(":idJoueurs", $user_id, PDO::PARAM_INT);
+                $stmt = $pdo->prepare("CALL poidSac(:idJoueurs)");
+                $stmt->bindValue(":idJoueurs", (string) $user_id, PDO::PARAM_STR);
                 $stmt->execute();
+                $poids = $stmt->fetch(PDO::FETCH_ASSOC);
+                $old_poids = $poids['poids_total'];
+
+                if (isset($_POST['action']) && $_POST['action'] == 'vendre') {
+                    $stmt = $pdo->prepare("CALL ModifierCapsJoueurs(:caps, :idJoueurs)");
+                    $stmt->bindValue(":caps", $caps_to_add, PDO::PARAM_INT);
+                    $stmt->bindValue(":idJoueurs", $user_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                }
 
                 $stmt = $pdo->prepare("CALL ReduireItemInventaire(:idItem, :idJoueurs)");
                 $stmt->bindValue(":idItem", $item_id, PDO::PARAM_INT);
@@ -57,14 +65,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $poidsMaximal = $user['PoidsMaximal'];
                 $currentDexterite = $user['dexterite'];
 
-                if ($new_poids <= $poidsMaximal && $currentDexterite < 100) {
-                    
+                $weight_reduction = $old_poids - $new_poids;
+                $overload = max($new_poids - $poidsMaximal, 0);
+
+                if ($new_poids <= 50 && $currentDexterite < 100) {
+                    $new_dexterite = 100;
+                } elseif ($weight_reduction > 0 && $currentDexterite < 100) {
+
+                    $dexterity_to_restore = min($weight_reduction, 100 - $currentDexterite);
+                    $new_dexterite = min($currentDexterite + $dexterity_to_restore, 100 - $overload);
+                } else {
+
+                    $new_dexterite = max(100 - $overload, 0);
+                }
+
+                if ($new_dexterite != $currentDexterite) {
                     $stmt = $pdo->prepare("CALL ModifierDexteriteJoueurs(:dex, :idJoueur)");
-                    $stmt->bindValue(":dex", 100, PDO::PARAM_INT);
+                    $stmt->bindValue(":dex", $new_dexterite, PDO::PARAM_INT);
                     $stmt->bindValue(":idJoueur", $user_id, PDO::PARAM_INT);
                     $stmt->execute();
 
-                    $_SESSION['user']['dexterite'] = 100;
+                    $_SESSION['user']['dexterite'] = $new_dexterite;
                 }
 
                 $stmt = $pdo->prepare("UPDATE Items SET quantiteItem = quantiteItem + 1 WHERE idItems = :idItem");
