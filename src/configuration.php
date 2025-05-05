@@ -13,6 +13,10 @@ const ROUTES = [
     '/enigmaQuestion' => 'enigmaQuestion.php',
     '/useItem' => 'useItem.php',
     '/admin' => 'admin.php',
+    '/profil' => 'profil.php',
+
+
+
 ];
 const DB_PARAMS = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
