@@ -16,7 +16,7 @@
                 <a href="/inventaire"><img src="public/img/school-bag.png" alt="Inventaire"></a>
                 <?php if(isAuthenticated()): ?>
                     <!-- <a href="/profil"><img src="public/img/profil.png" alt="Profil"></a> *Pour si on veut afficher le profil du user !-->
-                    <a href="/connexion"><img src="public/img/deconnexion.png" alt="Déconnexion"></a>
+                    <a href="/connexion"><img alt="Déconnexion" id="Deconnection"></a>
                 <?php else: ?>
                     <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>
                 <?php endif; ?>
