@@ -1,6 +1,7 @@
 <?php
 require_once 'src/class/Items.php';
 require_once 'src/class/Panier.php';
+
 class ItemsModel
 {
 
@@ -24,7 +25,6 @@ class ItemsModel
             return null;
         }
     }
-
     public function getItemsMagasin()
     {
         try {
@@ -93,4 +93,28 @@ class ItemsModel
             'idJoueurs' => $idJoueur
         ]);
     }
+}
+class CommentaireModel
+{
+
+    public function __construct(private PDO $pdo)
+    {
+    }
+    public function getItemByIdComm($id): array|null
+    {
+
+        try {
+            $stm = $this->pdo->prepare('CALL getItemByIdComm(:id)');
+            $stm->bindValue(":id", $id, PDO::PARAM_STR);
+            $stm->execute();
+
+            $data = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+            return $data ?: null;
+        } catch (PDOException $erreur) {
+            echo "Erreur dans getItemById: " . $erreur->getMessage();
+            return null;
+        }
+    }
+
 }

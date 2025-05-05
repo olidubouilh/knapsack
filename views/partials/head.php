@@ -10,4 +10,5 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="../css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@395&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/public/img/favicon.png">
 </head>

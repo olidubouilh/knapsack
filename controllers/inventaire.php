@@ -4,6 +4,14 @@ require_once 'src/functions.php';
 require 'src/class/Database.php';
 require 'models/UserModel.php';
 $style = 'inventaire.css';
+
+if(!isAuthenticated()){
+    $message = "Vous devez être connecté pour accéder à l'inventaire.";
+    $_SESSION['popUp'] = $message;
+    $_SESSION['success'] = true;
+    redirect('/connexion');
+    exit;
+}
 sessionStart();
 
 //A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
@@ -114,7 +122,5 @@ if (isset($_SESSION['user']['id'])) {
         'style' => $style ?? '',
     ]);
 
-} else {
-    redirect('/connexion');
 }
 

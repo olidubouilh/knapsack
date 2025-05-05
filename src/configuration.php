@@ -3,7 +3,7 @@
 const ROUTES = [
 
     '/' => 'index.php',
-    '/connexion' => 'connexion.php',  
+    '/connexion' => 'connexion.php',
     '/inscription' => 'inscription.php',
     '/inventaire' => 'inventaire.php',
     '/panier' => 'panier.php',
@@ -11,9 +11,9 @@ const ROUTES = [
     '/detailsItems' => 'detailsItems.php',
     '/enigma' => 'enigma.php',
     '/enigmaQuestion' => 'enigmaQuestion.php',
-    '/enigmaResultat' => 'enigmaResultat.php',
     '/useItem' => 'useItem.php',
     '/admin' => 'admin.php',
+    '/profil' => 'profil.php',
 
 
 

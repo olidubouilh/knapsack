@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'password' => $password,
         ]);
         $_SESSION['success'] = true;
+        $message = 'Compte créé! Veuillez vous connecter';
         redirect('/connexion');
 
         
