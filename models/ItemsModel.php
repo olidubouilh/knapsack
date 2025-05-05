@@ -13,7 +13,7 @@ class ItemsModel
     {
 
         try {
-            $stm = $this->pdo->prepare('SELECT * FROM Items WHERE idItems = :id');
+            $stm = $this->pdo->prepare('CALL getItemById(:id)');
             $stm->bindValue(":id", $id, PDO::PARAM_STR);
             $stm->execute();
 

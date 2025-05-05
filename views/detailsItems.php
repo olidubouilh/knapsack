@@ -51,46 +51,50 @@ require 'partials/footer.php';
         </div> 
     </tr>
     </td>
-<td>
+    <td>
+    <?php if (empty($itemComm) || !is_array($itemComm)): ?>
+        <div>Aucune évaluation pour cet article.</div>
+    <?php else: ?>
+        <?php
+            // Initialize counters
+            $starCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+            $total = count($itemComm);
 
-    <?php
-        // Initialize counters
-        $starCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
-        $total = count($itemComm);
-
-        foreach ($itemComm as $eval) {
-            $nb = (int)$eval['nbEtoiles'];
-            if ($nb >= 1 && $nb <= 5) {
-                $starCounts[$nb]++;
+            foreach ($itemComm as $eval) {
+                $nb = (int)$eval['nbEtoiles'];
+                if ($nb >= 1 && $nb <= 5) {
+                    $starCounts[$nb]++;
+                }
             }
-        }
-    ?>
-
-    <!-- Stars distribution -->
-    <div style="margin-bottom: 15px;">
-        <strong>Répartition des évaluations :</strong>
-        <?php foreach ($starCounts as $stars => $count): 
-            $percent = $total > 0 ? round(($count / $total) * 100) : 0;
         ?>
-            <div style="display: flex; align-items: center; margin: 4px 0;">
-                <div style="width: 40px;"><?= $stars ?>★</div>
-                <div style="flex: 1; background: #eee; height: 10px; margin: 0 8px; border-radius: 5px;">
-                    <div style="width: <?= $percent ?>%; background: gold; height: 100%; border-radius: 5px;"></div>
-                </div>
-                <div style="width: 40px;"><?= $percent ?>%</div>
-            </div>
-        <?php endforeach; ?>
-    </div>
 
-    <!-- Scrollable comments -->
-    <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
-        <?php foreach ($itemComm as $eval): ?>
-            <div style="margin-bottom: 1em;">
-                <strong><?= $eval['nbEtoiles'] ?>★</strong> – <?= htmlspecialchars($eval['commentaire']) ?>
-            </div>
-        <?php endforeach; ?>
-    </div>
+        <!-- Stars distribution -->
+        <div style="margin-bottom: 15px;">
+            <strong>Répartition des évaluations :</strong>
+            <?php foreach ($starCounts as $stars => $count): 
+                $percent = $total > 0 ? round(($count / $total) * 100) : 0;
+            ?>
+                <div style="display: flex; align-items: center; margin: 4px 0;">
+                    <div style="width: 40px;"><?= $stars ?>★</div>
+                    <div style="flex: 1; background: #eee; height: 10px; margin: 0 8px; border-radius: 5px;">
+                        <div style="width: <?= $percent ?>%; background: gold; height: 100%; border-radius: 5px;"></div>
+                    </div>
+                    <div style="width: 40px;"><?= $percent ?>%</div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Scrollable comments -->
+        <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+            <?php foreach ($itemComm as $eval): ?>
+                <div style="margin-bottom: 1em;">
+                    <strong><?= $eval['nbEtoiles'] ?>★</strong> – <?= htmlspecialchars($eval['commentaire']) ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </td>
+
 
        
     </table>
