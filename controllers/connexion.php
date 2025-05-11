@@ -75,7 +75,7 @@ view("connexion.php", [
     'alias' => $alias ?? '',
     'password' => $password ?? '',
     'errors' => $errors ?? '',
-    'popUp' => $popUp,
+    'popUp' => $popUp ?? '',
     'style' => $style ?? '', 
     'message' => $message ?? '',  
      

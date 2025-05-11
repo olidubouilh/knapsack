@@ -80,7 +80,58 @@ class UserModel
             throw new PDOException($e->getMessage(), $e->getCode());
         }
     }
+    public function updateAlias($id, $alias) : bool {
+        try{
+            $stm = $this->pdo->prepare('SELECT alias FROM Joueurs WHERE alias = :alias');
+            $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
+            $stm->execute();
+            $data = $stm->fetch(PDO::FETCH_ASSOC);
+            if (!empty($data)) {
+                return false;
+            }
+            else{
+                $stm = $this->pdo->prepare('UPDATE Joueurs SET alias = :alias WHERE idJoueurs = :id');
+                $stm->bindValue(":alias", $alias, PDO::PARAM_STR);
+                $stm->bindValue(":id", $id, PDO::PARAM_STR);
+                $stm->execute();
+                return true;
+            }
+        }
+        catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
 
+    }
+    public function updatePassword($id, $newPassword, $oldPassword): bool {
+        try {
+          
+            $stm = $this->pdo->prepare("SELECT mPasse FROM Joueurs WHERE idJoueurs = :id");
+            $stm->bindValue(":id", $id, PDO::PARAM_INT);
+            $stm->execute();
+            $data = $stm->fetch(PDO::FETCH_ASSOC);
+    
+    
+            $currentHashedPassword = $data['mPasse'];
+    
+            $hashedOld = hash('sha512', $oldPassword);
+
+        
+            if ($hashedOld !== $currentHashedPassword) {
+                return false;
+            }
+    
+            
+            $hashedNew = hash('sha512', $newPassword);
+    
+          
+            $updateStmt = $this->pdo->prepare("UPDATE Joueurs SET mPasse = :newPassword WHERE idJoueurs = :id");
+            $updateStmt->bindValue(":newPassword", $hashedNew, PDO::PARAM_STR);
+            $updateStmt->bindValue(":id", $id, PDO::PARAM_INT);
+            return $updateStmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
     public function selectByAlias(string $alias, string $password) : null|User {
 
         try{
