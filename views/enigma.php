@@ -12,12 +12,6 @@ require 'views/partials/header.php';
         <p>Si vous répondez correctement à une question facile 
         vous recevrez 50 caps, Pour une question Moyenne 100
         caps et une difficile 200 caps</p>
-<!--Le texte sera peut être à modifier, me souvient pu si la prof voulait
--1000 caps total incluant les 3 questions ex: 1 facile: 50 caps + 2 difficile: 400 caps donc bonus 550 caps
--si 3 questions difficiles sont répondus d'affilé (600 caps) + bonus 400 total 1000
--1000 caps de plus que les 3 questions répondues 
--est-ce qu'il peut y avoir des questions faciles et moyennes entre les difficiles sans perdre le bonus?
--->
         <p>Si vous répondez correctement à 3 questions
         aléatoires ou difficiles vous recevrez 1000 caps</p>
     </div>

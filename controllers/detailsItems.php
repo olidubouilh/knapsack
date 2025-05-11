@@ -2,6 +2,7 @@
 require_once 'src/functions.php';   
 require 'src/class/Database.php';
 require 'models/ItemsModel.php';
+require 'models/CommentaireModel.php';
 $style = 'stylesdetails.css';
 sessionStart();
 
@@ -45,6 +46,11 @@ $itemsModel = new ItemsModel($pdo);
 
 $item = $itemsModel->getItemById($id);
 
+$CommModel = new CommentaireModel($pdo); 
+
+$itemComm = $CommModel->getItemByIdComm($id);
+
 view('detailsItems.php', [
-    'item' => $item
+    'item' => $item,
+    'itemComm' => $itemComm
 ]);

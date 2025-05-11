@@ -11,13 +11,11 @@ header{
     z-index: 1000; 
     border-radius: 10px;
 }
+
 body{
     background-image: url("../img/background.jpg");
-    background-size: cover;
+    background-size: 2000px;
 }
-
-
-
 /* Style global de la navbar */
 .navbar {
     display: flex;
@@ -59,6 +57,16 @@ body{
     height: auto;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
+/* Tailles de l'image déconnexion */
+.nav-right a #Deconnection {
+    content: url("../img/deconnexion.png");
+    max-width: 50px;
+    max-height: 50px;
+}
+.nav-right a #Deconnection:hover {
+    content: url("../img/deconnexionOnHover.png");
+}
+
 
 /* Taille du logo central (plus grand) */
 .nav-center a img {

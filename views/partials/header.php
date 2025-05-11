@@ -14,11 +14,12 @@
                 <?php } ?>
                 <a href="/panier"><img src="public/img/panier.png" alt="Panier"></a>
                 <a href="/inventaire"><img src="public/img/school-bag.png" alt="Inventaire"></a>
-                <?php if (isset($_SESSION['user'])): ?>
+                <?php if(isAuthenticated()): ?>
                     <a href="/profil"><img src="public/img/profil.png" alt="Inventaire"></a>
-
+                    <a href="/connexion"><img alt="Déconnexion" id="Deconnection"></a>
+                <?php else: ?>
+                    <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>
                 <?php endif; ?>
-                <a href="/connexion"><img src="public/img/connection.png" alt="Connexion"></a>
             </div>
         </nav>
         <?php if (isset($_SESSION['user'])): ?>

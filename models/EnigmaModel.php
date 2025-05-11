@@ -120,5 +120,20 @@ class EnigmaModel
             echo "Erreur lors de la mise à jour du montant des caps : " . $e->getMessage();
         }
     }
+    public function badAnswer($difficulte, $idJoueur){
+        try{
+            $stmt = $this->pdo->prepare("CALL PertePointsVie(:difficulte, :idJoueur)");
+            $stmt->bindValue(':difficulte', $difficulte, PDO::PARAM_STR);
+            $stmt->bindValue('idJoueur', $idJoueur, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt = $this->pdo->prepare("CALL verifierAlias(:alias)");
+            $stmt->bindValue(":alias", $_SESSION['user']['alias'], PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['user']['pvJoueur'] = $user['pvJoueur'];
+        }catch(PDOException $e){
+            echo "Erreur lors de l'appel d'une mauvaise réponse: " . $e->getMessage();
+        }
+    }
 }
 //Modifications/Commentaires : 2025-04-07 par Raph  

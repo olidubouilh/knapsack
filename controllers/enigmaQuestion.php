@@ -113,7 +113,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 {        
                     $match = false;        
                     $errors = $match ? false : "Mauvaise réponse. Essayez encore !"; //message d'erreur si la réponse est incorrecte                
-                    $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur 
+                    $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur
+                    $enigmaModel->badAnswer($difficulte, $idJoueur); 
         
                 }
                 //var_dump($match); //debug
@@ -174,6 +175,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $match = false;        
                     $errors = $match ? false : "Mauvaise réponse. Essayez encore !"; //message d'erreur si la réponse est incorrecte                
                     $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur 
+                    $enigmaModel->badAnswer($difficulte, $idJoueur); 
+
         
                 }
                 //var_dump($match); //debug
