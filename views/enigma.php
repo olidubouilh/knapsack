@@ -17,10 +17,10 @@ require 'views/partials/header.php';
     </div>
     <form action="/enigmaQuestion" method="POST">
         <div>Niveau de difficulté:</div>
-        <input type="radio" name="difficulte" value="facile"> Facile <br>
-        <input type="radio" name="difficulte" value="moyen"> Moyen<br>
-        <input type="radio" name="difficulte" value="difficile"> Difficile<br>
-        <input type="radio" name="difficulte" value="aléatoire"> Aléatoire (la difficulté de la question sera facile, moyenne ou difficile)<br>
+        <input type="radio" name="difficulte" value="facile"><label style="color: green"> Facile</label> <br>
+        <input type="radio" name="difficulte" value="moyen"><label style="color: yellow"> Moyen</label><br>
+        <input type="radio" name="difficulte" value="difficile"><label style="color: red"> Difficile</label><br>
+        <input type="radio" name="difficulte" value="aléatoire"><label style="color: blue"> Aléatoire (la difficulté de la question sera facile, moyenne ou difficile) </label><br>
         <input type="hidden" name="difficulte_id" onclick="setHiddenValue()" id="difficulte_id">
         <button type="submit">Confirmer</button>
     </form>
