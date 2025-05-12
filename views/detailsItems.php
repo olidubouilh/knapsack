@@ -52,13 +52,13 @@ require 'partials/footer.php';
     </tr>
     </td>
     <td>
-        <?php if (empty($itemComm) || !is_array($itemComm)): ?>
+        <?php if (empty($itemComments) || !is_array($itemComments)): ?>
         <div>Aucune évaluation pour cet item.</div>
     <?php else: ?>
         <?php
         $totalStars = 0;
-        $count = count($itemComm);
-        foreach ($itemComm as $eval) {
+        $count = count($itemComments);
+        foreach ($itemComments as $eval) {
             $totalStars += $eval['nbEtoiles'];
         }
         $average = $count > 0 ? $totalStars / $count : 0;
@@ -72,9 +72,9 @@ require 'partials/footer.php';
     </div>
         <?php
             $starCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
-            $total = count($itemComm);
+            $total = count($itemComments);
 
-            foreach ($itemComm as $eval) {
+            foreach ($itemComments as $eval) {
                 $nb = (int)$eval['nbEtoiles'];
                 if ($nb >= 1 && $nb <= 5) {
                     $starCounts[$nb]++;
@@ -96,7 +96,7 @@ require 'partials/footer.php';
             <?php endforeach; ?>
         </div>
         <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
-            <?php foreach ($itemComm as $eval): ?>
+            <?php foreach ($itemComments as $eval): ?>
                 <div style="margin-bottom: 1em;">
                     <strong><?= $eval['nbEtoiles'] ?>★</strong> – <?= htmlspecialchars($eval['commentaire']) ?>
                 </div>
