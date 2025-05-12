@@ -6,10 +6,6 @@ require_once 'src/configuration.php';
 $style = 'index.css';
 
 sessionStart();
-$estConnecter = isAuthenticated();
-//$estAdmin = isAdministrator(); pour plus tard
-//FAIRE UN IF POUR AFFICHER LES INFOS DU JOUEURS SI IL EST CONNECTER VA ETRE COMME CA DANS TOUTE LES PAGES A FAIRE DANS LE FUTURE
-
 $pdo = Database::getInstance();
 
 $popUp = false;
@@ -18,15 +14,8 @@ if (isset($_SESSION['connecter'])) {
     unset($_SESSION['connecter']);
 }
 
-
-
-
-
-
 view('index.php',[
     'style'=>$style ?? '',
     'popUp'=>$popUp
       
 ]);
-
-?>

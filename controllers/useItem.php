@@ -7,7 +7,7 @@ sessionStart();
 
 $pdo = Database::getInstance();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user']['id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && userExist()) {
     $user_id = $_SESSION['user']['id'];
     $item_id = (int) $_POST['item_id'];
 
@@ -85,4 +85,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user']['id'])) {
 } else {
     redirect('/connexion');
 }
-?>

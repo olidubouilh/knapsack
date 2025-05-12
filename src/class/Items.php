@@ -18,7 +18,6 @@ class Items{
         $this->poids = $poids;
         $this->utilite = $utilite;
         $this->photo = $photo;
-
     }
     public function getNomItem(){
         return $this->nomItem;
@@ -41,14 +40,12 @@ class Items{
     public function getPhoto(){
         return $this->photo;
     }
-
     public function setQuantiteItem(int $quantite){
         $this->quantiteItem = $quantite;
     }
     public function setPrix(int $prix){
         $this->prix = $prix;
     }
-
 }
 
 class Commentaire{
@@ -77,4 +74,3 @@ class Commentaire{
         $this->commentaire = $commentaire;
     }
 }
-?>

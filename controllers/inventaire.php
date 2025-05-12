@@ -13,13 +13,6 @@ if(!isAuthenticated()){
     exit;
 }
 sessionStart();
-
-//A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
-// $popUp = false;
-// if (isset($_SESSION['success'])) {
-//     $popUp = true;
-//     unset($_SESSION['success']);
-// }
 $pdo = Database::getInstance();
 
 $userModel = new UserModel($pdo);
@@ -34,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $caps_to_add = (int) ($item_value * 0.6);
 
-        $user_id = isset($_SESSION['user']['id']) ? (int) ($_SESSION['user']['id']) : 0;
+        $user_id = userExist() ? (int)($_SESSION['user']['id']) : 0;
 
         if ($user_id > 0) {
             try {
@@ -107,8 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-if (isset($_SESSION['user']['id'])) {
-    $idJoueur = $_SESSION['user']['id'];
+if (isAuthenticated()) {
+    $idJoueur = userExist() ? (int)($_SESSION['user']['id']) : null;
 
     $stmt = $pdo->prepare("SELECT * FROM VInventaire WHERE idJoueurs = :idJoueur");
     $stmt->execute(['idJoueur' => $idJoueur]);

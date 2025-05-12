@@ -1,5 +1,4 @@
 <?php
-
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>   
@@ -8,7 +7,6 @@ require 'views/partials/header.php';
 <div id="popupNotification" class="popupNotification">
         Bienvenue <?= $_SESSION['user']['alias'] ?> !</div>
 </div>
-
     <h1 style="text-align: center;">Information sur le site</h1> 
     <h3 style="text-align: center;">Site présenté à Saliha Yacoub pour le cours Projet dirigé</h3>
     <br/>
@@ -20,7 +18,6 @@ require 'views/partials/header.php';
     <h3 style="text-align: center;">Mathis Gravel</h3>
     <h3 style="text-align: center;">Raphael Leduc</h3>
 </main>
-  
 <?php if ($popUp): ?>
     <script>
         alertShow();

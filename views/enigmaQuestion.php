@@ -18,7 +18,6 @@ require 'views/partials/header.php';
         <input type="hidden"  id="reponse_id">
         <button type="submit">Confirmer</button>
     </form>
-
     <div class="enigma-stats">
         <p>Statistiques :</p>
         <p>Nombre de bonnes réponses : <?= htmlspecialchars($nbBonnesReponses) ?></p>
@@ -32,4 +31,3 @@ require 'views/partials/header.php';
     <?php endif; ?>
 </div>
 </main>
-<!-- Ajouts très simple : 2025-04-07 par Raph -->  

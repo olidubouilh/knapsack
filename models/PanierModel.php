@@ -1,12 +1,9 @@
 <?php
 require_once 'src/class/Panier.php';
 require_once 'src/class/User.php';
-
-class PannierModel
+class PanierModel
 {
-
     public function __construct(private PDO $pdo) {}
-
     public function getItemsPanierById(Panier $panier){
         try{
             $idJoueur = $panier->getId();
@@ -99,12 +96,8 @@ class PannierModel
         $excedent = $poidsTotal - 50;
         $infoJoueur = $userModel->selectInfoJoueur($alias);
         $dexActuelle = $infoJoueur->getDexterite();
-        if($poidsTotal > 50) {
-            $poidSac = 50;
-        }
-        else{
-            $poidSac = $poidsTotal;
-        }
+
+        $poidsTotal > 50 ? $poidSac = 50 : $poidSac = $poidsTotal;
 
         if ($dexActuelle <= 1) {
             $erreur = "Vous n’avez pas assez de dextérité pour compenser la surcharge.";
@@ -126,17 +119,12 @@ class PannierModel
                     'alias' => $alias
                 ]);
                 if($excedent > 0){
-                   
-                    
                     $stm = $this->pdo->prepare("UPDATE Joueurs SET dexterite = dexterite - :excedent WHERE alias = :alias");
                     $stm->execute([
                     'excedent' => $excedent,
                     'alias' => $alias
                     ]);
-                    
-                    
                 }
-               
                 foreach ($quantiteItem as $idItem =>$quantite) {
                     $stm = $this->pdo->prepare("INSERT INTO SacADos (idItems, idJoueurs, quantite) VALUES (:idItem, :idJoueur, :quantite) ON DUPLICATE KEY UPDATE quantite = quantite + :quantite");
                     $stm->execute([

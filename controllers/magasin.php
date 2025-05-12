@@ -5,16 +5,11 @@ require 'src/class/Database.php';
 require 'models/ItemsModel.php';
 $style = 'magasin.css';
 sessionStart();
-
-//A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
-// $popUp = false;
-// if (isset($_SESSION['success'])) {
-//     $popUp = true;
-//     unset($_SESSION['success']);
-// }
 $pdo = Database::getInstance();
 $itemsModel = new ItemsModel($pdo); 
+
 $magasin = $itemsModel->getItemsMagasin();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['details'])) {
@@ -31,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['M'])) $categories[] = "M";
         if (isset($_POST['N'])) $categories[] = "N";
         if (isset($_POST['B'])) $categories[] = "B";
-        
         $magasin = $itemsModel->getItemsMagasinFiltrer($recherche, $categories);
     }
 }

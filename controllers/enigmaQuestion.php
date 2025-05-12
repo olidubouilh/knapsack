@@ -18,7 +18,7 @@ if(!isAuthenticated()){
 sessionStart();
 $pdo = Database::getInstance();
 $enigmaModel = new EnigmaModel($pdo);
-$idJoueur = $_SESSION['user']['id'] ?? '';
+$idJoueur = userExist() ? $_SESSION['user']['id'] : null;
 
 $match = false;
 if($idJoueur){
@@ -29,11 +29,9 @@ if($idJoueur){
 $random = new Randomizer();
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-
-    if (!isset($_POST['idQuestion'])) {
-        // This is the FIRST submission after difficulty selection
-        $difficulte = $_POST['difficulte'];
+    if (empty($_POST['idQuestion'])) {
+        // Première question après le choix de la difficulté
+        $difficulte = $_POST['difficulte'] ?? '';
         
         if ($difficulte === 'aléatoire') {
             $random = new Randomizer();
@@ -52,7 +50,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $reponses = $enigmaModel->getAnswersById($idQuestion);
         $reponseAttendue = $question->getBonneReponse();
     
-        // Display the question view
         view("enigmaQuestion.php", [
             'id' => $idJoueur,
             'idQuestion' => $idQuestion,
@@ -67,47 +64,31 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-        if($_POST['difficulte'] == 'aléatoire') //si la difficulté choisie est aléatoire, on en choisit une aléatoirement
+        if(!empty($_POST['difficulte']) && $_POST['difficulte'] == 'aléatoire') //si la difficulté choisie est aléatoire, on en choisit une aléatoirement
         {
             $aléatoire = 'aléatoire';
-            $difficulte = $random->getInt(1,3); //si la difficulté n'est pas choisie, on en choisit une aléatoirement
-    
-            switch ($difficulte) {
-            case 1:
-                $difficulte = 'facile';
-                break;
-    
-            case 2:
-                $difficulte = 'moyenne';
-                break;
-    
-            case 3:
-                $difficulte = 'difficile';
-                break;
-            default:
-                $difficulte = 'facile';
-                break;
-            }
-            $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion'] ?? 1) ;
+            
+            $differentesDifficulté = [
+                1 => 'facile',
+                2 => 'moyenne',
+                3 => 'difficile',
+            ];
+            $difficulte = $differentesDifficulté[$random->getInt(1,3) ?? 'facile'];
+            
+            $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion'] ?? 1);
             $VraieReponse = $questionAvant->getBonneReponse();
-            //var_dump($_POST); //debug qui montre les données envoyées par le formulaire(idQuestion, difficulte, reponse, reponse_id)
             $difficulte = $aléatoire; //difficulte choisie par le joueur
             $reponse = $_POST['reponse_id'] ?? null; //reponse choisie par le joueur lorsque le joueur soumet une réponse ou null lors de sa première question
             $idQuestion = $_POST['idQuestion'];
             if (isset($reponse)) 
             {
                  //si le joueur a soumis une réponse
-                /*var_dump($reponseAttendue); //debug
-                var_dump($reponse); //debug*/
-                if ($reponse == $VraieReponse) { //si la réponse soumise est égale à la réponse attendue 
-                    //*il y a aussi une fonction checkReponse dans la classe Enigma qui pourrait être utilisée ici, mais je ne l'ai pas utilisé pour le moment
+                if ($reponse == $VraieReponse) {  
                         $match = true;
-                       
                         $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
                         $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
                         $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
                         $enigmaModel->getMontantById($idJoueur);
-                        
                 }
                 else
                 {        
@@ -116,10 +97,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur
                     $enigmaModel->badAnswer($difficulte, $idJoueur); 
         
-                }
-                //var_dump($match); //debug
-        
+                }        
             }
+            //si le joueur n'a pas soumis de réponse
             else {
                 $errors = "Veuillez entrer une réponse.";
             }
@@ -132,32 +112,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         else
         {
             $difficulte = $_POST['difficulte'] ?? null; //difficulte choisie par le joueur
-            $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion'] ?? 1) ;
+            $questionAvant = $enigmaModel->getQuestionById($_POST['idQuestion'] ?? 1);
             $VraieReponse = $questionAvant->getBonneReponse();
-            //var_dump($_POST); //debug qui montre les données envoyées par le formulaire(idQuestion, difficulte, reponse, reponse_id)
             $reponse = $_POST['reponse_id'] ?? null; //reponse choisie par le joueur lorsque le joueur soumet une réponse ou null lors de sa première question
             $idQuestion = $_POST['idQuestion'];
             if (isset($reponse)) 
             {
                  //si le joueur a soumis une réponse
-                /*var_dump($reponseAttendue); //debug
-                var_dump($reponse); //debug*/
-                if ($reponse == $VraieReponse) { //si la réponse soumise est égale à la réponse attendue 
-                    //*il y a aussi une fonction checkReponse dans la classe Enigma qui pourrait être utilisée ici, mais je ne l'ai pas utilisé pour le moment
+                if ($reponse == $VraieReponse) {
                         $match = true;
-                       
-
                         if($difficulte == 'difficile' && $stats->getSuiteBonneReponse() % 3 === 0)
-
                         {
                             $popUp = $match ? "Bravo ! Vous avez trouvé la bonne réponse." : true; //message de popup si la réponse est correcte
                             $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
-                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
-                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
-                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
-                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
-                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
-                            $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            for ($i= 0; $i < 5; $i++) { 
+                                $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
+                            }
                             $enigmaModel->getMontantById($idJoueur);
                         }
                         else
@@ -166,22 +136,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $stats->incrementNbBonneReponse($match); //incrémente le nombre de bonnes réponses du joueur
                             $enigmaModel->giveCapsAmountEnigma($idJoueur, $difficulte);
                             $enigmaModel->getMontantById($idJoueur);
-                        }
-                        
-                        
-                }
+                        }  
+                    }
                 else
                 {        
                     $match = false;        
                     $errors = $match ? false : "Mauvaise réponse. Essayez encore !"; //message d'erreur si la réponse est incorrecte                
                     $stats->incrementNbMauvaiseReponse($match); //incrémente le nombre de mauvaises réponses du joueur 
                     $enigmaModel->badAnswer($difficulte, $idJoueur); 
-
         
                 }
-                //var_dump($match); //debug
-        
             }
+            //si le joueur n'a pas soumis de réponse
             else {
                 $errors = "Veuillez entrer une réponse.";
             }
@@ -192,7 +158,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reponseAttendue = $question->getBonneReponse() ?? null;//réponse attendue de la question choisie aléatoirement(prend la question selon son id et retourne la reponse où estBonne = 1)
         
         }
-// Vérifiez si l'utilisateur est connecté
     view("enigmaQuestion.php", [
         'id' => $idJoueur,
         'idQuestion' => $idQuestion,
@@ -206,6 +171,3 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         'style' => $style ?? '',
     ]);    
 }
-
-//Modifications/Commentaires : 2025-04-07 par Raph  
-//Modifications/Commentaires : 2025-04-20 par Raph

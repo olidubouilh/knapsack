@@ -2,13 +2,10 @@
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>
-
 <!-- Lien vers le CSS -->
 <link rel="stylesheet" href="/public/css/inventaire.css">
-
 <main class="inventaire">
     <h1>Inventaire</h1>
-
     <div class="scroll-zone">
         <div class="inventaire-container">
             <?php foreach ($inventaire as $item) { ?>
@@ -59,5 +56,4 @@ require 'views/partials/header.php';
         </div>
     </div>
 </main>
-
 <?php require 'partials/footer.php'; ?>

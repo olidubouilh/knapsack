@@ -8,7 +8,7 @@ sessionStart();
 
 
 
-if (isset($_SESSION['user']['id'])) {
+if (userExist()) {
     $popUp = false;
     if (isset($_SESSION['success'])) {
         $popUp = true;
@@ -27,9 +27,7 @@ if (isset($_SESSION['user']['id'])) {
             }
             else{
                 $errors = "L'alias est déjà utilisé";
-            }
-            
-            
+            } 
         }
         else{
             $errors = "L'alias doit être diffférent de l'ancien";

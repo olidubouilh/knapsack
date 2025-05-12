@@ -2,12 +2,10 @@
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>
-
 <main style="background-color: brown;">
     <div>
         <h1 style="text-align: center;">Gestion administrateur</h1>
     </div>
-
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px;">
         <table style="width: 100%; border-collapse: collapse; margin: 0 auto;">
             <thead>
@@ -65,9 +63,7 @@ require 'views/partials/header.php';
     <div>18: Si l'item n'a pas d'évaluation 'Aucune évaluation pour cet article' est affiché </div>
     <div>19: Les évaluations et commentaires s'affichent selon l'item sélectionné</div>
     <div>20: Ne peut pas acheter un item dont la quantité est = 0</div>
-
 </main>
-
 <?php
 require 'views/partials/footer.php';
 ?>

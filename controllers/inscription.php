@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    if($_POST['password'] !== $_POST['repassword']) {
         $errors['repassword'] = "Les mots de passe ne correspondent pas.";
    }
-/////////////////////////////A FAIRE POUR VERIFFIER SI LE NOM D'UTILISATEUR EST DEJA UTILISER//////////////////////////
     if($userModel->verifierAlias($alias)) {
         $errors['alias'] = "Cette alias est déjà utilisée.";
     }

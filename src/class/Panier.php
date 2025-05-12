@@ -6,10 +6,8 @@ class Panier{
 
     public function __construct(int $idJoueur){
         $this->id = $idJoueur;
-       
     }
-
-   public function getId(): int{
+    public function getId(): int{
         return $this->id;
     }
     public function getItemPanier(): array{
@@ -30,10 +28,6 @@ class Panier{
         foreach ($descriptionItem as $row) {
             $assoc[$row['idItems']] = new Items($row['idItems'], $row['nomItem'], $row['quantiteItem'], $row['typeItem'], $row['prix'], $row['poids'], $row['utilite'], $row['photo']);
         }
-        $this->descriptionItem = $assoc;
-        
+        $this->descriptionItem = $assoc;    
     }
-    
 }
-
-?>

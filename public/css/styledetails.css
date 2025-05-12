@@ -4,20 +4,15 @@ header{
     padding: 10px;
     text-align: center;
     padding-top: 20px;
-    
 }
 body{
     background-image: url(img/background.jpg);
     background-size: cover; 
-        
 }
-
-nav{
-    
+nav{   
     text-align: left;
 }
 main {
-   
     justify-content: center; 
     gap: 1.5em;
     background-color: #961d1db5;
@@ -27,7 +22,6 @@ main {
     border-radius: 10px;
     margin-top: 1em;
     font-family: 'falloutFont';
-    
 }
 .filtre {
     display: flex;
@@ -44,18 +38,13 @@ main {
     margin-left:5em;
     margin-right: 5em;
     margin-bottom: 1em; 
-
 }
-
 main img {
     max-width: 150px; 
     height: auto;  
     border-radius: 5px; 
     height: 90px;
-    
 }
-
-
 .bouton {
     background-color: #d32f2f; 
     color: white;
@@ -69,10 +58,8 @@ main img {
     text-decoration: none;
     transition: background 0.3s ease-in-out, transform 0.2s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 120px; /* Taille uniforme */
+    width: 120px;
 }
-
-
 .bouton:hover {
     background-color: #b71c1c; 
     transform: scale(1.05);
@@ -93,18 +80,14 @@ main img {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     width: 90px;
 }
-
 .boutonAcheter:hover {
     background-color: #b71c1c;
     transform: scale(1.05);
 }
-
 .bouton:active {
     background-color: #9a0007;
     transform: scale(0.95);
 }
-
-
 .boutons-container {
     display: flex;
     justify-content: center; 

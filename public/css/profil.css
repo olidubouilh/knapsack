@@ -4,8 +4,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    padding: 20px;
-    
+    padding: 20px;   
 }
 .password{
     display: flex;
@@ -13,26 +12,18 @@
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    
-    
 }
 main label{
     font-size: 50px;
     margin: 10px;
 }
 main input{
-   
     margin-top: 7px;
     margin-right: 10px;
     padding: 5px;
     font-size: large;
     height: 35px;
-  
 }
 main button{
     margin-top: 5px;
-    
 }
-
-
-

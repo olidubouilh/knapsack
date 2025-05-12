@@ -38,4 +38,4 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 view("admin.php", [
     'joueurs' => $joueurs,
 ]);
-?>
+

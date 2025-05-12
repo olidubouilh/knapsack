@@ -24,7 +24,6 @@ require 'views/partials/header.php';
         <input type="hidden" name="difficulte_id" onclick="setHiddenValue()" id="difficulte_id">
         <button type="submit">Confirmer</button>
     </form>
-
     <div class="enigma-stats">
         <p>Statistiques :</p>
         <p>Nombre de bonnes réponses : <?= htmlspecialchars(string: $nbBonnesReponses) ?></p>
@@ -37,7 +36,3 @@ require 'views/partials/header.php';
         <div class="popup-message"><?= htmlspecialchars($popUp) ?></div>
     <?php endif; ?>
 </div>
-
-<!-- Ajouts très simple : 2025-04-07 par Raph -->  
-
-<!--Web2 voir documentation Time spawn -->

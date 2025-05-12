@@ -4,19 +4,13 @@ header{
     padding: 10px;
     text-align: center;
     padding-top: 20px;
-    
 }
 body{
     background-image: url(img/background.jpg);
     background-size: cover; 
-        
 }
 nav{
-    
     text-align: left;
-    
-    
-    
 }
 main {
     display: flex;
@@ -29,8 +23,6 @@ main {
     padding: 2em;
     border-radius: 10px;
     margin-top: 1em;
-    
-    
 }
 .filtre {
     display: flex;
@@ -47,7 +39,6 @@ main {
     margin-left:5em;
     margin-right: 5em;
     margin-bottom: 1em; 
-
 }
 section{
     background: rgba(255, 255, 255, 0.1); 
@@ -60,7 +51,6 @@ section{
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
     flex-direction: column;
     align-items: center;
-    
 }
 section img {
     max-width: 125px; 
@@ -74,7 +64,6 @@ section img {
     gap: 10px; 
     margin-top: 10px; 
 }
-
 .bouton {
     background-color: #d32f2f; 
     color: white;
@@ -90,14 +79,10 @@ section img {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     width: 120px; /* Taille uniforme */
 }
-
-
 .bouton:hover {
     background-color: #b71c1c; 
     transform: scale(1.05);
 }
-
-
 .bouton:active {
     background-color: #9a0007;
     transform: scale(0.95);

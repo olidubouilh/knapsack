@@ -3,7 +3,6 @@ require 'partials/head.php';
 require 'partials/header.php';
 require 'partials/footer.php';
 ?>
-
     <div id="popupNotification" class="popupNotification">Article ajouté!</div>
     <main>
     <table>
@@ -41,8 +40,7 @@ require 'partials/footer.php';
             <div>Nombre de calories: <?php echo $item['nbCalories']; ?></div>
             <div>Composant Nutritif: <?php echo $item['composantNutritif']; ?></div>
             <div>Composant Mineral: <?php echo $item['composantMineral']; ?></div>
-        <?php endif; ?>
-        
+        <?php endif; ?>      
         <div class="boutons-cote">
             <form action="/detailsItems" method="post">
                 <input type="hidden" name="item_id" value="<?php echo $item['idItems']; ?>">
@@ -73,7 +71,6 @@ require 'partials/footer.php';
         <?php
             $starCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
             $total = count($itemComm);
-
             foreach ($itemComm as $eval) {
                 $nb = (int)$eval['nbEtoiles'];
                 if ($nb >= 1 && $nb <= 5) {

@@ -3,9 +3,9 @@
 require_once 'src/functions.php';   
 require 'src/class/Database.php';
 require 'models/UserModel.php';
+
 $style = 'connexion.css';
 sessionStart();
-//A FAIRE SI ON VEUT FAIRE UNE NOTIFICATION DISANT CONNECTER OU WTV DEMANDER A OLIVIER POUR LE CODE A METTRE DANS LE HTML
 $popUp = false;
 if (isset($_SESSION['success'])) {
     $popUp = true;
@@ -34,13 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($errors)) {
 
             $user = $userModel->selectByAlias($alias, $password);
-        //FUTURE POUR SAVOIR SI EST ADMIN OU NON
-        // if($user->getActive() == false){
-        //     redirect('/inactif');
-        //     exit;
-        // }
-        //else{
-            //$_SESSION['user'] = $user;   FAIRE PLUS TARD
             $_SESSION['user'] = [
                 'id' => $user->getId(),
                 'alias'=> $user->getAlias(),
@@ -56,8 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['connecter'] = 1;
             redirect('/');
             exit;
-        //}
-       
         }  
     }
     if(isset($_POST['deconnexion']) && isAuthenticated())
@@ -75,9 +66,7 @@ view("connexion.php", [
     'alias' => $alias ?? '',
     'password' => $password ?? '',
     'errors' => $errors ?? '',
-    'popUp' => $popUp ?? '',
+    'popUp' => $popUp,
     'style' => $style ?? '', 
     'message' => $message ?? '',  
-     
-    
 ]);

@@ -1,4 +1,4 @@
-//bouton confirmer difficulté question Enigma
+//Bouton confirmer difficulté question Enigma
 
 document.addEventListener('DOMContentLoaded', () => {
     setHiddenValue();
@@ -7,28 +7,37 @@ document.addEventListener('DOMContentLoaded', () => {
         radio.addEventListener('change', setHiddenValue);
     });
 });
+/**
+ * Définit la valeur du champ de formulaire caché "difficulte_id" en fonction de
+ * la radio bouton sélectionnée pour la difficulté de la question.
+ *
+ * @return {boolean} True si une radio bouton est sélectionnée, false sinon.
+ */
 function setHiddenValue() {
     const selected = document.querySelector('input[name="difficulte"]:checked');
     if (selected) {
         document.getElementById('difficulte_id').value = selected.value;
         return true;
     } else {
-        return false; // prevent form submission if nothing selected
+        return false;
     }
 }
 
-//boutton confirmer réponse question Enigma
-//Ca ne fonctionne pas trop, je suis pu capable 
 
-document.querySelector('form').addEventListener('submit', setReponseValue); //Ajoute un eventListener au formulaire pour appeler la fonction setReponseValue lors de la soumission
+document.querySelector('form').addEventListener('submit', setReponseValue);
+
+/**
+ * Définit la valeur du champ de formulaire caché "reponse_id" en fonction du bouton radio
+ * sélectionné pour la réponse et soumet le formulaire.
+ */
 function setReponseValue() {
-    const radios = document.getElementsByName('reponse'); // Récupère tous les éléments radio avec le nom 'reponse'
-    //Je sais qu'un foreach est bien meilleur, mais j'ai déjà essayé et ça ne fonctionnais pas.
-    for(let i = 0; i < radios.length; i++) {
-        if(radios[i].checked) {
-            const reponseIdInput = document.getElementById('reponse_id'); // Récupère l'élément input caché avec l'ID 'reponse_id' qui correspond à la réponse du user
-            reponseIdInput.value = radios[i].value; // Définit la valeur de l'input caché sur la valeur de l'élément radio sélectionné
-            document.querySelector('form').submit(); // Soummet le form après avoir défini la valeur de l'input caché pour que la réponse soit prise dans le controller
+    const radios = document.getElementsByName('reponse'); // Get all radio elements with the name 'reponse'
+
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            const reponseIdInput = document.getElementById('reponse_id'); // Récupère le champ de formulaire caché avec l'ID 'reponse_id'
+            reponseIdInput.value = radios[i].value; // Fixer la valeur du champ caché avec la valeur du bouton radio sélectionné 
+            document.querySelector('form').submit(); // Soumettre le formulaire après avoir fixé la valeur du champ caché 
             break;
         }
     }

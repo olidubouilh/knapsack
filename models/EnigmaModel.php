@@ -7,21 +7,6 @@ require_once 'src/class/Enigma.php';
 class EnigmaModel
 {
     public function __construct(private PDO $pdo) {}
-
-    //Récupérer toutes les questions de la base de données
-    public function getAllQuestions(): array|null
-    {
-        try {
-            $stmt = $this->pdo->prepare("SELECT * FROM VEnigma");
-            $stmt->execute();
-            $Enigma = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $Enigma ?: null;
-        } catch (PDOException $erreur) {
-            echo "Erreur dans getAllQuestions: " . $erreur->getMessage();
-            return null;
-        }
-    }
-
     public function getAnswersById($idQuestion): array|null
     {
         try
@@ -32,7 +17,6 @@ class EnigmaModel
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if ($data) {
-
                 return $data;
             }else {
                 return null;
@@ -50,7 +34,6 @@ class EnigmaModel
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
             if ($data) {
                 return new Enigma(
                     $data['idQuestion'],
@@ -84,7 +67,6 @@ class EnigmaModel
                     $data['question'],
                     $data['laReponse'],
                     $data['estBonne']
-                   
                 );
             } else {
                 return null;
@@ -136,4 +118,3 @@ class EnigmaModel
         }
     }
 }
-//Modifications/Commentaires : 2025-04-07 par Raph  

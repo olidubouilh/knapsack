@@ -1,7 +1,6 @@
 <?php
 require 'partials/head.php';
 require 'views/partials/header.php';
-
 $totalPrix = 0;
 ?>
 <script>
@@ -9,7 +8,6 @@ $totalPrix = 0;
         console.log(`Formulaire #${index + 1}`, form);
     });
 </script>
-
 <?php if ($popUp2 === "confirmationDex") : ?>
 <script>
     window.quantitesEnAttente = <?= json_encode($quantitesEnAttente) ?>;
@@ -20,11 +18,8 @@ $totalPrix = 0;
     window.afficherConfirmationDex = false;
 </script>
 <?php endif; ?>
-
 <main>
-
     <div class="popupNotification" id="popupNotification"><?= $message ?></div>
-
     <h1>Panier</h1>
     <div class="panier-core">
         <?php if($panier != null) : ?>
@@ -48,7 +43,6 @@ $totalPrix = 0;
                                     </span>
                                     <button type="button" class="boutonquanti" onclick="increaseQuantity(<?= $idItem ?>, <?= $item->getQuantiteItem() ?>)">+</button>
                                 </div>
-
                                 <!-- FORMULAIRE SUPPRIMER -->
                                 <form method="post" action="/panier" style="display:inline;">
                                     <input type="hidden" name="supprimer" value="<?= $idItem ?>">
@@ -60,7 +54,6 @@ $totalPrix = 0;
                 </div>
             </div>
         <?php endif; ?>
-
         <!-- FORMULAIRE PAYER (en dehors de la boucle) -->
         <form method="post" action="/panier">
             <?php if ($panier != null) : ?>
@@ -76,7 +69,6 @@ $totalPrix = 0;
         </form>
     </div>
 </main>
-
 <script src="/public/javascript/buttons.js"></script>
 <script src="/public/javascript/alert.js"></script>
 <script src="/public/javascript/confirmationPanier.js"></script>

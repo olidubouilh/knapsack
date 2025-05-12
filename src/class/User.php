@@ -1,8 +1,6 @@
 <?php
-
 class User 
 {
-
     private string $idJoueurs;
     private string $nomJoueur;
     private string $prenomJoueur;
@@ -12,9 +10,7 @@ class User
     private string $dexterite;
     private string $pvJoueur;
     private string $poidsMaximal;
-    private string $isAdmin;
-
-    
+    private string $isAdmin;   
     public function __construct(string $id, string $nom, string $prenom, string $alias, string $password, string $argent, string $dex, string $pv, string $poids, string $isAdmin ) 
     {
         $this->idJoueurs = $id;
@@ -28,59 +24,22 @@ class User
         $this->poidsMaximal = $poids;
         $this->isAdmin = $isAdmin;
     }
-
-
     // Getters
-    public function getId(): string {
-        return $this->idJoueurs;
-    }
-    public function getNomJoueur(): string {
-        return $this->nomJoueur;
-    }
-    public function getPrenomJoueur(): string {
-        return $this->prenomJoueur;
-    }
-    public function getAlias(): string {
-        return $this->alias;
-    }
-    public function getPassword(): string {
-        return $this->password;
-    }
-    public function getMontant(): string {
-        return $this->montant;
-    }
-    public function getDexterite(): string {
-        return $this->dexterite;
-    }
-    public function getPvJoueur(): string {
-        return $this->pvJoueur;
-    }
-    public function getPoidsMaximal(): string {
-        return $this->poidsMaximal;
-    }
-    public function getIsAdmin(): string {
-        return $this->isAdmin;
-    }
-
-    
-
+    public function getId(): string { return $this->idJoueurs; }
+    public function getNomJoueur(): string { return $this->nomJoueur; }
+    public function getPrenomJoueur(): string { return $this->prenomJoueur; }
+    public function getAlias(): string { return $this->alias; }
+    public function getPassword(): string { return $this->password; }
+    public function getMontant(): string { return $this->montant; }
+    public function getDexterite(): string { return $this->dexterite; }
+    public function getPvJoueur(): string { return $this->pvJoueur;}
+    public function getPoidsMaximal(): string { return $this->poidsMaximal; }
+    public function getIsAdmin(): string { return $this->isAdmin;}
     // Setters
-    public function setAlias(string $alias): void {
-        $this->alias = $alias;
-    }   
-    public function setPassword(string $password): void {
-        $this->password = $password;
-    }
-    public function setMontant(string $argent): void {
-        $this->montant = $argent;
-    }
-    public function setDexterite(string $dex): void    {
-        $this->dexterite = $dex;
-    }
-    public function setPvJoueur(string $pv): void {
-        $this->pvJoueur = $pv;
-    }
-    public function setPoidsMaximal(string $poids): void {
-        $this->poidsMaximal = $poids;
-    }
+    public function setAlias(string $alias): void { $this->alias = $alias; }   
+    public function setPassword(string $password): void { $this->password = $password; }
+    public function setMontant(string $argent): void { $this->montant = $argent; }
+    public function setDexterite(string $dex): void {$this->dexterite = $dex; }
+    public function setPvJoueur(string $pv): void { $this->pvJoueur = $pv; }
+    public function setPoidsMaximal(string $poids): void { $this->poidsMaximal = $poids; }
 } 

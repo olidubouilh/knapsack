@@ -2,10 +2,7 @@
 require 'partials/head.php';
 require 'views/partials/header.php';
 ?>
-<!-- Lien vers ton fichier CSS -->
-
 <script src="/public/javascript/buttons.js"></script>
-
 <div class="search">
    <h1>Magasin</h1>
    <form method="POST">
@@ -25,24 +22,15 @@ require 'views/partials/header.php';
       <input type="submit" name="search" id="search" class="button">
    </form>
 </div>
-
 <main class="inventaire">
-
-
    <div class="scroll-zone">
       <div class="inventaire-container">
          <?php if (!empty($magasin)) { ?>
             <?php foreach ($magasin as $item) { ?>
                <div class="item-container">
-
-
-
                <form method="POST">
                      <input type="hidden" name="details" value="<?= htmlspecialchars($item['idItems']) ?>">
                      <button type="submit" class="bouton-detail-photo" value="Details">
-                  
-
-
                   <div><?= htmlspecialchars($item['nomItem']) ?><br></div>
                   <div><img src="<?= htmlspecialchars($item['photo']) ?>" alt="Image" height="140"><br></div>
                   <div>Poids : <?= htmlspecialchars($item['poids']) ?> lbs<br></div>
@@ -88,5 +76,4 @@ require 'views/partials/header.php';
    </div>
    </div>
 </main>
-
 <?php require 'partials/footer.php'; ?>

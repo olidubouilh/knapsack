@@ -5,20 +5,14 @@ require_once 'src/class/Panier.php';
 class ItemsModel
 {
 
-    public function __construct(private PDO $pdo)
-    {
-    }
-
+    public function __construct(private PDO $pdo){}
     public function getItemById($id): array|null
     {
-
         try {
             $stm = $this->pdo->prepare('CALL getItemById(:id)');
             $stm->bindValue(":id", $id, PDO::PARAM_STR);
             $stm->execute();
-
             $data = $stm->fetch(PDO::FETCH_ASSOC);
-
             return $data ?: null;
         } catch (PDOException $erreur) {
             echo "Erreur dans getItemById: " . $erreur->getMessage();
@@ -82,27 +76,13 @@ class ItemsModel
             return null;
         }
     }
-
-
-    public function SupprimerItemPanier($idItem, $idJoueur): void
-    {
-        $pdo = Database::getInstance();
-        $stmt = $pdo->prepare("CALL SupprimerItemPanier(:idItems, :idJoueurs)");
-        $stmt->execute([
-            'idItems' => $idItem,
-            'idJoueurs' => $idJoueur
-        ]);
-    }
 }
 class CommentaireModel
 {
 
-    public function __construct(private PDO $pdo)
-    {
-    }
+    public function __construct(private PDO $pdo){}
     public function getItemByIdComm($id): array|null
     {
-
         try {
             $stm = $this->pdo->prepare('CALL getItemByIdComm(:id)');
             $stm->bindValue(":id", $id, PDO::PARAM_STR);
